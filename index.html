@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Home+</title>
     <link rel="icon" href="/assets/Favicon/favicon-96x96.png">
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -21,17 +21,30 @@
 </head>
 <body class="bg-white font-[Poppins]">
 
+<!-- 
+    Barra de navegación principal
+    - bg-white: fondo blanco
+    - xl:px-24: padding horizontal grande en pantallas XL
+    - xl:py-6: padding vertical en pantallas XL
+    - px-10: padding horizontal en pantallas pequeñas/medianas
+    - py-8: padding vertical en pantallas pequeñas/medianas
+    - shadow-md: sombra mediana
+    - mb-8: margen inferior
+    - rounded-md: bordes ligeramente redondeados
+    - flex: contenedor flex
+    - justify-between: espacio máximo entre elementos hijos
+    - items-center: alinea elementos verticalmente al centro
+-->
+<nav class="bg-white xl:px-24 xl:py-6 px-10 py-8 shadow-md mb-8 rounded-md flex justify-between items-center">
 
-<nav class="bg-white md:px-25 py-4 flex items-center justify-between w-full">
-
-    <div class="flex items-center">
+    <div class="">
         <a href="#">
-        <img src="/Views/assets/img/Logo/Logo Home + Transparente.png" alt="Logo Home+" class="w-24 md:w-28 h-auto" />
+        <img src="/Views/assets/img/Logo/Logo-Home-Transparente.svg" alt="Logo Home+" class="w-44 h-auto" />
         </a>
     </div>
 
 
-    <div class="hidden md:flex items-center space-x-8">
+    <div class=" hidden md:flex items-center space-x-6">
         <ul class="flex items-center space-x-6 text-sm font-medium">
             <li><a href="#" class="hover:text-[#ccb58e] transition">Inicio</a></li>
             <li><a href="#" class="hover:text-[#ccb58e] transition">Servicios</a></li>
