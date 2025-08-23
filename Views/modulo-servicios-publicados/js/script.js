@@ -49,17 +49,17 @@ document.getElementById('detalleModal').addEventListener('click', function(event
 
 // Función para redirigir a negociación
 function redirigirANegociacion() {
-  window.location.href = "/modulo-solicitudes-negociacion/index.html";
+  window.location.href = "/Views/modulo-solicitudes-negociacion/index.html";
 }
 
 // Función para redirigir a confirmación de agendamiento
 function redirigirAConfirmacion() {
-  window.location.href = "/modulo-confirmacion-agendamiento/profesional.html";
+  window.location.href = "/Views/modulo-confirmacion-agendamiento/profesional.html";
 }
 
 // Función para cerrar sesión
 function cerrarSesion() {
-  window.location.href = "/modulo-usuarios/HomePlusFull/index.html";
+  window.location.href = "/Views/modulo-usuarios/HomePlusFull/index.html";
 }
 
 // Asignar evento a todos los botones de salir

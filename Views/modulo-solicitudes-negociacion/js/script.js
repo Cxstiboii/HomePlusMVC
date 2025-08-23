@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Redirigir después de 1 segundo
             setTimeout(() => {
-                window.location.href = '/modulo-confirmacion-agendamiento/profesional.html';
+                window.location.href = '/Views/modulo-confirmacion-agendamiento/profesional.html';
             }, 1000);
         });
     }
@@ -94,7 +94,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const backButton = document.querySelector('.btn-secondary');
     if (backButton) {
         backButton.addEventListener('click', function() {
-            window.location.href = '/modulo-solicitudes-negociacion/index.html'; // Ajusta esta ruta
+            window.location.href = '/Views/modulo-solicitudes-negociacion/index.html'; // Ajusta esta ruta
         });
     }
 });

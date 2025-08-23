@@ -26,9 +26,9 @@ document.getElementById("loginForm").addEventListener("submit", function(e) {
 
     // Redirección automática según el tipo de usuario
     if (usuarioValido.rol === "cliente") {
-      window.location.href = "/modulo-confirmacion-agendamiento/cliente.html";
+      window.location.href = "/Views/modulo-confirmacion-agendamiento/cliente.html";
     } else if (usuarioValido.rol === "profesional") {
-      window.location.href = "/modulo-servicios-publicados/index.html";
+      window.location.href = "/Views/modulo-servicios-publicados/index.html";
     }
   } else {
     error.textContent = "Correo o contraseña incorrectos.";

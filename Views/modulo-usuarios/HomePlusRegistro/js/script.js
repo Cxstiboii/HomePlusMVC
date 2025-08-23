@@ -15,9 +15,9 @@ function redirigirAlPerfil(event) {
   event.preventDefault();
 
   if (tipoSeleccionado === 'profesional') {
-    window.location.href = "/modulo-usuarios/HomePlusRegistro/editar-pefil-profesional.html";
+    window.location.href = "/Views/modulo-usuarios/HomePlusRegistro/editar-pefil-profesional.html";
   } else if (tipoSeleccionado === 'cliente') {
-    window.location.href = "/modulo-usuarios/HomePlusRegistro/editar-perfil-cliente.html";
+    window.location.href = "/Views/modulo-usuarios/HomePlusRegistro/editar-perfil-cliente.html";
   } else {
     alert("Por favor, selecciona si eres cliente o profesional.");
   }
