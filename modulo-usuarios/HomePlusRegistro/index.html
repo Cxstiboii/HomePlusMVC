@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Registro - Home+</title>
+  <link rel="stylesheet" href="/modulo-usuarios/HomePlusRegistro/css/style.css" />
+  <link rel="icon" href="/assets/img/1. Usuario/homelogo.jpg">
+</head>
+<body>
+
+  <style> 
+    body {
+      background-image: url('/assets/img/1. Usuario/hombre-haciendo-tabla-de-surf.jpg');
+      background-repeat: no-repeat;
+      background-size: cover; 
+    }
+  </style>
+
+  <div class="container">
+    <h1>Crear cuenta en Home+</h1>
+
+    <div class="user-type">
+      <button type="button" onclick="seleccionarTipo('cliente')">Soy Cliente</button>
+      <button type="button" onclick="seleccionarTipo('profesional')">Soy Profesional</button>
+    </div>
+
+    <form id="formulario" class="formulario" onsubmit="redirigirAlPerfil(event)">
+      <input type="text" placeholder="Nombre completo" required />
+      <input type="email" placeholder="Correo electrónico" required />
+      <input type="password" placeholder="Contraseña" required />
+
+      <div id="extra-profesional" class="extra-campos" style="display: none;">
+        <input type="text" placeholder="Ocupación / especialidad" />
+        <input type="text" placeholder="Años de experiencia" />
+      </div>
+
+      <button type="submit">Registrarse</button>
+    </form>
+
+    <p class="login-link">¿Ya tienes cuenta? <a href="/modulo-usuarios/HomePlusFull/index.html">Inicia sesión</a></p>
+  </div>
+
+  <script src="/modulo-usuarios/HomePlusRegistro/js/script.js"></script>
+</body>
+</html>

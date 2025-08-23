@@ -1,0 +1,75 @@
+:root {
+    --white: #ffffff;
+    --black: #1f1f1f;
+    --beige: #ccb58e;
+    --gray: #c2c2c2;
+    --light-beige: #f5f0e6;
+    --dark-beige: #b8a57b;
+}
+
+body {
+    font-family: "Segoe UI", sans-serif;
+    background-color: var(--light-beige);
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 600px;
+    margin: 50px auto;
+    background-color: var(--white);
+    padding: 2rem;
+    border-radius: 16px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    color: var(--black);
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.role-badge {
+    display: inline-block;
+    padding: 4px 12px;
+    background-color: var(--beige);
+    color: var(--black);
+    border-radius: 20px;
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+}
+
+label {
+    display: block;
+    margin-top: 1rem;
+    color: var(--black);
+}
+
+input,
+textarea {
+    width: 100%;
+    padding: 10px;
+    margin-top: 4px;
+    border: 1px solid var(--gray);
+    border-radius: 8px;
+    background-color: var(--light-beige);
+    color: var(--black);
+}
+
+.button {
+    margin-top: 1.5rem;
+    width: 100%;
+    padding: 12px;
+    background-color: var(--dark-beige);
+    border: none;
+    border-radius: 10px;
+    color: var(--white);
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.button:hover {
+    background-color: var(--beige);
+    color: var(--black);
+}

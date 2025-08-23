@@ -1,0 +1,137 @@
+:root {
+  --blanco: #FFFFFF;
+  --negro: #1F1F1F;
+  --beige: #CCB58E;
+  --gris: #C2C2C2;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", sans-serif;
+  background: linear-gradient(135deg, var(--gris), var(--beige));
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-wrapper {
+  width: 100%;
+  max-width: 400px;
+  padding: 20px;
+}
+
+.login-box {
+  background-color: var(--blanco);
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.login-box h2 {
+  margin-bottom: 30px;
+  color: var(--negro);
+}
+
+.login-box h2 span {
+  color: var(--beige);
+}
+
+.input-group {
+  position: relative;
+  margin-bottom: 20px;
+}
+.select-group {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.select-group i {
+  position: absolute;
+  top: 50%;
+  left: 15px;
+  transform: translateY(-50%);
+  color: var(--gris);
+}
+
+.select-group select {
+  width: 100%;
+  padding: 12px 15px 12px 45px;
+  border-radius: 10px;
+  border: 1px solid var(--gris);
+  font-size: 16px;
+  background-color: var(--blanco);
+  color: var(--negro);
+  appearance: none;
+}
+
+.select-group select:focus {
+  border-color: var(--beige);
+  outline: none;
+}
+
+.input-group i {
+  position: absolute;
+  top: 50%;
+  left: 15px;
+  transform: translateY(-50%);
+  color: var(--gris);
+}
+
+.input-group input {
+  width: 100%;
+  padding: 12px 15px 12px 45px;
+  border-radius: 10px;
+  border: 1px solid var(--gris);
+  font-size: 16px;
+  transition: border-color 0.3s;
+  color: var(--negro);
+}
+
+.input-group input:focus {
+  border-color: var(--beige);
+  outline: none;
+}
+
+button {
+  width: 100%;
+  padding: 12px;
+  background-color: var(--beige);
+  color: var(--negro);
+  border: none;
+  border-radius: 10px;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #b29d75;
+}
+
+.error-msg {
+  color: red;
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+.extra {
+  margin-top: 20px;
+  font-size: 14px;
+  color: var(--negro);
+}
+
+.extra a {
+  color: var(--beige);
+  text-decoration: none;
+}
+
+.extra a:hover {
+  text-decoration: underline;
+}

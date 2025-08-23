@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="stylesheet" href="/modulo-usuarios/HomePlusRegistro/css/editar-perfil-profesional.css">
+  <link rel="icon" href="/assets/img/1. Usuario/homelogo.jpg">
+  <title>Editar Perfil - Profesional | Home+</title>
+
+</head>
+<body>
+  <div class="container">
+    <h2>Editar Perfil</h2>
+    <span class="role-badge">Profesional</span>
+
+    <form onsubmit="redirigirProfesional(event)">
+      <label for="nombre">Nombre completo</label>
+      <input type="text" id="nombre" placeholder="Ej: Pedro Gómez" required>
+
+      <label for="email">Correo electrónico</label>
+      <input type="email" id="email" placeholder="correo@ejemplo.com" required>
+
+      <label for="telefono">Teléfono</label>
+      <input type="tel" id="telefono" placeholder="+57 310 000 0000" required>
+
+      <label for="servicio">Servicio que ofrece</label>
+      <select id="servicio" required>
+        <option value="">Selecciona un servicio</option>
+        <option>Plomería</option>
+        <option>Electricidad</option>
+        <option>Carpintería</option>
+        <option>Pintura</option>
+        <option>Otros</option>
+      </select>
+
+      <label for="experiencia">Experiencia</label>
+      <textarea id="experiencia" rows="3" placeholder="Ej: 3 años trabajando en mantenimiento de hogares..." required></textarea>
+
+      <button type="submit" class="button">Guardar Cambios</button>
+    </form>
+  </div>
+
+  <script>
+    function redirigirProfesional(e) {
+      e.preventDefault();
+      // Aquí podrías guardar datos si quisieras
+      window.location.href = "/modulo-usuarios/HomePlusFull/index.html";
+    }
+  </script>
+</body>
+</html>

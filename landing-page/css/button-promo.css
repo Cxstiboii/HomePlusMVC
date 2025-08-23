@@ -1,0 +1,31 @@
+/* From Uiverse.io by barisdogansutcu */ 
+.button-promo {
+    padding: 17px 40px;
+    border-radius: 50px;
+    cursor: pointer;
+    border: 0;
+    background-color: #d9d9d9;
+    box-shadow: rgb(0 0 0 / 5%) 0 0 8px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    font-size: 15px;
+    transition: all 0.5s ease;
+    border-radius: 30px;
+}
+
+.button-promo:hover {
+    letter-spacing: 3px;
+    background-color: #CCB58E;
+    color: hsl(0, 0%, 100%);
+    box-shadow: 0px 0px 10px 5px  rgba(0, 0, 0, 0.505);
+}
+
+.button-promo:active {
+    letter-spacing: 3px;
+    background-color: #CCB58E;
+    color: hsl(0, 0%, 100%);
+    
+    box-shadow:  0px 0px 0px 0px;
+    transform: translateY(10px);
+    transition: 100ms;
+}
