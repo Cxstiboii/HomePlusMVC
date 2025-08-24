@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-// Usuarios válidos (de prueba)
+
 $usuarios = [
     ["email" => "cliente@homeplus.com", "password" => "1234", "rol" => "cliente"],
     ["email" => "pro@homeplus.com", "password" => "5678", "rol" => "profesional"]
