@@ -20,21 +20,43 @@
   <div class="container">
     <h1>Crear cuenta en Home+</h1>
 
+    <!-- Selección tipo de usuario -->
     <div class="user-type">
-      <button type="button" onclick="seleccionarTipo('cliente')">Soy Cliente</button>
-      <button type="button" onclick="seleccionarTipo('profesional')">Soy Profesional</button>
+      <button type="button" onclick="mostrarFormulario('cliente')">Soy Cliente</button>
+      <button type="button" onclick="mostrarFormulario('profesional')">Soy Profesional</button>
     </div>
 
-    <form id="formulario" class="formulario" onsubmit="redirigirAlPerfil(event)">
-      <input type="text" placeholder="Nombre completo" required />
+    <!-- Formulario Cliente -->
+    <form id="form-cliente" class="formulario" style="display:none;" onsubmit="redirigirAlPerfil(event, 'cliente')">
+      <input type="text" placeholder="Nombres" required />
+      <input type="text" placeholder="Apellidos" required />
       <input type="email" placeholder="Correo electrónico" required />
       <input type="password" placeholder="Contraseña" required />
+      <button type="submit">Registrarse</button>
+    </form>
 
-      <div id="extra-profesional" class="extra-campos" style="display: none;">
-        <input type="text" placeholder="Ocupación / especialidad" />
-        <input type="text" placeholder="Años de experiencia" />
+    <!-- Formulario Profesional -->
+    <form id="form-profesional" class="formulario" style="display:none;" onsubmit="redirigirAlPerfil(event, 'profesional')">
+      <input type="text" placeholder="Nombres" required />
+      <input type="text" placeholder="Apellidos" required />
+
+      <select required onchange="mostrarOtroCampo(this)">
+        <option value="">-- Selecciona una especialidad --</option>
+        <option value="plomería">Plomería</option>
+        <option value="electricidad">Electricidad</option>
+        <option value="carpintería">Carpintería</option>
+        <option value="pintura">Pintura</option>
+        <option value="jardinería">Jardinería</option>
+        <option value="otro">Otro...</option>
+      </select>
+
+      <!-- Se muestra solo si elige "otro" -->
+      <div id="campo-otro" class="extra-campos">
+        <input type="text" placeholder="Escribe tu especialidad" />
       </div>
 
+      <input type="email" placeholder="Correo electrónico" required />
+      <input type="password" placeholder="Contraseña" required />
       <button type="submit">Registrarse</button>
     </form>
 
@@ -44,3 +66,4 @@
   <script src="/Views/modulo-usuarios/HomePlusRegistro/js/script.js"></script>
 </body>
 </html>
+

@@ -1,24 +1,20 @@
-let tipoSeleccionado = ""; // Variable global para saber qué tipo eligió
-
-function seleccionarTipo(tipo) {
-  tipoSeleccionado = tipo;
-  const camposProfesional = document.getElementById('extra-profesional');
-
-  if (tipo === 'profesional') {
-    camposProfesional.style.display = 'flex';
-  } else {
-    camposProfesional.style.display = 'none';
-  }
+function mostrarFormulario(tipo) {
+  document.getElementById("form-cliente").style.display = (tipo === "cliente") ? "flex" : "none";
+  document.getElementById("form-profesional").style.display = (tipo === "profesional") ? "flex" : "none";
 }
 
-function redirigirAlPerfil(event) {
+function mostrarOtroCampo(select) {
+  const campoOtro = document.getElementById("campo-otro");
+  campoOtro.style.display = (select.value === "otro") ? "flex" : "none";
+}
+
+function redirigirAlPerfil(event, tipo) {
   event.preventDefault();
 
-  if (tipoSeleccionado === 'profesional') {
+  if (tipo === "profesional") {
     window.location.href = "/Views/modulo-usuarios/HomePlusRegistro/editar-pefil-profesional.html";
-  } else if (tipoSeleccionado === 'cliente') {
+  } else if (tipo === "cliente") {
     window.location.href = "/Views/modulo-usuarios/HomePlusRegistro/editar-perfil-cliente.html";
-  } else {
-    alert("Por favor, selecciona si eres cliente o profesional.");
   }
 }
+
