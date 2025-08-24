@@ -10,7 +10,7 @@ document.getElementById("loginForm").addEventListener("submit", function(e) {
     return;
   }
 
-  // Usuarios válidos
+
   const usuarios = [
     { email: "cliente@homeplus.com", password: "1234", rol: "cliente" },
     { email: "pro@homeplus.com", password: "5678", rol: "profesional" }
@@ -24,7 +24,7 @@ document.getElementById("loginForm").addEventListener("submit", function(e) {
   if (usuarioValido) {
     alert(`¡Inicio exitoso! Usted se registró como ${usuarioValido.rol}.`);
 
-    // Redirección automática según el tipo de usuario
+   
     if (usuarioValido.rol === "cliente") {
       window.location.href = "/Views/modulo-confirmacion-agendamiento/cliente.html";
     } else if (usuarioValido.rol === "profesional") {
