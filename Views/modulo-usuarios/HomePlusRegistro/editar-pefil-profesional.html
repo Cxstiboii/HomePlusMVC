@@ -3,49 +3,171 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Editar Perfil - Profesional | Home+</title>
   <link rel="stylesheet" href="/Views/modulo-usuarios/HomePlusRegistro/css/editar-perfil-profesional.css">
   <link rel="icon" href="/Views/assets/img/1. Usuario/homelogo.jpg">
-  <title>Editar Perfil - Profesional | Home+</title>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 
+  <style>
+    /* Fuente */
+    @font-face {
+      font-family: "MadaniArabic";
+      src: url("./Views/fonts/MadaniArabicDEMO-Regular.otf") format("opentype");
+      font-weight: 400;
+    }
+    @font-face {
+      font-family: "MadaniArabic";
+      src: url("./Views/fonts/MadaniArabicDEMO-Bold.otf") format("opentype");
+      font-weight: 700;
+    }
+    .font-madani { font-family: "MadaniArabic", sans-serif; }
+  </style>
 </head>
-<body>
-  <div class="container">
-    <h2>Editar Perfil</h2>
-    <span class="role-badge">Profesional</span>
 
-    <form onsubmit="redirigirProfesional(event)">
-      <label for="nombre">Nombre completo</label>
-      <input type="text" id="nombre" placeholder="Ej: Pedro Gómez" required>
+<nav class="w-auto bg-white flex justify-center items-center shadow-lg xl:mx-60 rounded-b-xl">
+  <img src="/Views/assets/img/Logo/Logo-Home-Transparente.svg" alt="Logo de Home_Plus" class="w-40 p-4">
+</nav>
 
-      <label for="email">Correo electrónico</label>
-      <input type="email" id="email" placeholder="correo@ejemplo.com" required>
+<body class="font-madani bg-[#f5f1eb] m-0 p-0">
+  <section class="xl:mx-60 my-16 bg-white p-8 rounded-xl shadow-md bg-gray-50 border border-gray-200 rounded-2xl shadow-md">
 
-      <label for="telefono">Teléfono</label>
-      <input type="tel" id="telefono" placeholder="+57 310 000 0000" required>
+    <!-- Badge Profesional -->
+    <div class="flex justify-center items-center p-2 mx-2 bg-gray-50 border border-gray-200 rounded-2xl shadow-md">
+      <p class="font-bold font-madani text-2xl">Profesional</p>
+    </div>
+    <h2 class="text-3xl py-4 text-center font-madani font-bold">Editar Perfil</h2>
 
-      <label for="servicio">Servicio que ofrece</label>
-      <select id="servicio" required>
-        <option value="">Selecciona un servicio</option>
-        <option>Plomería</option>
-        <option>Electricidad</option>
-        <option>Carpintería</option>
-        <option>Pintura</option>
-        <option>Otros</option>
-      </select>
+    <form onsubmit="redirigirProfesional(event)" 
+          class="space-y-4 xl:space-y-0 xl:grid xl:grid-cols-2 xl:grid-rows-8 xl:gap-x-8 xl:gap-y-4">
 
-      <label for="experiencia">Experiencia</label>
-      <textarea id="experiencia" rows="3" placeholder="Ej: 3 años trabajando en mantenimiento de hogares..." required></textarea>
+      <!-- Foto Perfil -->
+      <div class="col-span-2 flex justify-center bg-gray-50 border border-gray-200 rounded-2xl shadow-md p-8">
+        <label for="fotoPerfil" class="cursor-pointer group flex flex-col items-center w-full">
+          <p class="text-sm text-gray-600 group-hover:text-yellow-500 text-center">
+            Haz clic para subir tu foto de perfil
+          </p>
+          <div class="w-32 h-32 rounded-full bg-gray-200 flex items-center justify-center overflow-hidden mx-auto">
+            <img id="avatarPreview"
+                 src="/Views/assets/img/iconos/Gemini_Generated_Image_raoxjfraoxjfraox.svg" 
+                 alt="avatar" 
+                 class="w-20 h-20 object-contain pointer-events-none">
+          </div>
+          <input type="file" id="fotoPerfil" accept="image/*" class="hidden">
+        </label>
+      </div>
 
-      <button type="submit" class="button">Guardar Cambios</button>
-    </form>
-  </div>
+     </div>
+
+        <!-- 2: Nombres -->
+        <div class="row-start-2 p-4 bg-gray-50 border border-gray-200 rounded-2xl shadow-md">
+            <label for="nombres" class="block mb-2 text-center ">Nombres</label>
+            <input type="text" id="nombres" placeholder="Ej: Laura Sofia" required class="w-full border rounded p-2">
+        </div>
+        <!-- 3: Apellidos -->
+        <div class="row-start-2 col-start-2 p-4 bg-gray-50 border border-gray-200 rounded-2xl shadow-md">
+            <label for="apellidos" class="block mb-2 text-center">Apellidos</label>
+            <input type="text" id="apellidos" placeholder="Ej: Martínez Gomez" required class="w-full border rounded p-2">
+        </div>
+
+        <!-- 4: Fecha de Nacimiento -->
+        <!-- Input -->
+        <div class="row-span-2 col-start-2 row-start-3  p-4  bg-gray-50 border border-gray-200 rounded-2xl shadow-md">
+        <label for="fechaNacimiento" class="block mb-2">Fecha de Nacimiento</label>
+        <input type="text" id="fechaNacimiento" required class="w-full border rounded p-2">
+        </div>
+
+
+        <!-- 5: Tipo de Documento -->
+        <div class="col-start-1 row-start-3 p-4 bg-gray-50 border border-gray-200 rounded-2xl shadow-md ">
+            <label for="tipoDocumento" class="block mb-2 mb-2 text-center">Tipo de Documento</label>
+            <select id="tipoDocumento" required class="w-full border rounded p-2">
+            <option value="" disabled selected>Seleccione un tipo de documento</option>
+            <option value="cedula">Cédula</option>
+            <option value="pasaporte">Pasaporte</option>
+            <option value="cedulaExtranjera">Cédula Extranjera</option>
+            </select>
+        </div>
+
+        <!-- 6: Numero de Documento -->
+        <div class="row-start-4 p-4 bg-gray-50 border border-gray-200 rounded-2xl shadow-md">
+            <label for="numeroDocumento" class="block mb-2">Número de Documento</label>
+            <input type="number" id="numeroDocumento" placeholder="Ej: 1234567890" min="1" max="9999999999" required class="w-full border rounded p-2">
+        </div>
+
+        <!-- 7: Teléfono -->
+        <div class="row-start-5 p-4 bg-gray-50 border border-gray-200 rounded-2xl shadow-md">
+            <label for="telefono" class="block mb-2">Teléfono</label>
+            <input type="number" id="telefono" placeholder="Ej: 1234567890" min="1" max="9999999999" required class="w-full border rounded p-2">
+        </div>
+
+        <!-- 8: Correo Electrónico -->
+        <div class="row-start-5 p-4 bg-gray-50 border border-gray-200 rounded-2xl shadow-md">
+            <label for="email" class="block mb-2">Correo electrónico</label>
+            <input type="email" id="email" placeholder="correo@ejemplo.com" required class="w-full border rounded p-2">
+        </div>
+              <!-- Servicio -->
+      <div class="p-4 bg-gray-50 border border-gray-200 rounded-2xl shadow-md">
+        <label for="servicio" class="block mb-2 text-center">Servicio que ofrece</label>
+        <select id="servicio" required class="w-full border rounded p-2">
+          <option value="" disabled selected>Selecciona un servicio</option>
+          <option>Plomería</option>
+          <option>Electricidad</option>
+          <option>Carpintería</option>
+          <option>Pintura</option>
+          <option>Otros</option>
+        </select>
+      </div>
+
+      <!-- Experiencia -->
+      <div class="col-span-2 p-4 bg-gray-50 border border-gray-200 rounded-2xl shadow-md">
+        <label for="experiencia" class="block mb-2 text-center">Experiencia</label>
+        <textarea id="experiencia" rows="3" placeholder="Ej: 3 años trabajando en mantenimiento de hogares..." required class="w-full border rounded p-2"></textarea>
+      </div>
+
+        <!-- 9: Contraseña -->
+        <div class="col-start-2 row-start-6 p-4 bg-gray-50 border border-gray-200 rounded-2xl shadow-md">
+            <label for="contrasena" class="block mb-2">Contraseña</label>
+            <input type="password" id="contrasena" placeholder="Ingrese su contraseña" required minlength="6" maxlength="25" class="w-full border rounded p-2">
+        </div>
+
+        <!-- 10: Dirección -->
+        <div class="row-span-2 col-start-1 row-start-6 p-4 bg-gray-50 border border-gray-200 rounded-2xl shadow-md">
+            <label for="direccion" class="block mb-2">Dirección</label>
+            <textarea id="direccion" rows="2" placeholder="Carrera 8 # 45 - 20, Bogotá..." required class="w-full border rounded p-2"></textarea>
+        </div>
+
+        <!-- 11: Confirmar Contraseña -->
+        <div class="col-start-2 row-start-7 p-4 bg-gray-50 border border-gray-200 rounded-2xl shadow-md">
+            <label for="confirmarContrasena" class="block mb-2">Confirmar Contraseña</label>
+            <input type="password" id="confirmarContrasena" placeholder="Repita su contraseña" required minlength="6" maxlength="25" class="w-full border rounded p-2">
+        </div>
+
+        <!-- 12: Guardar Cambios -->
+        <div class="col-span-2">
+            <button type="submit" class="w-full bg-[#b8a57b] text-white p-4 rounded-2xl ">Guardar Cambios</button>
+        </div>
 
   <script>
     function redirigirProfesional(e) {
       e.preventDefault();
-      // Aquí podrías guardar datos si quisieras
       window.location.href = "/Views/modulo-usuarios/HomePlusFull/index.html";
     }
+
+    const inputFile = document.getElementById('fotoPerfil');
+    const avatarPreview = document.getElementById('avatarPreview');
+
+    inputFile.addEventListener('change', function(event) {
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          avatarPreview.src = e.target.result;
+          avatarPreview.classList.add("object-cover");
+          avatarPreview.classList.remove("object-contain");
+        };
+        reader.readAsDataURL(file);
+      }
+    });
   </script>
 </body>
 </html>
