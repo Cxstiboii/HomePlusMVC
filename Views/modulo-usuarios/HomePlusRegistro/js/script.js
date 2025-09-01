@@ -12,9 +12,9 @@ function redirigirAlPerfil(event, tipo) {
   event.preventDefault();
 
   if (tipo === "profesional") {
-    window.location.href = "/Views/modulo-usuarios/HomePlusRegistro/editar-pefil-profesional.html";
+    window.location.href = "/Views/modulo-usuarios/HomePlusRegistro/editar-perfil-profesional.php";
   } else if (tipo === "cliente") {
-    window.location.href = "/Views/modulo-usuarios/HomePlusRegistro/editar-perfil-cliente.html";
+    window.location.href = "/Views/modulo-usuarios/HomePlusRegistro/editar-perfil-cliente.php";
   }
 }
 

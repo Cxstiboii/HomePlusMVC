@@ -2,7 +2,7 @@
 // Parámetros de conexión
 $host = "localhost";   // o la IP del servidor
 $usuario = "root";     // tu usuario de MySQL
-$clave = "";           // tu contraseña de MySQL
+$clave = "(Ss2124671011*)";           // tu contraseña de MySQL
 $bd = "home_usuarios_vacia"; // nombre de la base de datos
 
 // Crear conexión

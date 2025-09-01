@@ -17,9 +17,9 @@
       }
     ],
     "axe/forms": [
-      "default",
+      "off",
       {
-        "label": "off"
+        "select-name": "off"
       }
     ]
   }

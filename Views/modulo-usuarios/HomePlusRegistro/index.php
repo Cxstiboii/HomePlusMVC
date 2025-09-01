@@ -60,7 +60,7 @@
       <button type="submit">Registrarse</button>
     </form>
 
-    <p class="login-link">¿Ya tienes cuenta? <a href="/Views/modulo-usuarios/HomePlusFull/index.html">Inicia sesión</a></p>
+    <p class="login-link">¿Ya tienes cuenta? <a href="/Views/modulo-usuarios/HomePlusFull/index.php">Inicia sesión</a></p>
   </div>
 
   <script src="/Views/modulo-usuarios/HomePlusRegistro/js/script.js"></script>

@@ -113,7 +113,7 @@ function salirSistema() {
     mostrarNotificacion('Cerrando sesión...');
     setTimeout(() => {
         // Aquí rediriges a la página de login o inicio
-        window.location.href = '/modulo-usuarios/HomePlusFull/index.html'; 
+        window.location.href = '/Views/modulo-usuarios/HomePlusFull/index.php'; 
     }, 2000);
 }
 

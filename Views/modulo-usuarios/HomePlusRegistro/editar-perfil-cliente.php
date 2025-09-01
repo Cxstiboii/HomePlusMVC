@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Editar Perfil - Cliente | Home+</title>
+    <link rel="stylesheet" href="/Views/modulo-usuarios/HomePlusRegistro/css/editar-perfil-cliente.css">
+    <link rel="icon" href="/Views/assets/img/1. Usuario/homelogo.jpg">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+    <style>
+        /*Estilos para la nueva fuente*/
+        @font-face {
+            font-family: "MadaniArabic";
+            src: url("./Views/fonts/MadaniArabicDEMO-Regular.otf") format("opentype");
+            font-weight: 400;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: "MadaniArabic";
+            src: url("./Views/fonts/MadaniArabicDEMO-Bold.otf") format("opentype");
+            font-weight: 700;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: "MadaniArabic";
+            src: url("./Views/fonts/MadaniArabicDEMO-Black.otf") format("opentype");
+            font-weight: 900;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: "MadaniArabic";
+            src: url("./Views/fonts/MadaniArabicDEMO-Thin.otf") format("opentype");
+            font-weight: 100;
+            font-style: normal;
+        }
+
+        /* Clase para usar la fuente */
+        .font-madani {
+            font-family: "MadaniArabic", sans-serif;
+        }
+    </style>
+</head>
+
+
+<nav
+    class="sticky top-0 z-50 w-auto bg-white/30 backdrop-blur-md border-b border-white/20 flex justify-center     items-center shadow-lg xl:mx-60 rounded-b-xl">
+    <img src="/Views/assets/img/Logo/Logo-Home-Transparente.svg" alt="Logo de Home_Plus" class="w-40 p-4">
+</nav>
+
+<body class="font-madani bg-[#f5f1eb] m-0 p-0 ">
+    <section class="xl:mx-60 my-16 bg-white p-8 rounded-2xl shadow-md bg-gray-50 border border-gray-200">
+
+        <div class="flex justify-center items-center p-4 mx-2 bg-gray-50 border border-gray-200 rounded-2xl shadow-md">
+            <p class="font-bold font-madani text-2xl">Cliente</p>
+        </div>
+
+        <h2 class="text-3xl py-4 text-center font-madani font-bold">Editar Perfil</h2>
+
+        <?php
+            session_start();
+            if (isset($_SESSION['error'])) {
+                echo '<div class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-100 font-bold text-center">'
+                    . $_SESSION['error'] .
+                    '</div>';
+                unset($_SESSION['error']); // limpiar después de mostrarlo
+            }
+        ?>
+            <form method="post" action="/Controllers/editarClienteDao.php" enctype="multipart/form-data"
+                    class="space-y-4 xl:space-y-0 xl:grid xl:grid-cols-2 xl:gap-x-8 xl:gap-y-4">
+
+                <!-- 1: Foto de Perfil -->
+                <div class="col-span-2 flex justify-center bg-gray-50 border border-gray-200 rounded-2xl shadow-md p-8">
+                    <label for="fotoPerfil" class="cursor-pointer group flex flex-col items-center w-full">
+                        <p class="text-xl text-gray-800 group-hover:text-gray-500 text-center my-4">
+                            Haz clic para subir tu foto de perfil
+                        </p>
+                        <div class="w-32 h-32 rounded-full bg-gray-200 flex items-center justify-center overflow-hidden mx-auto">
+                            <img id="avatarPreview"
+                                    src="/Views/assets/img/iconos/Gemini_Generated_Image_raoxjfraoxjfraox.svg" 
+                                    alt="avatar"
+                                    class="w-20 h-20 object-contain pointer-events-none">
+                        </div>
+                        <!-- ✅ Agregar name para que llegue al backend -->
+                        <input type="file" id="fotoPerfil" name="fotoPerfil" accept="image/*" class="hidden">
+                    </label>
+                </div>
+
+                <!-- 2: Nombres -->
+                <div class="p-8 bg-gray-50 border border-gray-200 rounded-2xl shadow-md">
+                    <label for="nombres" class="text-xl font-bold mb-2">Nombres</label>
+                    <input name="nombre" type="text" id="nombres" placeholder="Ej: Laura Sofia" required
+                            class="w-full border border-gray-400 rounded p-2">
+                </div>
+
+                <!-- 3: Apellidos -->
+                <div class="p-8 bg-gray-50 border border-gray-200 rounded-2xl shadow-md">
+                    <label for="apellidos" class="text-xl font-bold mb-2">Apellidos</label>
+                    <input name="apellido" type="text" id="apellidos" placeholder="Ej: Martínez Gomez" required
+                            class="w-full border border-gray-400 rounded p-2">
+                </div>
+
+                <!-- 4: Fecha de Nacimiento -->
+                <div class="p-8 bg-gray-50 border border-gray-200 rounded-2xl shadow-md">
+                    <label for="fechaNacimiento" class="text-xl font-bold mb-2">Fecha de Nacimiento</label>
+                    <input name="fecha" type="date" id="fechaNacimiento" required
+                            class="w-full border border-gray-400 rounded p-2">
+                </div>
+
+                <!-- 5: Tipo de Documento -->
+                <div class="p-8 bg-gray-50 border border-gray-200 rounded-2xl shadow-md">
+                    <label for="tipoDocumento" class="text-xl font-bold mb-2">Tipo de Documento</label>
+                    <!-- ✅ Agregado name -->
+                    <select name="tipoDocumento" id="tipoDocumento" required class="w-full border rounded p-2">
+                        <option value="" disabled selected>Seleccione un tipo de documento</option>
+                        <option value="Cedula">Cédula</option>
+                        <option value="Pasaporte">Pasaporte</option>
+                        <option value="Cedula Extranjera">Cédula Extranjera</option>
+                    </select>
+                </div>
+            
+                <!-- 6: Número de Documento -->
+                <div class="p-8 bg-gray-50 border border-gray-200 rounded-2xl shadow-md">
+                    <label for="numeroDocumento" class="text-xl font-bold mb-2">Número de Documento</label>
+                    <input name="documento" type="number" id="numeroDocumento" placeholder="Ej: 1234567890" min="1"
+                            max="9999999999" required class="w-full border border-gray-400 rounded p-2">
+                </div>
+
+                <!-- 7: Teléfono -->
+                <div class="p-8 bg-gray-50 border border-gray-200 rounded-2xl shadow-md">
+                    <label for="telefono" class="text-xl font-bold mb-2">Teléfono</label>
+                    <input name="telefono" type="number" id="telefono" placeholder="Ej: 1234567890" min="1" max="9999999999"
+                            required class="w-full border border-gray-400 rounded p-2">
+                </div>
+
+            <!-- 8: Correo Electrónico -->
+            <div class="p-8 bg-gray-50 border border-gray-200 rounded-2xl shadow-md">
+                <label for="email" class="text-xl font-bold mb-2">Correo electrónico</label>
+                <input name="correo" type="email" id="email" placeholder="correo@ejemplo.com" required
+                        class="w-full border border-gray-400 rounded p-2">
+            </div>
+
+            <!-- 9: Contraseña -->
+            <div class="p-8 bg-gray-50 border border-gray-200 rounded-2xl shadow-md">
+                <label for="contrasena" class="text-xl font-bold mb-2">Contraseña</label>
+                <!-- ✅ Agregado name -->
+                <input name="contrasena" type="password" id="contrasena" placeholder="Ingrese su contraseña" 
+                        required minlength="6" maxlength="25"
+                        class="w-full border border-gray-400 rounded p-2">
+            </div>
+
+            <!-- 10: Dirección -->
+            <div class="p-8 bg-gray-50 border border-gray-200 rounded-2xl shadow-md">
+                <label for="direccion" class="text-xl font-bold mb-2">Dirección</label>
+                <!-- ✅ Corregido name (antes estaba mal escrito) -->
+                <textarea name="direccion" id="direccion" rows="2" placeholder="Carrera 8 # 45 - 20, Bogotá..." required
+                            class="w-full border border-gray-400 rounded p-2"></textarea>
+            </div>
+
+            <!-- 11: Confirmar Contraseña -->
+            <div class="p-8 bg-gray-50 border border-gray-200 rounded-2xl shadow-md">
+                <label for="confirmarContrasena" class="text-xl font-bold mb-2">Confirmar Contraseña</label>
+                <input name="confirmarContrasena" type="password" id="confirmarContrasena" placeholder="Repita su contraseña"
+                        required minlength="6" maxlength="25"
+                        class="w-full border border-gray-400 rounded p-2">
+            </div>
+
+            <!-- 12: Guardar Cambios -->
+            <div class="col-span-2">
+                <button type="submit"
+                        class="w-full bg-[#b8a57b] rounded-2xl shadow-md text-white p-3 hover:bg-[#1f1f1f] font-bold">
+                    Guardar Cambios
+                </button>
+            </div>
+        </form>
+
+    </section>
+</body>
+</html>

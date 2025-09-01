@@ -47,7 +47,7 @@ function configurarLogout() {
             confirmButtonColor: '#d33'
         }).then((result) => {
             if (result.isConfirmed) {
-                window.location.href = '/Views/modulo-usuarios/HomePlusFull/index.html';
+                window.location.href = '/Views/modulo-usuarios/HomePlusFull/index.php';
             }
         });
     });
