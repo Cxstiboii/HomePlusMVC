@@ -7,7 +7,7 @@
     <link rel="icon" href="/Views/assets/Favicon/favicon-96x96.png">
     <title>Sistema de Gestión de Servicios</title>
 </head>
-<body></body>
+<body>
     <div class="container">
         <!-- Sidebar Navigation -->
         <div class="sidebar">
@@ -20,22 +20,22 @@
                     <span class="icon">🏠</span>
                     <span>Trabajos Aceptados</span>
                 </a>
-                
+                <a href="#" class="nav-item" data-module="servicios">
+                    <span class="icon">🛠️</span>
+                    <span>Servicios Publicados</span>
+                </a>
                 <a href="#" class="nav-item" data-module="perfil">
                     <span class="icon">👤</span>
                     <span>Perfil Profesional</span>
                 </a>
-                
                 <a href="#" class="nav-item" data-module="detalles">
                     <span class="icon">📋</span>
                     <span>Detalles de la Oferta</span>
                 </a>
-                
                 <a href="#" class="nav-item" data-module="agendamiento">
                     <span class="icon">📅</span>
                     <span>Ver Agendamiento</span>
                 </a>
-
                 <!-- Botón de salir -->
                 <a href="#" class="nav-item nav-logout" onclick="confirmarSalida(event)">
                     <span class="icon">🚪</span>
@@ -46,11 +46,12 @@
 
         <!-- Main Content -->
         <div class="main-content">
+
             <!-- Módulo: Trabajos Aceptados -->
             <div class="module active" id="trabajos">
                 <div class="module-header">
                     <h1 class="module-title">Trabajos Aceptados</h1>
-                    <p class="module-subtitle">Gestiona todos tus trabajos actualmente aceptados</p>
+                    <h1 class="module-subtitle">Gestiona todos tus trabajos actualmente aceptados</h1>
                 </div>
 
                 <div class="card">
@@ -95,13 +96,85 @@
                 </div>
             </div>
 
+        <div class="module" id="servicios">
+                <div class="module-header">
+                    <h1 class="module-title">Servicios Publicados</h1>
+                    <h1 class="module-subtitle">Aqui podras ver los Servicios Publicados</h1>
+                </div>
+
+                <div class="card servicios-grid">
+                    
+                    <!-- Card 1 -->
+                    <div class="servicio-card">
+                        <img src="/Views/assets/img/2. Servicios-Publicados/reparaciontub1.jpg" alt="Reparación de tubería" class="servicio-img">
+                        <h3>Reparación de tubería</h3>
+                        <p><strong>Dirección:</strong> Calle 123 #45-67, Bogotá</p>
+                        <p><strong>Fecha:</strong> 20/06/2025</p>
+                        <p><strong>Hora:</strong> 10:00 AM</p>
+                        <p><strong>Descripción:</strong> Fuga en el baño principal, se necesita plomero urgente.</p>
+                        <button class="btn-details" onclick="mostrarDetalle(1)">Ver Detalles</button>
+                    </div>
+
+                    <!-- Card 2 -->
+                    <div class="servicio-card">
+                        <img src="/Views/assets/img/2. Servicios-Publicados/limpieza1.jpg" alt="Limpieza de apartamento" class="servicio-img">
+                        <h3>Limpieza de apartamento</h3>
+                        <p><strong>Dirección:</strong> Carrera 30 #50-20, Bogotá</p>
+                        <p><strong>Fecha:</strong> 21/06/2025</p>
+                        <p><strong>Hora:</strong> 2:00 PM</p>
+                        <p><strong>Descripción:</strong> Limpieza completa antes de mudanza, incluye cocina y baños.</p>
+                        <button class="btn-details" onclick="mostrarDetalle(2)">Ver Detalles</button>
+                    </div>
+
+                    <!-- Card 3 -->
+                    <div class="servicio-card">
+                        <img src="/Views/assets/img/2. Servicios-Publicados/aire1.jpg" alt="Instalación de aire acondicionado" class="servicio-img">
+                        <h3>Instalación de aire acondicionado</h3>
+                        <p><strong>Dirección:</strong> Calle 50 #70-25, Bogotá</p>
+                        <p><strong>Fecha:</strong> 22/06/2025</p>
+                        <p><strong>Hora:</strong> 9:00 AM</p>
+                        <p><strong>Descripción:</strong> Instalar unidad tipo split, cables ya están listos.</p>
+                        <button class="btn-details" onclick="mostrarDetalle(3)">Ver Detalles</button>
+                    </div>
+
+                    <!-- Card 4 -->
+                    <div class="servicio-card">
+                        <img src="/Views/assets/img/2. Servicios-Publicados/electrico1.jpg" alt="Revisión de instalación eléctrica" class="servicio-img">
+                        <h3>Revisión de instalación eléctrica</h3>
+                        <p><strong>Dirección:</strong> Calle 80 #32-15, Bogotá</p>
+                        <p><strong>Fecha:</strong> 23/06/2025</p>
+                        <p><strong>Hora:</strong> 11:00 AM</p>
+                        <p><strong>Descripción:</strong> Cortos en el sistema de iluminación, se necesita revisión general.</p>
+                        <button class="btn-details" onclick="mostrarDetalle(4)">Ver Detalles</button>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Overlay Detalle (Modal) -->
+            <div id="detalleOverlay" class="detalle-overlay" style="display:none;">
+                <div class="detalle-content">
+                    <h2 id="detalleTitulo">Servicio</h2>
+                    <p id="detalleDescripcion">Descripción</p>
+
+                    <div class="detalle-buttons">
+                        <div class="detalle-row">
+                            <button onclick="redirigirANegociacion()">Ir a Negociación</button>
+                            <button onclick="redirigirAConfirmacion()">Ir a Confirmación</button>
+                        </div>
+                        <div class="detalle-row">
+                            <button class="btn-salir" onclick="cerrarDetalle()">Salir</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <!-- Módulo: Perfil Profesional -->
             <div class="module" id="perfil">
                 <div class="module-header">
                     <h1 class="module-title">Perfil Profesional</h1>
-                    <p class="module-subtitle">Administra tu información profesional y estadísticas</p>
+                    <h1 class="module-subtitle">Administra tu información profesional y estadísticas</h1>
                 </div>
-
                 <div class="card profile-card">
                     <div class="profile-avatar">JP</div>
                     <h2>Juan Pablo Martínez</h2>
@@ -136,9 +209,8 @@
             <div class="module" id="detalles">
                 <div class="module-header">
                     <h1 class="module-title">Detalles del Trabajo</h1>
-                    <p class="module-subtitle">Información completa del trabajo seleccionado</p>
+                    <h1 class="module-subtitle">Información completa del trabajo seleccionado</h1>
                 </div>
-
                 <div class="card">
                     <div class="form-row">
                         <div>
@@ -198,9 +270,8 @@
             <div class="module" id="agendamiento">
                 <div class="module-header">
                     <h1 class="module-title">Calendario de Agendamientos</h1>
-                    <p class="module-subtitle">Visualiza todos tus servicios programados</p>
+                    <h1 class="module-subtitle">Visualiza todos tus servicios programados</h1>
                 </div>
-
                 <div class="card">
                     <h3>Próximos Servicios</h3>
                     
@@ -247,6 +318,7 @@
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
 
@@ -267,6 +339,7 @@
         <span id="notificationMessage">Operación realizada con éxito</span>
     </div>
 
+    <!-- Scripts -->
     <script src="/Views/modulo-confirmacion-agendamiento/js/profesional.js"></script>
 </body>
 </html>

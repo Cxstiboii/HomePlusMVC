@@ -113,7 +113,7 @@ function salirSistema() {
     mostrarNotificacion('Cerrando sesión...');
     setTimeout(() => {
         // Aquí rediriges a la página de login o inicio
-        window.location.href = '/Views/modulo-usuarios/HomePlusFull/index.php'; 
+        window.location.href = '/modulo-usuarios/HomePlusFull/index.html'; 
     }, 2000);
 }
 
@@ -129,4 +129,96 @@ document.getElementById('modalSalir').addEventListener('click', function(e) {
     if (e.target === this) {
         cerrarModal();
     }
+});
+/* ============================
+   MÓDULO: SERVICIOS PUBLICADOS
+   ============================ */
+
+// Mostrar detalle del servicio
+function mostrarDetalle(id) {
+  const overlay = document.getElementById("detalleOverlay");
+  const titulo = document.getElementById("detalleTitulo");
+  const descripcion = document.getElementById("detalleDescripcion");
+
+  // Aquí puedes personalizar con datos dinámicos (ejemplo con IDs)
+  if (id === 1) {
+    titulo.textContent = "Servicio: Limpieza general";
+    descripcion.textContent = "Descripción: Limpieza de espacios interiores, incluye pisos, ventanas y baños.";
+  } else if (id === 2) {
+    titulo.textContent = "Servicio: Plomería básica";
+    descripcion.textContent = "Descripción: Reparación de fugas, cambio de grifos y mantenimiento básico de tuberías.";
+  } else {
+    titulo.textContent = "Servicio: Detalle";
+    descripcion.textContent = "Descripción: Información del servicio seleccionado.";
+  }
+
+  overlay.style.display = "flex";
+}
+
+// Cerrar detalle
+function cerrarDetalle() {
+  const overlay = document.getElementById("detalleOverlay");
+  overlay.style.display = "none";
+}
+
+// Redirigir a Negociación
+function redirigirANegociacion() {
+  // Ajusta la ruta según tu estructura real
+  window.location.href = "/Views/modulo-servicios/negociacion.html";
+}
+
+// Redirigir a Confirmación
+function redirigirAConfirmacion() {
+  // Ajusta la ruta según tu estructura real
+  window.location.href = "/Views/modulo-servicios/confirmacion.html";
+}
+
+// Escuchar el botón "Salir" del detalle
+document.addEventListener("DOMContentLoaded", () => {
+  const btnSalir = document.querySelector(".btn-salir");
+  if (btnSalir) {
+    btnSalir.addEventListener("click", cerrarDetalle);
+  }
+});
+// ==== Funcionalidad módulo Servicios Publicados ====
+
+document.addEventListener("DOMContentLoaded", () => {
+  const botonesDetalle = document.querySelectorAll(".btn-detalle");
+
+  botonesDetalle.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const servicio = btn.closest(".servicio-card");
+      const titulo = servicio.querySelector("h3").textContent;
+      const direccion = servicio.querySelector("p:nth-of-type(1)").textContent;
+      const fecha = servicio.querySelector("p:nth-of-type(2)").textContent;
+      const hora = servicio.querySelector("p:nth-of-type(3)").textContent;
+      const descripcion = servicio.querySelector("p:nth-of-type(4)").textContent;
+
+      alert(
+        `📋 Detalles del servicio:\n\n` +
+        `${titulo}\n${direccion}\n${fecha}\n${hora}\n${descripcion}`
+      );
+    });
+  });
+});
+// ==== Funcionalidad mejorada módulo Servicios Publicados ====
+
+document.addEventListener("DOMContentLoaded", () => {
+  const botonesDetalle = document.querySelectorAll(".btn-detalle");
+
+  botonesDetalle.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const servicio = btn.closest(".servicio-card");
+      const titulo = servicio.querySelector("h3").textContent;
+      const direccion = servicio.querySelector("p:nth-of-type(1)").textContent;
+      const fecha = servicio.querySelector("p:nth-of-type(2)").textContent;
+      const hora = servicio.querySelector("p:nth-of-type(3)").textContent;
+      const descripcion = servicio.querySelector("p:nth-of-type(4)").textContent;
+
+      alert(
+        `📋 Detalles del servicio:\n\n` +
+        `${titulo}\n${direccion}\n${fecha}\n${hora}\n${descripcion}`
+      );
+    });
+  });
 });

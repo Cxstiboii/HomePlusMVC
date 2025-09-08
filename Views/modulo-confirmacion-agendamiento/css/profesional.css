@@ -500,3 +500,248 @@ small {
         align-items: flex-start;
     }
 }
+/* ============================
+   MÓDULO: SERVICIOS PUBLICADOS
+   ============================ */
+
+/* Grid de servicios */
+.servicios-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.5rem;
+  padding: 1.5rem;
+}
+
+/* Tarjeta de servicio */
+.servicio-card {
+  background: #FFFFFF; /* Blanco */
+  border: 1px solid #C2C2C2; /* Gris */
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  overflow: hidden;
+  padding: 1rem;
+  text-align: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.servicio-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+}
+
+.servicio-card img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+.servicio-card h2 {
+  font-size: 1.2rem;
+  margin: 0.5rem 0;
+  color: #1F1F1F; /* Negro */
+}
+
+.servicio-card p {
+  color: #1F1F1F; /* Negro */
+  font-size: 0.95rem;
+  margin-bottom: 1rem;
+}
+
+/* Botón dentro de la tarjeta */
+.servicio-card .btn-details {
+  padding: 0.6rem 1.2rem;
+  background-color: #CCB58E; /* Beige */
+  color: #1F1F1F; /* Negro */
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: background-color 0.2s ease;
+}
+
+.servicio-card .btn-details:hover {
+  background-color: #b59f76; /* Beige más oscuro */
+}
+
+/* Overlay de detalle */
+.detalle-overlay {
+  display: none; /* oculto por defecto */
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  z-index: 1000;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Contenedor del detalle */
+.detalle-content {
+  background: #FFFFFF; /* Blanco */
+  border: 1px solid #C2C2C2; /* Gris */
+  padding: 2rem;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 500px;
+  text-align: center;
+  animation: aparecer 0.25s ease;
+}
+
+.detalle-content h2 {
+  margin-bottom: 1rem;
+  color: #1F1F1F; /* Negro */
+}
+
+.detalle-content p {
+  margin: 0.5rem 0;
+  font-size: 0.95rem;
+  color: #1F1F1F; /* Negro */
+}
+
+/* Botones dentro del detalle */
+.detalle-buttons {
+  margin-top: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.detalle-buttons button {
+  padding: 0.7rem 1.2rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 500;
+  background-color: #CCB58E; /* Beige */
+  color: #1F1F1F; /* Negro */
+  transition: background-color 0.2s ease;
+}
+
+.detalle-buttons button:hover {
+  background-color: #b59f76; /* Beige más oscuro */
+}
+
+/* Animación */
+@keyframes aparecer {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* ==== Estilos mejorados módulo Servicios Publicados ==== */
+.servicios-publicados {
+  padding: 2rem;
+  background-color: #FFFFFF;
+}
+
+.servicios-publicados h2 {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: bold;
+  color: #1F1F1F;
+  margin-bottom: 2rem;
+  position: relative;
+}
+
+.servicios-publicados h2::after {
+  content: "";
+  display: block;
+  width: 70px;
+  height: 4px;
+  background-color: #CCB58E;
+  margin: 0.8rem auto 0;
+  border-radius: 4px;
+}
+.servicio-card {
+  background-color: #FAFAFA;
+  border: 1px solid #C2C2C2;
+  border-radius: 14px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.servicio-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+}
+
+.servicio-card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-bottom: 1px solid #C2C2C2;
+}
+
+.servicio-info {
+  padding: 1.2rem 1.5rem;
+  flex: 1;
+}
+
+.servicio-info h3 {
+  font-size: 1.3rem;
+  font-weight: bold;
+  margin-bottom: 0.8rem;
+  color: #1F1F1F;
+}
+
+.servicio-info p {
+  font-size: 0.95rem;
+  margin-bottom: 0.5rem;
+  color: #1F1F1F;
+}
+
+.servicio-info strong {
+  color: #1F1F1F;
+}
+
+.servicio-botones {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  padding: 1rem;
+  border-top: 1px solid #E0E0E0;
+  background-color: #FFF;
+}
+
+.servicio-botones button {
+  flex: 1;
+  max-width: 140px;
+  padding: 0.7rem 1rem;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+/* Botón principal */
+.btn-accion {
+  background-color: #CCB58E;
+  color: #1F1F1F;
+}
+
+.btn-accion:hover {
+  background-color: #b8a075;
+}
+
+/* Botón secundario */
+.btn-secundario {
+  background-color: #C2C2C2;
+  color: #1F1F1F;
+}
+
+.btn-secundario:hover {
+  background-color: #a6a6a6;
+}
