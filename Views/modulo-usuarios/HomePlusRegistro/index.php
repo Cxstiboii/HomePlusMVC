@@ -10,11 +10,7 @@
 <body>
 
   <style> 
-    body {
-      background-image: url('/Views/assets/img/1. Usuario/hombre-haciendo-tabla-de-surf.jpg');
-      background-repeat: no-repeat;
-      background-size: cover; 
-    }
+    
   </style>
 
   <div class="container">

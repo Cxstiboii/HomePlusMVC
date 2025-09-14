@@ -8,123 +8,98 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Mogra&family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
-    <link rel="stylesheet" href="/Views/landing-page/css/slide-top.css">
-    <link rel="stylesheet" href="/Views/landing-page/css/card1.css">
-    <link rel="stylesheet" href="/Views/landing-page/css/cards-anmiations.css">
-    <link rel="stylesheet" href="/Views/landing-page/css/boton-usuarios.css">
-    <link rel="stylesheet" href="/Views/landing-page/css/card-main.css">
-    <link rel="stylesheet" href="/Views/landing-page/css/promo-card.css">
-    <link rel="stylesheet" href="/Views/landing-page/css/button-promo.css">
-    <link rel="stylesheet" href="/Views/landing-page/css/promo.css">
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 </head>
-<body class="bg-white font-[Poppins]">
-
-<!-- 
-    Barra de navegación principal
-    - bg-white: fondo blanco
-    - xl:px-24: padding horizontal grande en pantallas XL
-    - xl:py-6: padding vertical en pantallas XL
-    - px-10: padding horizontal en pantallas pequeñas/medianas
-    - py-8: padding vertical en pantallas pequeñas/medianas
-    - shadow-md: sombra mediana
-    - mb-8: margen inferior
-    - rounded-md: bordes ligeramente redondeados
-    - flex: contenedor flex
-    - justify-between: espacio máximo entre elementos hijos
-    - items-center: alinea elementos verticalmente al centro
--->
-<nav class="bg-white xl:px-24 xl:py-6 px-10 py-8 shadow-md mb-8 rounded-md flex justify-between items-center">
-
-    <div class="">
-        <a href="#">
-        <img src="/Views/assets/img/Logo/Logo-Home-Transparente.svg" alt="Logo Home+" class="w-44 h-auto" />
-        </a>
-    </div>
 
 
-    <div class=" hidden md:flex items-center space-x-6">
-        <ul class="flex items-center space-x-6 text-sm font-medium">
-            <li><a href="#" class="hover:text-[#ccb58e] transition">Inicio</a></li>
-            <li><a href="#" class="hover:text-[#ccb58e] transition">Servicios</a></li>
-            <li><a href="#" class="hover:text-[#ccb58e] transition">¿Cómo funciona?</a></li>
-            <li><a href="#" class="hover:text-[#ccb58e] transition">Soporte</a></li>
-        </ul>
-        <div class="flex space-x-4">
-            <a href="/Views/modulo-usuarios/HomePlusFull/index.php">
-                <button class="text-sm border border-[#ccb58e] px-4 py-1 rounded-full hover:bg-[#ccb58e] hover:text-white transition">Log In</button>
-            </a>
-            <a href="/Views/modulo-usuarios/HomePlusRegistro/index.php">
-                <button class="text-sm bg-[#ccb58e] text-white px-4 py-1 rounded-full hover:bg-[#1F1F1F] transition">Sign Up</button>
-            </a>
-        </div>
-    </div>
+    <body class="bg-white font-[Poppins]">
 
-    <div class="md:hidden">
-        <button id="menu-toggle">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-[#1F1F1F]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
-            </svg>
-        </button>
-    </div>
-</nav>
+        <nav class="bg-white xl:px-24 xl:py-4 px-14 py-4 shadow-md rounded-sm flex xl:justify-around justify-between items-center">
+            <div class="">
+                <a href="#">
+                <img src="/Views/assets/img/Logo/Logo-Home-Transparente.svg" alt="Logo Home+" class="w-36 h-auto" />
+                </a>
+            </div>
 
+            <div class=" hidden xl:flex items-center space-x-6">
+                <ul class="flex items-center space-x-6 text-sm font-medium">
+                    <li><a href="#" class="">Inicio</a></li>
+                    <li><a href="#" class="">Servicios</a></li>
+                    <li><a href="#" class="">¿Cómo funciona?</a></li>
+                    <li><a href="#" class="">Soporte</a></li>
+                </ul>
 
-<section class="bg-[#d9d9d9]/60 border border-[#CCB58E] shadow-[12px_17px_51px_rgba(0,0,0,0.22)] backdrop-blur-md rounded-[20px] text-black font-bold mx-2 sm:mx-4 md:mx-8 lg:mx-24 xl:mx-36 mb-0 sm:my-14 h-auto min-h-[400px]">
-    <div class="w-full flex flex-col items-center justify-center gap-y- mt-2 px-2 sm:px-4">
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-12 w-full">
-            
-            <div class="flex items-center justify-center px-1 mx-4 sm:mx-6 lg:mx-10">
-                <div class="text-center lg:text-left">
-                    <h1 class="slide-top">
-                        <span class="block">
-                            <img src="/Views/assets/img/Logo/Logo Home + Transparente.png" alt="Home+" class="w-48 sm:w-56 lg:w-64 h-auto mx-auto pt-8 sm:pt-12 lg:pt-30">
-                        </span>
-                    </h1>
-                    <div class="slide-top">
-                        <p class="text-sm sm:text-base lg:text-lg text-[#1F1F1] font-bold text-center mt-2 sm:mt-3">
-                            Todo a un clic de distancia
-                        </p>
-                        <p class="text-sm sm:text-base lg:text-lg font-bold text-center mt-4 sm:mt-6 lg:mt-9">
-                            En Home+ conectamos clientes con profesionales para resolver cualquier necesidad del hogar.
-                        </p>
-                    </div>
+                <div class="flex space-x-4">
+                    <a href="/Views/modulo-usuarios/HomePlusFull/index.php">
+                        <button class="text-sm border border-[#ccb58e] px-4 py-1 rounded-full hover:bg-[#ccb58e] hover:text-white transition">Log In</button>
+                    </a>
+                    <a href="/Views/modulo-usuarios/HomePlusRegistro/index.php">
+                        <button class="text-sm bg-[#ccb58e] text-white px-4 py-1 rounded-full hover:bg-[#1F1F1F] transition">Sign Up</button>
+                    </a>
                 </div>
             </div>
 
-            <div class="flex flex-col items-center space-y-4 sm:space-y-6 w-full px-2 mt-4 sm:mt-6 lg:mt-10 mb-6 sm:mb-8 lg:mb-10 ">
-                <div class="toggle-container w-full flex justify-center">
-                    <div class="toggle-wrapper flex justify-center space-x-2 sm:space-x-4 mb-3 sm:mb-4 items-center">
-                        <input id="toggle-on" class="toggle toggle-left" name="toggle" type="radio" checked>
-                        <label for="toggle-on" class="btn text-sm sm:text-base">Cliente</label>
-                        <input id="toggle-off" class="toggle toggle-right" name="toggle" type="radio">
-                        <label for="toggle-off" class="btn text-sm sm:text-base">Profesional</label>
+            <div class="md:hidden">
+                <button id="menu-toggle">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-[#1F1F1F]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                    </svg>
+                </button>
+            </div>
+        </nav>
+
+
+        <section class="">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-12 w-full">
+                <div class="flex items-center justify-center px-1 mx-4 sm:mx-6 lg:mx-10">
+                    <div class="text-center lg:text-left">
+                        <h1 class="slide-top">
+                            <span class="block">
+                                <img src="/Views/assets/img/Logo/Logo Home + Transparente.png" alt="Home+" class="w-48 sm:w-56 lg:w-64 h-auto mx-auto pt-8 sm:pt-12 lg:pt-30">
+                            </span>
+                        </h1>
+                        <div class="slide-top">
+                            <p class="text-sm sm:text-base lg:text-lg text-[#1F1F1] font-bold text-center mt-2 sm:mt-3">
+                                Todo a un clic de distancia
+                            </p>
+                            <p class="text-sm sm:text-base lg:text-lg font-bold text-center mt-4 sm:mt-6 lg:mt-9">
+                                En Home+ conectamos clientes con profesionales para resolver cualquier necesidad del hogar.
+                            </p>
+                        </div>
                     </div>
                 </div>
-                <div class="w-full max-w-xs sm:max-w-sm lg:max-w-md mx-auto px-2 font-bold">
-                    <div id="clienteText" class="text-content-alternative cliente show">
-                        <p class="font-medium text-gray-800 text-xs sm:text-sm lg:text-base text-center px-3 sm:px-5">
-                            Como <strong>Cliente</strong>, puedes registrarte en Home+, publicar solicitudes detalladas de servicio con imágenes, ubicación y evidencias, y esperar que los profesionales te envíen sus mejores ofertas personalizadas a través del marketplace.
-                        </p>
+
+                <div class="flex flex-col items-center space-y-4 sm:space-y-6 w-full px-2 mt-4 sm:mt-6 lg:mt-10 mb-6 sm:mb-8 lg:mb-10 ">
+                    <div class="toggle-container w-full flex justify-center">
+                        <div class="toggle-wrapper flex justify-center space-x-2 sm:space-x-4 mb-3 sm:mb-4 items-center">
+                            <input id="toggle-on" class="toggle toggle-left" name="toggle" type="radio" checked>
+                            <label for="toggle-on" class="btn text-sm sm:text-base">Cliente</label>
+                            <input id="toggle-off" class="toggle toggle-right" name="toggle" type="radio">
+                            <label for="toggle-off" class="btn text-sm sm:text-base">Profesional</label>
+                        </div>
                     </div>
-                    <div id="profesionalText" class="text-content-alternative profesional hidden">
-                        <p class=" font-bold font-medium text-gray-800 text-xs sm:text-sm lg:text-base text-center px-3 sm:px-5">
-                            Como <strong>Profesional</strong>, puedes registrarte, explorar solicitudes publicadas por los clientes en el marketplace, enviar ofertas claras con tus condiciones, y brindar tus servicios para obtener calificaciones positivas.
-                        </p>
+                    <div class="w-full max-w-xs sm:max-w-sm lg:max-w-md mx-auto px-2 font-bold">
+                        <div id="clienteText" class="text-content-alternative cliente show">
+                            <p class="font-medium text-gray-800 text-xs sm:text-sm lg:text-base text-center px-3 sm:px-5">
+                                Como <strong>Cliente</strong>, puedes registrarte en Home+, publicar solicitudes detalladas de servicio con imágenes, ubicación y evidencias, y esperar que los profesionales te envíen sus mejores ofertas personalizadas a través del marketplace.
+                            </p>
+                        </div>
+                        <div id="profesionalText" class="text-content-alternative profesional hidden">
+                            <p class=" font-bold font-medium text-gray-800 text-xs sm:text-sm lg:text-base text-center px-3 sm:px-5">
+                                Como <strong>Profesional</strong>, puedes registrarte, explorar solicitudes publicadas por los clientes en el marketplace, enviar ofertas claras con tus condiciones, y brindar tus servicios para obtener calificaciones positivas.
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
 </section>
 
 <section class="flex justify-center px-4 sm:px-8 md:px-12 lg:px-24 xl:px-36 mt-10">
     <div class="promo-card w-full max-w-2xl bg-[#d9d9d9]/60 border border-[#CCB58E] rounded-xl px-6 py-6 text-center shadow-md mb-8">
         <div class="first-content">
         <span class="text-2xl sm:text-3xl font-bold text-[#333] block ">30% OFF</span>
-      </div>
-      <div class="second-content">
+        </div>
+        <div class="second-content">
         <span class="text-base sm:text-lg text-gray-800">En tu primer servicio con <strong>Home+</strong></span>
       </div>
     </div>
