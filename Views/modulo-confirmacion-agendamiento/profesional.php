@@ -47,9 +47,6 @@
 
         <!-- Main Content -->
         <div class="main-content">
-
-
-
             <!-- Módulo: Trabajos Aceptados -->
             <div class="module active" id="trabajos">
                 <div class="module-header">
@@ -85,64 +82,53 @@
                 </div>
                 <?php endforeach; ?>
                     <?php else: ?>
-                <p>No tienes trabajos aceptados actualmente.</p>
+                <p class = "no-servicios">No tienes trabajos aceptados actualmente.</p>
                 <?php endif; ?>
             </div>
 
-        <div class="module" id="servicios">
+            <!-- Módulo: Servicios Publicados -->
+            <?php
+                require_once('../../Controllers/ServiciosPublicadosDao.php');
+                $dao = new ServiciosPublicadosDao();
+                $servicios = $dao -> obtenerServiciosPublicados();
+            ?>
+            <div class="module" id="servicios">
                 <div class="module-header">
                     <h1 class="module-title">Servicios Publicados</h1>
-                    <h1 class="module-subtitle">Aqui podras ver los Servicios Publicados</h1>
+                    <h1 class="module-subtitle">Aquí podrás ver los Servicios Publicados</h1>
                 </div>
-
-                <div class="card servicios-grid">
-                    
-                    <!-- Card 1 -->
-                    <div class="servicio-card">
-                        <img src="/Views/assets/img/2. Servicios-Publicados/reparaciontub1.jpg" alt="Reparación de tubería" class="servicio-img">
-                        <h3>Reparación de tubería</h3>
-                        <p><strong>Dirección:</strong> Calle 123 #45-67, Bogotá</p>
-                        <p><strong>Fecha:</strong> 20/06/2025</p>
-                        <p><strong>Hora:</strong> 10:00 AM</p>
-                        <p><strong>Descripción:</strong> Fuga en el baño principal, se necesita plomero urgente.</p>
-                        <button class="btn-details" onclick="mostrarDetalle(1)">Ver Detalles</button>
+                                
+                <?php if(count($servicios) > 0): ?>
+                    <div class="card servicios-grid">
+                        <?php foreach($servicios as $row ): ?>
+                            <div class="servicio-card">
+                                
+                                <!-- Imagen principal -->
+                                <?php if (!empty($row['foto_principal'])): ?>
+                                    <img src="<?php echo htmlspecialchars($row['foto_principal']); ?>" 
+                                            alt="Imagen del servicio" class="servicio-img">
+                                <?php else: ?>
+                                    <img src="/Views/assets/img/default-service.jpg" 
+                                            alt="Imagen por defecto" class="servicio-img">
+                                <?php endif; ?>
+                                
+                                <h3><?php echo htmlspecialchars($row['titulo_servicio']); ?></h3>
+                                <p><strong>Cliente:</strong> <?php echo htmlspecialchars($row['Nombres'].' '.$row['Apellidos']); ?></p>
+                                <p><strong>Dirección:</strong> <?php echo htmlspecialchars($row['direccion_servicio']); ?></p>
+                                <p><strong>Fecha:</strong> <?php echo date('d/m/Y', strtotime($row['fecha_preferida'])); ?></p>
+                                <p><strong>Hora:</strong> <?php echo htmlspecialchars($row['hora_preferida']); ?></p>
+                                <p><strong>Descripción:</strong> <?php echo htmlspecialchars($row['descripcion']); ?></p>
+                                <span class="status-badge"><?php echo htmlspecialchars($row['estado']); ?></span>
+                                <a class="btn-details" href="detalle-servicio.php?id=<?php echo $row['id_solicitud']; ?>">Ver Detalles</a>
+                            </div>
+                        <?php endforeach; ?>
                     </div>
-
-                    <!-- Card 2 -->
-                    <div class="servicio-card">
-                        <img src="/Views/assets/img/2. Servicios-Publicados/limpieza1.jpg" alt="Limpieza de apartamento" class="servicio-img">
-                        <h3>Limpieza de apartamento</h3>
-                        <p><strong>Dirección:</strong> Carrera 30 #50-20, Bogotá</p>
-                        <p><strong>Fecha:</strong> 21/06/2025</p>
-                        <p><strong>Hora:</strong> 2:00 PM</p>
-                        <p><strong>Descripción:</strong> Limpieza completa antes de mudanza, incluye cocina y baños.</p>
-                        <button class="btn-details" onclick="mostrarDetalle(2)">Ver Detalles</button>
-                    </div>
-
-                    <!-- Card 3 -->
-                    <div class="servicio-card">
-                        <img src="/Views/assets/img/2. Servicios-Publicados/aire1.jpg" alt="Instalación de aire acondicionado" class="servicio-img">
-                        <h3>Instalación de aire acondicionado</h3>
-                        <p><strong>Dirección:</strong> Calle 50 #70-25, Bogotá</p>
-                        <p><strong>Fecha:</strong> 22/06/2025</p>
-                        <p><strong>Hora:</strong> 9:00 AM</p>
-                        <p><strong>Descripción:</strong> Instalar unidad tipo split, cables ya están listos.</p>
-                        <button class="btn-details" onclick="mostrarDetalle(3)">Ver Detalles</button>
-                    </div>
-
-                    <!-- Card 4 -->
-                    <div class="servicio-card">
-                        <img src="/Views/assets/img/2. Servicios-Publicados/electrico1.jpg" alt="Revisión de instalación eléctrica" class="servicio-img">
-                        <h3>Revisión de instalación eléctrica</h3>
-                        <p><strong>Dirección:</strong> Calle 80 #32-15, Bogotá</p>
-                        <p><strong>Fecha:</strong> 23/06/2025</p>
-                        <p><strong>Hora:</strong> 11:00 AM</p>
-                        <p><strong>Descripción:</strong> Cortos en el sistema de iluminación, se necesita revisión general.</p>
-                        <button class="btn-details" onclick="mostrarDetalle(4)">Ver Detalles</button>
-                    </div>
-
-                </div>
+                <?php else: ?>
+                    <p class="no-servicios">No hay servicios publicados en este momento.</p>
+                <?php endif; ?>
             </div>
+
+
 
             <!-- Overlay Detalle (Modal) -->
             <div id="detalleOverlay" class="detalle-overlay" style="display:none;">

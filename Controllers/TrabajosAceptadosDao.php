@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . '/../Model/database.php';
-
+$db = new Database(); // instanciamos la clase
+$conn = $db->conn;    // obtenemos la conexión mysqli
 class TrabajosAceptadosDao {
     private $conn;
 

@@ -110,11 +110,11 @@ function cerrarModal() {
 }
 
 function salirSistema() {
-    mostrarNotificacion('Cerrando sesión...');
-    setTimeout(() => {
-        // Aquí rediriges a la página de login o inicio
-        window.location.href = '/modulo-usuarios/HomePlusFull/index.html'; 
-    }, 2000);
+  mostrarNotificacion('Cerrando sesión...');
+  setTimeout(() => {
+      // Redirige al index.php del login
+      window.location.href = "/Views/modulo-usuarios/HomePlusFull/index.php";
+  }, 2000);
 }
 
 // Establecer fecha mínima como hoy
