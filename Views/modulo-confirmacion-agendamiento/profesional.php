@@ -12,7 +12,8 @@
         <!-- Sidebar Navigation -->
         <div class="sidebar">
             <div class="logo">
-                <img src="/Views/assets/img/Logo/Logo Home + Transparente.png" alt="Logo Home+" style="height: 24px;">
+                <img src="/Views/assets/img/Logo/Logo-Home-Transparente.svg" alt="Logo Home+" style="height: 30px;">
+                <p><b>Profesional</b></p>
             </div>
 
             <nav>
@@ -47,6 +48,8 @@
         <!-- Main Content -->
         <div class="main-content">
 
+
+
             <!-- Módulo: Trabajos Aceptados -->
             <div class="module active" id="trabajos">
                 <div class="module-header">
@@ -54,46 +57,36 @@
                     <h1 class="module-subtitle">Gestiona todos tus trabajos actualmente aceptados</h1>
                 </div>
 
+
+                <!--Instancio el controlador -->
+                <?php
+                require_once('../../Controllers/TrabajosAceptadosDao.php');
+                $dao = new TrabajosAceptadosDao();
+                $trabajos = $dao->obtenerTrabajosAceptados();
+                ?>
+
+                <!--Hago un bucle para que haga las cartas en base de lo que hay en mysql y la consulta-->
+                <?php if(count($trabajos) > 0):?>
+                    <?php foreach ($trabajos as $row): ?>
+
                 <div class="card">
                     <div class="trabajo-item">
                         <div class="trabajo-info">
-                            <h3>Plomería - Reparación de tubería</h3>
-                            <p><strong>Cliente:</strong> María González</p>
-                            <p><strong>Fecha:</strong> 15/06/2025</p>
-                            <p><strong>Urgencia:</strong> Media</p>
+                            <h3><?php echo htmlspecialchars ($row ['titulo_servicio']); ?></h3>
+                            <p><strong>Cliente:</strong> <?php echo htmlspecialchars($row ['Nombres'] . ' ' . $row['Apellidos']);?></p>
+                            <p><strong>Fecha:</strong> <?php echo date ('d/m/y', strtotime($row['fecha_preferida']));?></p>
+                            <p><strong>Urgencia:</strong> <?php echo ucfirst ($row ['urgencia']);?></p>
                         </div>
                         <div>
-                            <span class="status-badge status-aceptado">Aceptado</span>
-                            <button class="btn-details" onclick="verDetalles('maria-gonzalez')">Ver Detalles</button>
-                        </div>
-                    </div>
-
-                    <div class="trabajo-item">
-                        <div class="trabajo-info">
-                            <h3>Electricidad - Instalación de tomas</h3>
-                            <p><strong>Cliente:</strong> Carlos Pérez</p>
-                            <p><strong>Fecha:</strong> 16/06/2025</p>
-                            <p><strong>Urgencia:</strong> Alta</p>
-                        </div>
-                        <div>
-                            <span class="status-badge status-media">Aceptado</span>
-                            <button class="btn-details" onclick="verDetalles('carlos-perez')">Ver Detalles</button>
-                        </div>
-                    </div>
-
-                    <div class="trabajo-item">
-                        <div class="trabajo-info">
-                            <h3>Carpintería - Reparación de puerta</h3>
-                            <p><strong>Cliente:</strong> Ana López</p>
-                            <p><strong>Fecha:</strong> 18/06/2025</p>
-                            <p><strong>Urgencia:</strong> Baja</p>
-                        </div>
-                        <div>
-                            <span class="status-badge status-aceptado">Aceptado</span>
-                            <button class="btn-details" onclick="verDetalles('ana-lopez')">Ver Detalles</button>
+                            <span class="status-badge status-aceptado"><?php echo htmlspecialchars($row ['estado']);?></span>
+                            <a class="btn-details" href="detalle-trabajo.php?id=<?php echo $row['id_solicitud']; ?>">Ver Detalles</a>
                         </div>
                     </div>
                 </div>
+                <?php endforeach; ?>
+                    <?php else: ?>
+                <p>No tienes trabajos aceptados actualmente.</p>
+                <?php endif; ?>
             </div>
 
         <div class="module" id="servicios">

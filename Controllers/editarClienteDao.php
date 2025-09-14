@@ -1,14 +1,17 @@
 <?php
-session_start(); // 👈 siempre al inicio, antes de cualquier echo o header
+session_start();
+require_once '../Model/database.php';
 
-require_once '../Model/database.php'; // archivo donde conectas a MySQL
+$db = new Database(); // instanciamos la clase
+$conn = $db->conn;    // obtenemos la conexión mysqli
 
 if ($_SERVER["REQUEST_METHOD"] !== "POST") {
-    echo "Acceso no permitido";
+    $_SESSION['error'] = "Acceso no permitido.";
+    header("Location: /Views/modulo-usuarios/HomePlusRegistro/editar-perfil-cliente.php");
     exit;
 }
 
-// === Captura de datos del formulario ===
+// Captura de datos
 $nombre     = $_POST["nombre"] ?? null;
 $apellido   = $_POST["apellido"] ?? null;
 $fecha      = $_POST["fecha"] ?? null;
@@ -20,7 +23,7 @@ $direccion  = $_POST["direccion"] ?? null;
 $contrasena = $_POST["contrasena"] ?? null;
 $confirmar  = $_POST["confirmarContrasena"] ?? null;
 
-// === Validación básica ===
+// Validaciones
 if (!$nombre || !$apellido || !$fecha || !$tipoDoc || !$documento || !$telefono || !$correo || !$direccion || !$contrasena) {
     $_SESSION['error'] = "❌ Todos los campos son obligatorios.";
     header("Location: /Views/modulo-usuarios/HomePlusRegistro/editar-perfil-cliente.php");
@@ -33,10 +36,10 @@ if ($contrasena !== $confirmar) {
     exit;
 }
 
-// === Seguridad: encriptar contraseña ===
+// Encriptar contraseña
 $contrasenaHash = password_hash($contrasena, PASSWORD_DEFAULT);
 
-// === Validar duplicados (correo o documento) ===
+// Validar duplicados
 $check = $conn->prepare("SELECT id_Usuario FROM usuario WHERE Email = ? OR Numero_Documento = ?");
 $check->bind_param("ss", $correo, $documento);
 $check->execute();
@@ -51,47 +54,37 @@ if ($check->num_rows > 0) {
 }
 $check->close();
 
-// === Subida de foto de perfil ===
+// Subida de foto de perfil
 $fotoPerfil = null;
 if (isset($_FILES["fotoPerfil"]) && $_FILES["fotoPerfil"]["error"] === UPLOAD_ERR_OK) {
     $carpeta = "../uploads/perfiles/";
-    if (!file_exists($carpeta)) {
-        mkdir($carpeta, 0777, true);
-    }
+    if (!file_exists($carpeta)) mkdir($carpeta, 0777, true);
     $nombreArchivo = uniqid() . "_" . basename($_FILES["fotoPerfil"]["name"]);
     $rutaDestino = $carpeta . $nombreArchivo;
-
-    if (move_uploaded_file($_FILES["fotoPerfil"]["tmp_name"], $rutaDestino)) {
-        $fotoPerfil = $rutaDestino;
-    }
+    if (move_uploaded_file($_FILES["fotoPerfil"]["tmp_name"], $rutaDestino)) $fotoPerfil = $rutaDestino;
 }
 
-// === Insertar usuario en la base de datos ===
+// Insertar en usuario
 $sql = "INSERT INTO usuario 
-        (Nombres, Apellidos, Fecha_Nacimiento, Tipo_Documento, Numero_Documento, Telefono, Email, Direccion, Contrasena, Foto_Perfil, Tipo_Usuario) 
+        (Nombres, Apellidos, Fecha_Nacimiento, Tipo_Documento, Numero_Documento, Telefono, Email, Direccion, Contrasena, Foto_Perfil, Tipo_Usuario)
         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-
 $stmt = $conn->prepare($sql);
-$tipoUsuario = "cliente"; // por defecto cliente, puedes cambiar según tu lógica
-
-$stmt->bind_param("sssssssssss", 
-    $nombre, 
-    $apellido, 
-    $fecha, 
-    $tipoDoc, 
-    $documento, 
-    $telefono, 
-    $correo, 
-    $direccion, 
-    $contrasenaHash,
-    $fotoPerfil,
-    $tipoUsuario
-);
+$tipoUsuario = "cliente";
+$stmt->bind_param("sssssssssss", $nombre, $apellido, $fecha, $tipoDoc, $documento, $telefono, $correo, $direccion, $contrasenaHash, $fotoPerfil, $tipoUsuario);
 
 if ($stmt->execute()) {
+    $idUsuario = $stmt->insert_id; // ID generado
+
+    // Insertar en tabla cliente
+    $sqlCliente = "INSERT INTO cliente (id_cliente, servicios_solicitados, citas_solicitadas, calificaciones) VALUES (?, 0, 0, 0.0)";
+    $stmtCliente = $conn->prepare($sqlCliente);
+    $stmtCliente->bind_param("i", $idUsuario);
+    $stmtCliente->execute();
+    $stmtCliente->close();
+
     $_SESSION['success'] = "✅ Cliente registrado correctamente. Ahora inicie sesión.";
     header("Location: /Views/modulo-usuarios/HomePlusFull/index.php");
-    exit();
+    exit;
 } else {
     $_SESSION['error'] = "❌ Error al registrar: " . $stmt->error;
     header("Location: /Views/modulo-usuarios/HomePlusRegistro/editar-perfil-cliente.php");
@@ -100,3 +93,4 @@ if ($stmt->execute()) {
 
 $stmt->close();
 $conn->close();
+?>

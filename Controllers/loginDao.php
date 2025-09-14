@@ -2,6 +2,10 @@
 session_start();
 require_once '../Model/database.php';
 
+
+$db = new Database(); // instanciamos la clase
+$conn = $db->conn;    // obtenemos la conexión mysqli
+
 if ($_SERVER["REQUEST_METHOD"] !== "POST") {
     $_SESSION['error'] = "Acceso no permitido.";
     header("Location: /Views/modulo-usuarios/HomePlusFull/index.php");
@@ -39,9 +43,9 @@ if ($result->num_rows === 1) {
 
         // Redirigir según tipo de usuario
         if ($usuario["Tipo_Usuario"] === "cliente") {
-            header("Location: /Views/modulo-confirmacion-agendamiento/cliente.html");
+            header("Location: /Views/modulo-confirmacion-agendamiento/cliente.php");
         } else {
-            header("Location: /Views/modulo-confirmacion-agendamiento/profesional.html");
+            header("Location: /Views/modulo-confirmacion-agendamiento/profesional.php");
         }
         exit;
     } else {
