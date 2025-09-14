@@ -1,17 +1,23 @@
 <?php
-// Parámetros de conexión
-$host = "localhost";   // o la IP del servidor
-$usuario = "root";     // tu usuario de MySQL
-$clave = "";           // tu contraseña de MySQL
-$bd = "homeplus"; // nombre de la base de datos
+class Database
+{
+    public $conn;
 
-// Crear conexión
-$conn = new mysqli($host, $usuario, $clave, $bd);
+    public function __construct()
+    {
+        $host = "localhost";   // o la IP del servidor
+        $usuario = "root";     // tu usuario de MySQL
+        $clave = "";           // tu contraseña de MySQL
+        $bd = "homePlus"; // nombre de la base de datos
+        $puerto = 3307;
 
-// Verificar conexión
-if ($conn->connect_error) {
-    die("❌ Error de conexión: " . $conn->connect_error);
-} else {
-    echo "✅ Conexión exitosa a la base de datos";
+        // Crear conexión
+        $this->conn = new mysqli($host, $usuario, $clave, $bd, $puerto);
+
+        // Verificar conexión
+        if ($this->conn->connect_error) {
+            die("❌ Error de conexión: " . $this->conn->connect_error);
+        }
+        echo "✅ Conexión exitosa a la base de datos";
+    }
 }
-?>
