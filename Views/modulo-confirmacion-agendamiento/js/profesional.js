@@ -121,3 +121,74 @@ document.getElementById('modalSalir').addEventListener('click', function(e) {
       cerrarModal();
   }
 });
+
+
+let slideIndex = 1;
+showSlides(slideIndex);
+
+// Next/previous controls
+function plusSlides(n) {
+  showSlides(slideIndex += n);
+}
+
+// Thumbnail image controls
+function currentSlide(n) {
+  showSlides(slideIndex = n);
+}
+
+function showSlides(n) {
+  let i;
+  let slides = document.getElementsByClassName("mySlides");
+  let dots = document.getElementsByClassName("dot");
+  if (n > slides.length) {slideIndex = 1}
+  if (n < 1) {slideIndex = slides.length}
+  for (i = 0; i < slides.length; i++) {
+    slides[i].style.display = "none";
+  }
+  for (i = 0; i < dots.length; i++) {
+    dots[i].className = dots[i].className.replace(" active", "");
+  }
+  slides[slideIndex-1].style.display = "block";
+  dots[slideIndex-1].className += " active";
+}
+
+
+document.addEventListener("DOMContentLoaded", () => {
+  const menuBtn = document.querySelector(".filtro-menu-btn");
+  const opciones = document.querySelector(".filtros-opciones");
+  const botones = document.querySelectorAll(".filtro-btn");
+  const cards = document.querySelectorAll("#trabajos .card[data-estado]");
+
+  // Toggle menú en móvil
+  if (menuBtn) {
+    menuBtn.addEventListener("click", () => {
+      opciones.classList.toggle("show");
+      menuBtn.classList.toggle("active");
+    });
+  }
+
+  // Lógica de filtrado
+  botones.forEach(btn => {
+    btn.addEventListener("click", () => {
+      // Quitar active a todos y ponerlo al actual
+      botones.forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+
+      // Filtrado de tarjetas
+      const estado = btn.dataset.estado;
+      cards.forEach(card => {
+        if (estado === "todos" || card.dataset.estado === estado) {
+          card.style.display = "block";
+        } else {
+          card.style.display = "none";
+        }
+      });
+
+      // En móvil, cerrar menú después de elegir
+      if (window.innerWidth <= 768) {
+        opciones.classList.remove("show");
+        menuBtn.classList.remove("active");
+      }
+    });
+  });
+});

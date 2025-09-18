@@ -5,7 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/Views/modulo-confirmacion-agendamiento/css/profesional.css">
     <link rel="stylesheet" href="/Views/modulo-confirmacion-agendamiento/css/profesionalServiciosPublicados.css">
-
+    <link rel="stylesheet" href="/Views/modulo-confirmacion-agendamiento/css/profesionalNav.css">
+    <link rel="stylesheet" href="/Views/modulo-confirmacion-agendamiento/css/profesionalMainContent.css">
+    <link rel="stylesheet" href="/Views/modulo-confirmacion-agendamiento/css/profesionalDetallesServicio.css">
+    <link rel="stylesheet" href="/Views/modulo-confirmacion-agendamiento/css/profesionalPerfil.css">
+    <link rel="stylesheet" href="/Views/modulo-confirmacion-agendamiento/css/profesionalMisTrabajos.css">
     <link rel="icon" href="/Views/assets/Favicon/favicon-96x96.png">
     <title>Sistema de Gestión de Servicios</title>
 </head>
@@ -21,23 +25,25 @@
             <nav>
                 <a href="#" class="nav-item active" data-module="trabajos">
                     <span class="icon">🏠</span>
-                    <span>Trabajos Aceptados</span>
+                    <span>Mis Trabajos</span>
                 </a>
                 <a href="#" class="nav-item" data-module="servicios">
                     <span class="icon">🛠️</span>
                     <span>Servicios Publicados</span>
                 </a>
-                <a href="#" class="nav-item" data-module="perfil">
-                    <span class="icon">👤</span>
-                    <span>Perfil Profesional</span>
-                </a>
                 <a href="#" class="nav-item" data-module="detalles">
                     <span class="icon">📋</span>
-                    <span>Detalles de la Oferta</span>
+                    <span>Detalles del servicio</span>
                 </a>
+                
                 <a href="#" class="nav-item" data-module="agendamiento">
                     <span class="icon">📅</span>
                     <span>Ver Agendamiento</span>
+                </a>
+                
+                <a href="#" class="nav-item" data-module="perfil">
+                    <span class="icon">👤</span>
+                    <span>Perfil Profesional</span>
                 </a>
                 <!-- Botón de salir -->
                 <a href="#" class="nav-item nav-logout" onclick="confirmarSalida(event)">
@@ -49,11 +55,11 @@
 
         <!-- Main Content -->
         <div class="main-content">
-            <!-- Módulo: Trabajos Aceptados -->
+            <!-- Módulo: Mis Trabajos -->
             <div class="module active" id="trabajos">
                 <div class="module-header">
-                    <h1 class="module-title">Trabajos Aceptados</h1>
-                    <h1 class="module-subtitle">Gestiona todos tus trabajos actualmente aceptados</h1>
+                    <h1 class="module-title">Mis Trabajos</h1>
+                    <h1 class="module-subtitle">Gestiona todos tus trabajos actualmente </h1>
                 </div>
 
                 <!--Instancio el controlador -->
@@ -63,139 +69,171 @@
                 $trabajos = $dao->obtenerTrabajosAceptados();
                 ?>
 
-                <!--Hago un bucle para que haga las cartas en base de lo que hay en mysql y la consulta-->
-                <?php if(count($trabajos) > 0):?>
-                    <?php foreach ($trabajos as $row): ?>
-
-                <div class="card">
-                    <div class="trabajo-item">
-                        <div class="trabajo-info">
-                            <h3><?php echo htmlspecialchars ($row ['titulo_servicio']); ?></h3>
-                            <p><strong>Cliente:</strong> <?php echo htmlspecialchars($row ['Nombres'] . ' ' . $row['Apellidos']);?></p>
-                            <p><strong>Fecha:</strong> <?php echo date ('d/m/y', strtotime($row['fecha_preferida']));?></p>
-                            <p><strong>Urgencia:</strong> <?php echo ucfirst ($row ['urgencia']);?></p>
-                        </div>
-                        <div>
-                            <span class="status-badge status-aceptado"><?php echo htmlspecialchars($row ['estado']);?></span>
-                            <a class="btn-details" href="detalle-trabajo.php?id=<?php echo $row['id_solicitud']; ?>">Ver Detalles</a>
-                        </div>
+                <!-- Filtros de trabajos -->
+                <div class="filtros-trabajos">
+                    <!-- Botón visible SOLO en móvil -->
+                    <button class="filtro-menu-btn">Filtrar ▾</button>
+                
+                    <!-- Contenedor de opciones -->
+                    <div class="filtros-opciones">
+                        <button class="filtro-btn active" data-estado="todos">Todos</button>
+                        <button class="filtro-btn" data-estado="Aceptado">Aceptados</button>
+                        <button class="filtro-btn" data-estado="Pendiente">Pendientes</button>
+                        <button class="filtro-btn" data-estado="Cancelado">Cancelados</button>
+                        <button class="filtro-btn" data-estado="Negociado">Negociados</button>
+                        <button class="filtro-btn" data-estado="Agendado">Agendados</button>
                     </div>
                 </div>
-                <?php endforeach; ?>
-                    <?php else: ?>
-                <p class = "no-servicios">No tienes trabajos aceptados actualmente.</p>
+
+                <!-- Bucle de trabajos -->
+                <?php if(count($trabajos) > 0): ?>
+                    <?php foreach ($trabajos as $row): ?>
+                        <!-- Cada card lleva su estado en un data-atributo -->
+                        <div class="card" data-estado="<?php echo htmlspecialchars($row['estado']); ?>">
+                            <div class="trabajo-item">
+                                <div class="trabajo-info">
+                                    <h3><?php echo htmlspecialchars($row['titulo_servicio']); ?></h3>
+                                    <p><strong>Cliente:</strong> <?php echo htmlspecialchars($row['Nombres'] . ' ' . $row['Apellidos']); ?></p>
+                                    <p><strong>Fecha:</strong> <?php echo date('d/m/y', strtotime($row['fecha_preferida'])); ?></p>
+                                    <p><strong>Urgencia:</strong> <?php echo ucfirst($row['urgencia']); ?></p>
+                                </div>
+                                <div>
+                                    <span class="status-badge status-aceptado"><?php echo htmlspecialchars($row['estado']); ?></span>
+                                    <a class="btn-details" href="detalle-trabajo.php?id=<?php echo $row['id_solicitud']; ?>">Ver Detalles</a>
+                                </div>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <p class="no-servicios">No tienes trabajos actualmente.</p>
                 <?php endif; ?>
             </div>
 
-            <<!-- Módulo: Servicios Publicados -->
-<?php
-    require_once('../../Controllers/ServiciosPublicadosDao.php');
-    $dao = new ServiciosPublicadosDao();
-    $servicios = $dao->obtenerServiciosPublicados();
-?>
-<div class="module" id="servicios">
-    <div class="module-header">
-        <h1 class="module-title">Servicios Publicados</h1>
-        <h2 class="module-subtitle">Aquí podrás ver los Servicios Publicados</h2>
-    </div>
-
-    <?php if(count($servicios) > 0): ?>
-        <div class="servicios-grid">
-            <?php foreach($servicios as $row): ?>
-                <div class="servicio-card">
-
-                    <!-- Imagen principal -->
-                    <?php if (!empty($row['foto_principal'])): ?>
-                        <img src="<?php echo htmlspecialchars($row['foto_principal']); ?>" 
-                                alt="Imagen del servicio">
-                    <?php else: ?>
-                        <img src="/Views/assets/img/default-service.jpg" 
-                                alt="Imagen por defecto">
-                    <?php endif; ?>
-
-                    <!-- Información del servicio -->
-                    <div class="servicio-info">
-                        <h3 class="header-servicio"><?php echo htmlspecialchars($row['titulo_servicio']); ?></h3>
-                        <p><strong>Cliente:</strong> <?php echo htmlspecialchars($row['Nombres'].' '.$row['Apellidos']); ?></p>
-                        <p><strong>Dirección:</strong> <?php echo htmlspecialchars($row['direccion_servicio']); ?></p>
-                        <p><strong>Fecha:</strong> <?php echo date('d/m/Y', strtotime($row['fecha_preferida'])); ?></p>
-                        <p><strong>Hora:</strong> <?php echo htmlspecialchars($row['hora_preferida']); ?></p>
-                        <p><strong>Descripción:</strong> <?php echo htmlspecialchars($row['descripcion']); ?></p>
-                        <span class="status-badge"><?php echo htmlspecialchars($row['estado']); ?></span>
-                    </div>
-
-                    <!-- Botones -->
-                    <div class="servicio-botones">
-                        <a href="#"
-                            class="btn-accion"
-                            onclick="irDetalles(this)"
-                            data-cliente="<?php echo htmlspecialchars($row['Nombres'].' '.$row['Apellidos']); ?>"
-                            data-servicio="<?php echo htmlspecialchars($row['titulo_servicio']); ?>"
-                            data-estado="<?php echo htmlspecialchars($row['estado']); ?>"
-                            data-direccion="<?php echo htmlspecialchars($row['direccion_servicio']); ?>"
-                            data-fecha="<?php echo date('d/m/Y', strtotime($row['fecha_preferida'])); ?>"
-                            data-hora="<?php echo htmlspecialchars($row['hora_preferida']); ?>"
-                            data-urgencia="<?php echo htmlspecialchars($row['urgencia']); ?>">
-                            Ver Detalles
-                        </a>
-                    </div>
-
-                </div>
-            <?php endforeach; ?>
-        </div>
-    <?php else: ?>
-        <p class="no-servicios">No hay servicios publicados en este momento.</p>
-    <?php endif; ?>
-</div>
-
-            <!-- Módulo: Detalles del Servicio -->
-            <div class="module" id="detalles">
-                <div class="card module-header">
-                    <h1 class="module-title">Detalles del Servicio</h1>
-                    <h1 class="module-subtitle">Información completa del servicio seleccionado</h1>
+            <!-- Módulo: Servicios Publicados -->
+            <?php
+                require_once('../../Controllers/ServiciosPublicadosDao.php');
+                $dao = new ServiciosPublicadosDao();
+                $servicios = $dao->obtenerServiciosPublicados();
+            ?>
+            <div class="module" id="servicios">
+                <div class="module-header">
+                    <h1 class="module-title">Servicios Publicados</h1>
+                    <h2 class="module-subtitle">Aquí podrás ver los Servicios Publicados</h2>
                 </div>
 
-                <div class="card detalles-card">
-                    <div class="detalles-container">
+                <?php if(count($servicios) > 0): ?>
+                    <div class="servicios-grid">
+                        <?php foreach($servicios as $row): ?>
+                            <div class="servicio-card">
+                        
+                                <!-- Imagen principal -->
+                                <?php if (!empty($row['foto_principal'])): ?>
+                                    <img src="<?php echo htmlspecialchars($row['foto_principal']); ?>" 
+                                            alt="Imagen del servicio">
+                                <?php else: ?>
+                                    <img src="/Views/assets/imagenes-comunes/servicios/electricista.jpg" 
+                                            alt="Imagen por defecto">
+                                <?php endif; ?>
+                                
+                                <!-- Información del servicio -->
+                                <div class="servicio-info">
+                                    <h3 class="header-servicio"><?php echo htmlspecialchars($row['titulo_servicio']); ?></h3>
+                                    <p><?php echo htmlspecialchars($row['descripcion']); ?></p>
+                                    <strong class = "detalles-subinfo-precio">$55.000</strong>
+                                    <p><strong>Cliente:</strong> <?php echo htmlspecialchars($row['Nombres'].' '.$row['Apellidos']); ?></p>
+                                    <p><strong>Dirección:</strong> <?php echo htmlspecialchars($row['direccion_servicio']); ?></p>
+                                    <p><strong>Fecha:</strong> <?php echo date('d/m/Y', strtotime($row['fecha_preferida'])); ?></p>
+                                    <p><strong>Hora:</strong> <?php echo htmlspecialchars($row['hora_preferida']); ?></p>
+                                    
+                                    <span class="status-badge"><?php echo htmlspecialchars($row['estado']); ?></span>
+                                </div>
+                                
+                                <!-- Botones -->
+                                <div class="servicio-botones">
+                                    <a href="#"
+                                        class="btn-accion"
+                                        onclick="irDetalles(this)"
+                                        data-cliente="<?php echo htmlspecialchars($row['Nombres'].' '.$row['Apellidos']); ?>"
+                                        data-servicio="<?php echo htmlspecialchars($row['titulo_servicio']); ?>"
+                                        data-estado="<?php echo htmlspecialchars($row['estado']); ?>"
+                                        data-direccion="<?php echo htmlspecialchars($row['direccion_servicio']); ?>"
+                                        data-fecha="<?php echo date('d/m/Y', strtotime($row['fecha_preferida'])); ?>"
+                                        data-hora="<?php echo htmlspecialchars($row['hora_preferida']); ?>"
+                                        data-urgencia="<?php echo htmlspecialchars($row['urgencia']); ?>">
+                                        Ver Detalles
+                                    </a>
+                                </div>
+                            </div>
+                        <?php endforeach; ?>
+                    </div>
+                <?php else: ?>
+                    <p class="no-servicios">No hay servicios publicados en este momento.</p>
+                <?php endif; ?>
+            </div>
+
+                <!-- Módulo: Detalles del Servicio -->
+                <div class="module" id="detalles">
+                    <div class="card module-header">
+                        <h1 class="module-title">Detalles del Servicio</h1>
+                        <h1 class="module-subtitle">Información completa del servicio seleccionado</h1>
+                    </div>
+
+                    <!--Seccion columna izquierda -->
+                    <div class="card detalles-servicio-container">
+                        <!-- WRAPPER: slideshow + dots (1 solo hijo del grid) -->
+                        <div class="slideshow-wrapper">
+                            <div class="slideshow-container">
+                                <!-- Full-width images with number and caption text -->
+                                <div class="mySlides fade">
+                                    <div class="numbertext">1 / 3</div>
+                                    <img src="/Views/assets/imagenes-comunes/servicios/electricista.jpg" style="width:100%; border-radius:20px">
+                                </div>
+
+                                <div class="mySlides fade">
+                                    <div class="numbertext">2 / 3</div>
+                                    <img src="/Views/assets/imagenes-comunes/servicios/electricista.jpg" style="width:100%">
+                                </div>
+
+                                <div class="mySlides fade">
+                                    <div class="numbertext">3 / 3</div>
+                                    <img src="/Views/assets/imagenes-comunes/servicios/electricista.jpg" style="width:100%">
+                                </div>
+
+                                <!-- Next and previous buttons -->
+                                <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+                                <a class="next" onclick="plusSlides(1)">&#10095;</a>
+                            </div>
+                        </div>
+
                         <!-- Columna izquierda: info principal -->
                         <div class=" card detalles-info">
-
                             <!--Titulo y contenido -->
                             <div class="contenido-detalles-servicio">
                                 <!-- Título principal -->
-                                <h2 class="servicio-detalles" id="servicio-tipo">
-                                    Reparación de lavamanos
-                                </h2>
+                                <h2 class="servicio-detalles" id="servicio-tipo">Reparación de lavamanos</h2>
+                                <p id="detalle-descripcion" class = "detalle-descripcion">
+                                    Se rompió la válvula del lavamanos y está goteando.
+                                </p>
+                                <p class="info-detalle">Urgencia: <span>Alta</span></p>
+                            </div>
 
+                                <p><strong>Precio</strong></p>
                                 <!-- Subinfo: urgencia y estado -->
                                 <div class="detalles-subinfo">
-                                <p class="info-detalle">Urgencia: <span>Alta</span></p>
-                                </div>
-                            </div>
+                                    <p class = "detalles-subinfo-precio"><strong>$55.000</strong></p>  
                                 
-                            <p ><strong>Cliente:</strong> <span id="cliente-nombre">Samuel David Castillo Cuellar</span></p>
-                            <p> <strong>Descripción:</strong></p>
-                            <p id="detalle-descripcion">
-                                Se rompió la válvula del lavamanos y está goteando.
-                            </p>
-                            
-                            
-                            <p ><strong>Estado:</strong> 
-                                <span id="detalle-estado" class="status-badge status-pendiente">Pendiente</span>
-                            </p>
-                            <p ><strong>Fecha de la Solicitud:</strong> <span id="detalle-fecha">2025-09-18</span></p>
-                            <p "><strong>Hora de la Solicitud:</strong> <span id="detalle-hora">09:30 AM</span></p>
-                            
+                                    <p><strong>Cliente:</strong> <span id="cliente-nombre">Samuel David Castillo Cuellar</span></p>
+                                    <p><strong>Descripción:</strong> <span id="cliente-nombre">Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati dolor odio laboriosam tempore! Ad beatae eos porro adipisci! Esse voluptas, molestias eius quia amet eum eos repudiandae alias eaque quo.</span></p>
+                                    <p><strong>Direccion:</strong>Transversal 43D # 24 Sur</p>
+                                    <p><strong>Fecha programada:</strong> <span id="detalle-fecha">2025-09-18</span></p>
+                                    <p><strong>Hora:</strong> <span id="detalle-hora">09:30 AM</span></p>
+                                    <p><strong>Estado:</strong><span id="detalle-estado" class="status-badge status-pendiente">Disponible</span></p>
+                                    <div class = "botones-accion">
+                                        <a href="" class ="status-badge-negociar-agendar status-badge-beige">Ir a Negociar</a>
+                                        <a href="" class ="status-badge-negociar-agendar status-badge-negro">Agendar</a>
+                                    </div>
+                                </div>
                         </div>
-
-                        <!-- Columna derecha: imágenes -->
-                        <div class=" detalles-imagenes">
-                            <div class="imagenes-grid">
-                                <img id="detalle-imagen-1" src="/Views/assets/uploads/service-requests/foto1.jpg" alt="Imagen 1">
-                                <img id="detalle-imagen-2" src="/Views/assets/uploads/service-requests/foto2.jpg" alt="Imagen 2">
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
 
