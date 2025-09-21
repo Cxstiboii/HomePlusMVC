@@ -9,7 +9,7 @@
             $usuario = "root";     // tu usuario de MySQL
             $clave = "";           // tu contraseña de MySQL
             $bd = "homeplus"; // nombre de la base de datos
-            $puerto = 3306;
+            $puerto = 3307;
 
             // Crear conexión
             $this->conn = new mysqli($host, $usuario, $clave, $bd, $puerto);

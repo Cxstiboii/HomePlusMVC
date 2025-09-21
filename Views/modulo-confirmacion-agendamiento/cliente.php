@@ -115,11 +115,28 @@
                         <textarea class="form-control" rows="4" id="descripcion" placeholder="Describe detalladamente el problema o servicio que necesitas..." required></textarea>
                     </div>
 
+                    <div>
+                        <div class="form-group">
+                            <label class="form-label">Precio</label>
+                            <input
+                                type="number"
+                                class="form-control"
+                                id="precio"
+                                name="precio"
+                                placeholder="Precio dispuesto"
+                                step="0.01"
+                                min="0"
+                                required>
+                        </div>
+
+                    </div>
+
                     <div class="form-row">
                         <div class="form-group">
                             <label class="form-label">Fecha Preferida</label>
                             <input type="date" class="form-control" id="fecha-preferida">
                         </div>
+
 
                         <div class="form-group">
                             <label class="form-label">Hora Preferida</label>
@@ -195,6 +212,8 @@
                         formData.append("barrio", document.getElementById("barrio").value);
                         formData.append("referencias", document.getElementById("referencias").value);
                         formData.append("servicio", servicioSeleccionado);
+                        formData.append("precio", document.getElementById("precio").value);
+
 
                         // Subir fotos
                         let fotos = document.getElementById("fotos").files;
@@ -202,7 +221,7 @@
                             formData.append("fotos[]", fotos[i]);
                         }
 
-                        fetch("Controllers/nuevoServicioDao.php", {
+                        fetch("../../Controllers/nuevoServicioDao.php", {
                                 method: "POST",
                                 body: formData
                             })
@@ -269,6 +288,7 @@
                             <label class="form-label">Dirección Principal</label>
                             <input type="text" class="form-control" value="Calle 45 #12-34, Chapinero" id="direccion-principal">
                         </div>
+
 
                         <button class="btn btn-primary" onclick="actualizarPerfil()">Actualizar Perfil</button>
                     </div>
