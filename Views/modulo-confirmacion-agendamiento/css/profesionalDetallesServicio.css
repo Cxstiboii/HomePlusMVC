@@ -1,0 +1,198 @@
+:root {
+    --color-blanco: #FFFFFF;
+    --color-negro: #333333;
+    --color-beige: #CCB58E;
+    --color-gris: #C2C2C2;
+    --color-beige-hover: #B8A378;
+    --color-beige-light: #E8DFC9;
+}
+
+.detalles-servicio-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* dos columnas */
+    gap: 20px;
+    align-items: flex-start;
+}
+
+/* Aseguramos que cada hijo no se baje */
+.detalles-servicio-container > * {
+    width: 100%;
+    max-width: none; 
+    margin: 0;      
+}
+
+/* Responsivo: en pantallas menores a 1080px pasa a 1 columna */
+@media (max-width: 1080px) {
+    .detalles-servicio-container {
+        grid-template-columns: 1fr; 
+    }
+}
+
+/*Slides de las imagenes*/
+* {box-sizing:border-box}
+
+/* Slideshow container */
+.slideshow-container {
+    width: 100%;  /* ocupa todo el ancho de su celda */
+    position: relative;
+}
+/* Hide the images by default */
+.mySlides {
+    display: none;
+}
+
+/* Next & previous buttons */
+.prev, .next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    width: auto;
+    margin-top: -22px;
+    padding: 16px;
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    transition: 0.6s ease;
+    border-radius: 0 3px 3px 0;
+}
+
+/* Position the "next button" to the right */
+.next {
+    right: 0;
+    border-radius: 3px 0 0 3px;
+}
+
+/* On hover, add a black background color with a little bit see-through */
+.prev:hover, .next:hover {
+    background-color: rgba(0,0,0,0.8);
+}
+
+/* Caption text */
+.text {
+    color: #f2f2f2;
+    font-size: 15px;
+    padding: 8px 12px;
+    position: absolute;
+    bottom: 8px;
+    width: 100%;
+    text-align: center;
+}
+
+/* Number text (1/3 etc) */
+.numbertext {
+    color: #f2f2f2;
+    font-size: 12px;
+    padding: 8px 12px;
+    position: absolute;
+    top: 0;
+}
+
+/* The dots/bullets/indicators */
+.dot {
+    cursor: pointer;
+    height: 15px;
+    width: 15px;
+    margin: 0 2px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+    transition: background-color 0.6s ease;
+}
+
+/* Fading animation */
+.fade {
+    animation-name: fade;
+    animation-duration: 1.5s;
+}
+
+@keyframes fade {
+    from {opacity: .4}
+    to {opacity: 1}
+}
+.servicio-detalles {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #333;
+    padding-bottom: 0.2rem;
+
+}
+
+.info-detalle {
+    color: var(--color-negro);
+
+}
+
+.detalles-info .detalle-descripcion {
+    font-size:1rem;
+}
+
+.detalles-info p:nth-child(3) {
+    margin-bottom: 1rem;
+}
+
+
+.detalles-subinfo-precio{
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.detalles-subinfo {
+    display: flex;
+    flex-direction: column; /* apila en columna */
+    gap: 1rem; /* espacio entre los <p> */
+}
+
+.botones-accion{
+    display: flex;
+    gap: 1rem; /* espacio entre botones */
+    margin-top: 1rem;
+}
+
+.status-badge-negociar-agendar {
+    padding: 12px 20px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    flex: 1;                /* hace que ambos ocupen el mismo ancho */
+    text-align: center;
+    text-decoration: none;  /* sin subrayado */
+    transition: all 0.3s ease; /* animación suave */
+    min-width: 140px;  
+    flex: 1;  
+}
+
+
+/* Botón beige */
+.status-badge-beige {
+    background-color: var(--color-beige);
+    color: var(--color-negro); /* texto blanco para contraste */
+}
+
+.status-badge-beige:hover {
+    background-color: var(--color-beige-hover);
+    transform: translateY(-3px); /* animación ligera hacia arriba */
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+/* Botón negro */
+.status-badge-negro {
+    background-color: var(--color-negro);
+    color: var(--color-blanco); /* texto blanco para contraste */
+}
+.status-badge-negro:hover {
+    background-color: #000; /* aún más oscuro */
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+
+/**Responsive: en pantallas < 600px se apilan**/
+@media (max-width: 600px) {
+    .botones-accion {
+        flex-direction: column;
+    }
+
+    .status-badge-negociar-agendar {
+        width: 100%;  /* cada botón ocupa todo el ancho */
+    }
+}

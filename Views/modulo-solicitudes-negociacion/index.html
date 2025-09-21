@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Negociación | Home+</title>
+    <link rel="icon" href="/Views/assets/Favicon/favicon-96x96.png" type="image/x-icon">
+    <link rel="icon" href="homeplus-icon.png" type="image/png">
+    <link rel="stylesheet" href="/Views/modulo-solicitudes-negociacion/css/styles2.css">
+
+</head>
+<body>
+    <section class = "">
+    <nav class="navbar mx-20 ">
+        <div class="logo-container">
+            <img src="/Views/assets/img/Logo/Logo Home + Transparente.png" alt="Home+ Logo" class="logo-img">
+        </div>
+        <div class="request-info">
+            Solicitud #12345 • Limpieza profunda
+        </div>
+    </nav>
+    </section>
+    
+    <div class="container">
+        <div class="negotiation-flow">
+            <div class="flow-steps">
+                <div class="step completed">
+                    <span>1</span>
+                    <p>Creaste tu solicitud</p>
+                </div>
+                <div class="step completed">
+                    <span>2</span>
+                    <p>Profesionales postularon</p>
+                </div>
+                <div class="step active">
+                    <span>3</span>
+                    <p>Negociación y agendamiento</p>
+                </div>
+                <div class="step">
+                    <span>4</span>
+                    <p>Confirmación</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="negotiation-container">
+            <div class="professional-selected">
+                <div class="professional-header">
+                    <img src="/Views/assets/img/3. Solicitudes y Negociacion/maria.jpeg" alt="Profesional" class="professional-avatar">
+                    <div class="professional-info">
+                        <h2>María González</h2>
+                        <div class="professional-meta">
+                            <span class="rating">★★★★★ (24)</span>
+                            <span class="badge">Experta en limpieza profunda</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="proposal-details">
+                    <h3>Propuesta recibida:</h3>
+                    <ul class="proposal-features">
+                        <li>Limpieza profunda de toda la casa</li>
+                        <li>Productos ecológicos incluidos</li>
+                        <li>Duración estimada: 5 horas</li>
+                        <li>Incluye limpieza de ventanas</li>
+                    </ul>
+                    
+                    <div class="pricing-section">
+                        <div class="original-price">$180.000 COP</div>
+                        <div class="proposed-price">$150.000 COP</div>
+                        <span class="price-note">Precio especial por ser tu primera contratación</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="negotiation-form">
+                <h3>Finalizar contratación</h3>
+                
+                <form id="finalizeContract">
+                    <div class="form-section">
+                        <h4>Detalles del servicio</h4>
+                        <div class="form-group">
+                            <label for="serviceDate">Fecha del servicio</label>
+                            <input type="date" id="serviceDate" name="serviceDate" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="serviceTime">Hora de inicio</label>
+                            <select id="serviceTime" name="serviceTime" required>
+                                <option value="">Seleccionar hora</option>
+                                <option>8:00 AM</option>
+                                <option>9:00 AM</option>
+                                <option>10:00 AM</option>
+                                <option>1:00 PM</option>
+                                <option>2:00 PM</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-section">
+                        <h4>Método de pago</h4>
+                        <div class="payment-options">
+                            <label class="payment-option">
+                                <input type="radio" name="paymentMethod" value="creditCard" checked>
+                                <span>Tarjeta de crédito</span>
+                            </label>
+                            <label class="payment-option">
+                                <input type="radio" name="paymentMethod" value="debitCard">
+                                <span>Tarjeta débito</span>
+                            </label>
+                            <label class="payment-option">
+                                <input type="radio" name="paymentMethod" value="pse">
+                                <span>PSE</span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="form-section">
+                        <h4>¿Deseas proponer algún ajuste?</h4>
+                        <div class="form-group">
+                            <textarea id="negotiationNotes" name="negotiationNotes" rows="3" placeholder="Ej: ¿Podría venir media hora más temprano?"></textarea>
+                        </div>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <a href="/Views/modulo-servicios-publicados/index.html"><button type="button" class="btn btn-secondary">Volver atrás</button>
+                        </a>
+                            <button type="submit" class="btn btn-primary">Confirmar contratación</button>
+                        
+                    </div>
+                </form>
+            </div>
+            
+            <div class="chat-container">
+                <div class="chat-header">
+                    <h3>Chat con María</h3>
+                    <span class="online-status">En línea</span>
+                </div>
+                <div class="chat-messages">
+                    <div class="message professional">
+                        <div class="message-content">
+                            <p>¡Hola! Gracias por seleccionarme. He revisado tu solicitud y puedo ofrecerte un precio especial de $150.000. ¿Qué te parece?</p>
+                            <span class="message-time">10:15 AM</span>
+                        </div>
+                    </div>
+                    <div class="message client">
+                        <div class="message-content">
+                            <p>Hola María, me parece bien el precio. ¿Podrías venir el próximo miércoles?</p>
+                            <span class="message-time">10:20 AM</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="chat-input">
+                    <input type="text" placeholder="Escribe tu mensaje...">
+                    <button class="btn-send">Enviar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/Views/modulo-solicitudes-negociacion/js/script.js"></script>
+</body>
+</html>

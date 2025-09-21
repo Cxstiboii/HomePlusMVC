@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Home+ — Soluciones para tu hogar</title>
+
+  <!-- Tailwind (CDN rápido) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Palette config for Tailwind -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            homewhite: '#FFFFFF',
+            homenegro: '#1F1F1F',
+            homebeige: '#CCB58E',
+            homegris: '#C2C2C2'
+          },
+          boxShadow: {
+            'soft-lg': '0 12px 30px rgba(31,31,31,0.12)'
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Custom style -->
+  <link rel="stylesheet" href="Views/landing-page/a/style.css">
+
+  <!-- Favicon -->
+  <link rel="icon" href="Views/assets/Favicon/favicon-96x96.png">
+</head>
+<body class="bg-homewhite text-homenegro antialiased">
+
+  <!-- NAVBAR -->
+  <header class="fixed w-full z-50">
+    <div class="backdrop-blur-md bg-white/70 border-b border-[rgba(31,31,31,0.06)]">
+      <div class="max-w-7xl mx-auto px-6 md:px-12 lg:px-16 py-4 flex items-center justify-between">
+        <!-- Logo -->
+        <a href="#" class="flex items-center gap-3">
+          <img src="Views/assets/img/5. Landing Page/Logo Home + Transparente.png" alt="Home+ Logo"
+               class="h-10 w-auto object-contain" />
+        </a>
+
+        <!-- Desktop links -->
+        <nav class="hidden md:flex items-center gap-10">
+          <a href="#hero" class="text-sm font-medium hover:text-homebeige transition">Inicio</a>
+          <a href="#servicios" class="text-sm font-medium hover:text-homebeige transition">Servicios</a>
+          <a href="#galeria" class="text-sm font-medium hover:text-homebeige transition">Galería</a>
+          <a href="#testimonios" class="text-sm font-medium hover:text-homebeige transition">Testimonios</a>
+          <a href="#contacto" class="text-sm font-medium hover:text-homebeige transition">Contacto</a>
+        </nav>
+
+        <!-- Right actions -->
+        <div class="hidden md:flex items-center gap-3">
+          <a href="/Views/modulo-usuarios/HomePlusFull/index.php" class="text-sm px-4 py-1 border border-homebeige rounded-full hover:bg-homebeige hover:text-white transition">Log In</a>
+          <a href="/Views/modulo-usuarios/HomePlusRegistro/index.php" class="text-sm px-4 py-1 bg-homebeige text-homenegro rounded-full hover:bg-homenegro hover:text-white transition">Sign Up</a>
+        </div>
+
+        <!-- Mobile Hamburger -->
+        <button id="menu-btn" aria-label="Abrir menú" class="md:hidden p-2 rounded-lg focus:outline-none transition-transform duration-300">
+          <svg id="hamburger" class="w-7 h-7 text-homenegro" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"></path>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Mobile Menu -->
+      <div id="mobile-menu" class="hidden md:hidden border-t border-[rgba(31,31,31,0.06)]">
+        <div class="px-6 py-6 flex flex-col gap-4 bg-white/85 backdrop-blur-sm">
+          <a href="#hero" class="text-homenegro/90 hover:text-homebeige transition">Inicio</a>
+          <a href="#servicios" class="text-homenegro/90 hover:text-homebeige transition">Servicios</a>
+          <a href="#galeria" class="text-homenegro/90 hover:text-homebeige transition">Galería</a>
+          <a href="#testimonios" class="text-homenegro/90 hover:text-homebeige transition">Testimonios</a>
+          <div class="pt-2 flex gap-3">
+            <a href="/Views/modulo-usuarios/HomePlusFull/index.php" class="flex-1 text-center border border-homebeige rounded-full py-2 hover:bg-homebeige hover:text-white transition">Log In</a>
+            <a href="/Views/modulo-usuarios/HomePlusRegistro/index.php" class="flex-1 text-center bg-homebeige text-homenegro rounded-full py-2 hover:bg-homenegro hover:text-white transition">Sign Up</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN -->
+  <main class="pt-20">
+
+    <!-- HERO -->
+    <section id="hero" class="relative">
+      <div class="h-[72vh] md:h-[78vh] lg:h-[84vh] overflow-hidden relative">
+        <img src="Views/assets/img/5. Landing Page/plomeria-carousel.jpg" alt="Hero background"
+             class="w-full h-full object-cover brightness-[0.55]" />
+
+        <div class="absolute inset-0 bg-gradient-to-b from-transparent via-black/10 to-black/25"></div>
+
+        <div class="absolute inset-0 flex items-center justify-center px-6">
+          <!-- Caja cambiada: ahora negra sólida -->
+         <div class="max-w-4xl w-full bg-homenegro/70 rounded-2xl p-8 md:p-12 shadow-soft-lg transform transition duration-700 ease-in-out animate-appear">
+            <!-- Title -->
+            <div class="text-center mb-6">
+              <h1 class="text-4xl md:text-5xl font-extrabold text-white drop-shadow-md">
+                HomePlus
+              </h1>
+              <p class="mt-3 text-lg md:text-xl text-white/90 max-w-2xl mx-auto">
+                Conectamos clientes y profesionales para resolver las necesidades del hogar.
+              </p>
+            </div>
+
+            <!-- Toggle box -->
+            <div class="mx-auto max-w-2xl">
+              <div class="bg-white/90 rounded-xl p-1.5 shadow-md flex items-center justify-between">
+                <div id="toggle" class="relative w-full bg-transparent rounded-lg p-1 flex items-center">
+                  <div id="knob" class="absolute left-1 top-1 bottom-1 w-1/2 rounded-lg bg-homebeige shadow transition-transform duration-400"></div>
+                  <button id="opt-cliente" class="relative z-10 w-1/2 text-homenegro font-semibold py-3">Cliente</button>
+                  <button id="opt-profesional" class="relative z-10 w-1/2 text-homenegro/80 font-semibold py-3">Profesional</button>
+                </div>
+              </div>
+
+              <div class="mt-6 text-center text-base md:text-lg text-white/90">
+                <div id="clienteText" class="transition-all duration-400">
+                  <strong>Como Cliente:</strong> publica solicitudes con fotos, ubicación y detalles. Recibe ofertas de profesionales locales.
+                </div>
+                <div id="profesionalText" class="hidden transition-all duration-400">
+                  <strong>Como Profesional:</strong> busca solicitudes cerca a ti, envía propuestas y gestiona tus trabajos.
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-6 text-center text-xs text-white/80">
+              Solo presentación. Aquí se muestra información como Cliente y Profesional.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    </section>
+
+    <!-- SECCIÓN: Servicios destacados (manteniendo y ampliando contenidos) -->
+    <section id="servicios" class="py-16 bg-homewhite">
+      <div class="max-w-7xl mx-auto px-6 lg:px-12">
+        <h2 class="text-3xl md:text-4xl font-bold text-homenegro text-center mb-6">Servicios</h2>
+        <p class="text-center text-homegris max-w-3xl mx-auto mb-10">En HomePlus mostramos servicios con ejemplos visuales y descripciones. Aquí no se contrata — solo exhibición.</p>
+
+        <!-- grid de cards (limpio, no mosaico) -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          <!-- Card 1 -->
+          <article class="bg-homewhite rounded-2xl p-5 border border-[rgba(31,31,31,0.04)] shadow-sm hover:shadow-lg transition-transform transform hover:-translate-y-2">
+            <img src="Views/assets/imagenes-comunes/servicios/plomero.jpg" alt="Plomería" class="w-full h-44 object-cover rounded-xl mb-4">
+            <h3 class="text-xl font-semibold mb-2">Plomería</h3>
+            <p class="text-sm text-homegris mb-4">Reparación de fugas, instalación de accesorios y mantenimiento.</p>
+            <div class="text-xs text-homegris">Ej: tuberías, sifones, grifería.</div>
+          </article>
+
+          <!-- Card 2 -->
+          <article class="bg-homewhite rounded-2xl p-5 border border-[rgba(31,31,31,0.04)] shadow-sm hover:shadow-lg transition-transform transform hover:-translate-y-2">
+            <img src="Views/assets/imagenes-comunes/servicios/electricista.jpg" alt="Electricidad" class="w-full h-44 object-cover rounded-xl mb-4">
+            <h3 class="text-xl font-semibold mb-2">Electricidad</h3>
+            <p class="text-sm text-homegris mb-4">Instalaciones, arreglos y mantenimiento con seguridad certificada.</p>
+            <div class="text-xs text-homegris">Ej: enchufes, tableros, iluminación.</div>
+          </article>
+
+          <!-- Card 3 -->
+          <article class="bg-homewhite rounded-2xl p-5 border border-[rgba(31,31,31,0.04)] shadow-sm hover:shadow-lg transition-transform transform hover:-translate-y-2">
+            <img src="Views/assets/imagenes-comunes/servicios/albañil Servicio.jpg" alt="Albañilería" class="w-full h-44 object-cover rounded-xl mb-4">
+            <h3 class="text-xl font-semibold mb-2">Albañilería</h3>
+            <p class="text-sm text-homegris mb-4">Pequeñas y medianas obras, reparaciones y acabados.</p>
+            <div class="text-xs text-homegris">Ej: muros, revoques, acabados.</div>
+          </article>
+
+          <!-- Card 4 -->
+          <article class="bg-homewhite rounded-2xl p-5 border border-[rgba(31,31,31,0.04)] shadow-sm hover:shadow-lg transition-transform transform hover:-translate-y-2">
+            <img src="Views/assets/imagenes-comunes/servicios/mantenimiento de Electrodomesticos.jpg" alt="Mantenimiento" class="w-full h-44 object-cover rounded-xl mb-4">
+            <h3 class="text-xl font-semibold mb-2">Electrodomésticos</h3>
+            <p class="text-sm text-homegris mb-4">Revisión y reparación de lavadoras, neveras y otros electrodomésticos.</p>
+            <div class="text-xs text-homegris">Ej: diagnóstico, piezas, servicio técnico.</div>
+          </article>
+
+          <!-- Card 5 -->
+          <article class="bg-homewhite rounded-2xl p-5 border border-[rgba(31,31,31,0.04)] shadow-sm hover:shadow-lg transition-transform transform hover:-translate-y-2">
+            <img src="Views/assets/imagenes-comunes/servicios/Armado de Muebles.jpg" alt="Armado Muebles" class="w-full h-44 object-cover rounded-xl mb-4">
+            <h3 class="text-xl font-semibold mb-2">Armado de Muebles</h3>
+            <p class="text-sm text-homegris mb-4">Montaje y ensamblaje con herramientas y protocolos cuidados.</p>
+            <div class="text-xs text-homegris">Ej: cocinas, closets, muebles por módulos.</div>
+          </article>
+
+          <!-- Card 6 -->
+          <article class="bg-homewhite rounded-2xl p-5 border border-[rgba(31,31,31,0.04)] shadow-sm hover:shadow-lg transition-transform transform hover:-translate-y-2">
+            <img src="Views/assets/img/5. Landing Page/plomeria-carousel.jpg" alt="General" class="w-full h-44 object-cover rounded-xl mb-4">
+            <h3 class="text-xl font-semibold mb-2">Servicios Generales</h3>
+            <p class="text-sm text-homegris mb-4">Variedad de servicios locales para el hogar.</p>
+            <div class="text-xs text-homegris">Explora ejemplos visuales abajo.</div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- SHOWCASE GALLERY : Carrusel horizontal + light feel -->
+    <section id="galeria" class="py-16 bg-homewhite">
+      <div class="max-w-7xl mx-auto px-6 lg:px-12">
+        <h2 class="text-3xl font-bold text-homenegro text-center mb-6">Galería</h2>
+        <p class="text-center text-homegris max-w-2xl mx-auto mb-8">Imágenes representativas de trabajos y servicios. Desliza para ver más.</p>
+
+        <!-- carousel wrapper -->
+        <div class="relative">
+          <!-- arrows -->
+          <button id="prev" aria-label="Anterior" class="hidden md:flex items-center justify-center absolute left-0 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-homewhite shadow-md hover:bg-homebeige transition">
+            ‹
+          </button>
+          <button id="next" aria-label="Siguiente" class="hidden md:flex items-center justify-center absolute right-0 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-homewhite shadow-md hover:bg-homebeige transition">
+            ›
+          </button>
+
+          <!-- horizontal scroll container -->
+          <div id="showcase" class="flex gap-6 overflow-x-auto no-scrollbar snap-x snap-mandatory py-4">
+            <!-- Each card wide, consistent -->
+            <figure class="min-w-[300px] md:min-w-[420px] lg:min-w-[520px] snap-start rounded-2xl overflow-hidden bg-homewhite shadow-soft-lg">
+              <img src="Views/assets/imagenes-comunes/servicios/Armado de Muebles.jpg" alt="Armado de Muebles" class="w-full h-64 md:h-80 object-cover">
+              <figcaption class="p-4">
+                <h3 class="font-semibold text-homenegro">Armado de Muebles</h3>
+                <p class="text-sm text-homegris mt-1">Montajes limpios y organizados para tu vivienda.</p>
+              </figcaption>
+            </figure>
+
+            <figure class="min-w-[300px] md:min-w-[420px] lg:min-w-[520px] snap-start rounded-2xl overflow-hidden bg-homewhite shadow-soft-lg">
+              <img src="Views/assets/imagenes-comunes/servicios/plomero.jpg" alt="Plomería" class="w-full h-64 md:h-80 object-cover">
+              <figcaption class="p-4">
+                <h3 class="font-semibold text-homenegro">Plomería</h3>
+                <p class="text-sm text-homegris mt-1">Reparaciones rápidas y ajustes profesionales.</p>
+              </figcaption>
+            </figure>
+
+            <figure class="min-w-[300px] md:min-w-[420px] lg:min-w-[520px] snap-start rounded-2xl overflow-hidden bg-homewhite shadow-soft-lg">
+              <img src="Views/assets/imagenes-comunes/servicios/electricista.jpg" alt="Electricidad" class="w-full h-64 md:h-80 object-cover">
+              <figcaption class="p-4">
+                <h3 class="font-semibold text-homenegro">Electricidad</h3>
+                <p class="text-sm text-homegris mt-1">Instalaciones seguras y limpias.</p>
+              </figcaption>
+            </figure>
+
+            <figure class="min-w-[300px] md:min-w-[420px] lg:min-w-[520px] snap-start rounded-2xl overflow-hidden bg-homewhite shadow-soft-lg">
+              <img src="Views/assets/imagenes-comunes/servicios/mantenimiento de Electrodomesticos.jpg" alt="Mantenimiento" class="w-full h-64 md:h-80 object-cover">
+              <figcaption class="p-4">
+                <h3 class="font-semibold text-homenegro">Electrodomésticos</h3>
+                <p class="text-sm text-homegris mt-1">Diagnóstico y arreglos de equipos domésticos.</p>
+              </figcaption>
+            </figure>
+
+            <figure class="min-w-[300px] md:min-w-[420px] lg:min-w-[520px] snap-start rounded-2xl overflow-hidden bg-homewhite shadow-soft-lg">
+              <img src="Views/assets/imagenes-comunes/servicios/albañil Servicio.jpg" alt="Albañilería" class="w-full h-64 md:h-80 object-cover">
+              <figcaption class="p-4">
+                <h3 class="font-semibold text-homenegro">Albañilería</h3>
+                <p class="text-sm text-homegris mt-1">Pequeñas reformas y obras.</p>
+              </figcaption>
+            </figure>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TESTIMONIOS -->
+    <section id="testimonios" class="py-16 bg-homegris/10">
+      <div class="max-w-6xl mx-auto px-6 text-center">
+        <h2 class="text-3xl font-bold text-homenegro mb-6">Testimonios</h2>
+        <p class="text-homegris mb-8 max-w-2xl mx-auto">Comentarios reales de usuarios y profesionales.</p>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <blockquote class="bg-homewhite rounded-2xl p-6 shadow-sm">
+            <p class="text-homegris">"Muy buen servicio, el profesional fue puntual y muy amable."</p>
+            <footer class="mt-4 text-xs text-homegris/80">— María R.</footer>
+          </blockquote>
+
+          <blockquote class="bg-homewhite rounded-2xl p-6 shadow-sm">
+            <p class="text-homegris">"La comunicación fue clara y quedé muy satisfecha con el trabajo."</p>
+            <footer class="mt-4 text-xs text-homegris/80">— Jorge S.</footer>
+          </blockquote>
+
+          <blockquote class="bg-homewhite rounded-2xl p-6 shadow-sm">
+            <p class="text-homegris">"Plataforma fácil de usar y profesionales responsables."</p>
+            <footer class="mt-4 text-xs text-homegris/80">— Ana P.</footer>
+          </blockquote>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROMO / BANNER -->
+    <section class="py-12">
+      <div class="max-w-5xl mx-auto px-6 text-center">
+        <div class="rounded-2xl p-6 bg-homewhite border border-homegris shadow-soft-lg">
+          <div class="text-homenegro font-bold text-xl">30% OFF</div>
+          <p class="text-homegris">En tu primer servicio con <strong>Home+</strong></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACTO / FOOTER -->
+    <section id="contacto" class="py-10 bg-homewhite">
+      <div class="max-w-7xl mx-auto px-6 lg:px-12">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-start">
+          <div>
+            <img src="Views/assets/img/5. Landing Page/Logo Home + Transparente.png" alt="logo" class="h-12 mb-3">
+            <p class="text-sm text-homegris">Tu solución en servicios para el hogar.</p>
+          </div>
+
+          <div>
+            <h4 class="font-semibold mb-2">Enlaces</h4>
+            <ul class="text-sm text-homegris space-y-2">
+              <li><a href="#servicios" class="hover:text-homebeige transition">Servicios</a></li>
+              <li><a href="#galeria" class="hover:text-homebeige transition">Galería</a></li>
+              <li><a href="#contacto" class="hover:text-homebeige transition">Contáctanos</a></li>
+              <li><a href="#testimonios" class="hover:text-homebeige transition">Testimonios</a></li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 class="font-semibold mb-2">Contacto</h4>
+            <ul class="text-sm text-homegris space-y-1">
+              <li>Email: home-plus@gmail.com</li>
+              <li>Tel: +57 310 870 6800</li>
+              <li>Horario: Lun - Vie / 8:00am - 6:00pm</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="mt-8 border-t border-homegris pt-6 text-center text-xs text-homegris">
+          © 2025 Home+. Todos los derechos reservados.
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- SCRIPT: ruta pedida -->
+  <script src="Views/landing-page/a/script.js" defer></script>
+</body>
+</html>

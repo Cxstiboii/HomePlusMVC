@@ -1,0 +1,94 @@
+/* Servicios Publicados */
+.servicios-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.5rem;
+    padding: 1.5rem;
+}
+
+.servicio-card {
+    background-color: #FAFAFA;
+    border: 1px solid #C2C2C2;
+    border-radius: 14px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.servicio-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+}
+
+.servicio-card img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-bottom: 1px solid #C2C2C2;
+}
+
+.servicio-info {
+    padding: 1.2rem 1.5rem;
+    flex: 1;
+}
+
+.servicio-info h3 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #1F1F1F;
+    padding-bottom: 1rem;
+}
+
+
+.servicio-info p {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+    color: #1F1F1F;
+}
+
+.servicio-info span {
+    font-size: 0.8rem;
+    margin-bottom: 0.5rem;
+    background-color: var(--color-beige);
+}
+
+.servicio-botones {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    padding: 1rem;
+    border-top: 1px solid #E0E0E0;
+    background-color:#FFF ;
+
+}
+
+.btn-accion {
+    background:var(--color-beige);
+    color: #1F1F1F;
+    border-radius: 20px;
+    padding: 8px 16px;
+    margin-bottom: 10px;
+    width: 120px;
+    text-align: center;
+    text-decoration: none;
+    transition: all 0.3s ease; /* animación suave */
+}
+
+.btn-accion:hover {
+    background-color: var(--color-beige-hover);
+    transform: translateY(-3px); /* animación ligera hacia arriba */
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.btn-secundario {
+    background-color: #C2C2C2;
+    color: #1F1F1F;
+}
+
+.btn-secundario:hover {
+    background-color: #a6a6a6;
+}
+

@@ -1,0 +1,72 @@
+/* Paleta Home+ (variables) */
+:root{
+  --blanco: #FFFFFF;
+  --negro: #1F1F1F;
+  --beige: #CCB58E;
+  --gris: #C2C2C2;
+  --glass-border: rgba(31,31,31,0.06);
+}
+
+/* reset básico (Tailwind ya gestiona, aquí solo ajustes) */
+html,body{height:100%}
+.no-scrollbar::-webkit-scrollbar{display:none}
+.no-scrollbar{-ms-overflow-style:none;scrollbar-width:none}
+
+/* animation helpers */
+@keyframes appear { from {opacity:0; transform: translateY(10px)} to {opacity:1; transform: translateY(0)} }
+.animate-appear { animation: appear 700ms cubic-bezier(.2,.9,.3,1) both; }
+
+@keyframes knob-slide-left { from { transform: translateX(0)} to { transform: translateX(0) } }
+@keyframes knob-slide-right { from { transform: translateX(0)} to { transform: translateX(100%)} }
+
+/* Soft shadow used in layout */
+.shadow-soft-lg { box-shadow: 0 12px 30px rgba(31,31,31,0.08); }
+
+/* Glass card styling override for hero central card */
+.hero-card {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.06);
+  backdrop-filter: blur(8px);
+}
+
+/* Toggle knob animations */
+#toggle { position: relative; display:flex; gap:0; align-items:center; }
+#knob {
+  left: 6px; top:6px; bottom:6px;
+  position:absolute;
+  width: calc(50% - 12px);
+  border-radius: 10px;
+  background: var(--beige);
+  transition: transform 420ms cubic-bezier(.2,.9,.3,1), width 200ms;
+  box-shadow: 0 6px 20px rgba(204,181,142,0.18);
+}
+
+/* When professional active, move knob to right */
+.knob-right { transform: translateX(calc(100%)); }
+
+/* Buttons inside toggle */
+#opt-cliente, #opt-profesional {
+  width: 50%;
+  padding: 12px 8px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 0.95rem;
+}
+
+/* subtle hover on toggle options */
+#opt-cliente:hover, #opt-profesional:hover { color: var(--homenegro, #1F1F1F); }
+
+/* showcase scrollbar tweaks */
+#showcase { scroll-behavior: smooth; }
+#showcase::-webkit-scrollbar { height: 8px }
+#showcase::-webkit-scrollbar-thumb { background: rgba(31,31,31,0.12); border-radius: 999px }
+
+/* Card hover lift */
+article:hover { transform: translateY(-6px); transition: transform 300ms ease; }
+
+/* Responsive tweaks for hero card sizes */
+@media (max-width: 640px) {
+  .hero-card { padding: 18px !important; }
+  #knob { left: 4px; width: calc(50% - 8px); }
+}

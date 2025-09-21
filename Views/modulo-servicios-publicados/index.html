@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Servicios - Home+</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="/Views/modulo-servicios-publicados/css/sevicios-publicados.css">
+    <link rel="icon" href="/Views/assets/Favicon/favicon-96x96.png">
+</head>
+<body class="bg-white text-gray-900 font-sans">
+    <header class="relative flex justify-between items-center px-6 py-4 lg:px-12 bg-white/60 backdrop-blur-md backdrop-saturate-150 shadow-lg sticky top-0 z-50 border-b border-[var(--gris)]">
+    <div class="flex items-center">
+        <img src="/Views/assets/img/Logo/Logo Home + Transparente.png" alt="HomePlus Logo" class="h-14 w-auto object-contain lg:h-16" />
+    </div>
+    
+    <!-- Navegación desktop -->
+    <!-- Botones desktop -->
+        <div class="sidebar">
+    <div class="hidden md:flex items-center space-x-4">
+        <!-- Versión desktop -->
+        <button class="btn-salir px-4 py-2 rounded-lg font-medium">Salir</button>
+
+        </div>
+    </div>
+    
+    <!-- Botón menú móvil -->
+    <div class="md:hidden">
+        <button id="menu-btn" class="focus:outline-none">
+            <svg class="w-8 h-8 text-[var(--negro)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+            </svg>
+        </button>
+    </div>
+    
+    <!-- Menú móvil -->
+    <div id="mobile-menu" class="mobile-menu md:hidden">
+        <div class="px-6 py-4 space-y-3">
+        <a href="#servicios" class="block text-[var(--negro)] font-medium hover:text-[var(--beige)] transition-colors">Servicios</a>
+        <a href="#profesionales" class="block text-[var(--negro)] font-medium hover:text-[var(--beige)] transition-colors">Profesionales</a>
+        <a href="#contacto" class="block text-[var(--negro)] font-medium hover:text-[var(--beige)] transition-colors">Contacto</a>
+        <div class="pt-3 border-t border-[var(--gris)] space-y-2">
+            <button class="btn-header w-full px-4 py-2 rounded-lg font-medium">Perfil</button>
+            <button class="btn-salir w-full px-4 py-2 rounded-lg font-medium">Salir</button>
+        </div>
+    </div>
+    </div>
+    </header>
+
+    <main class="p-6">
+        <h2 class="titulo-decorado">Servicios Publicados</h2>
+        <section class="grid gap-6 md:grid-cols-2 lg:grid-cols-2">
+        <div class="bg-[#fafafa] border border-[#E2E2E2] rounded-xl p-6 shadow-sm servicio-card">
+            <h3 class="text-xl font-semibold">Reparación de tubería</h3>
+            <p><strong>Dirección:</strong> Calle 123 #45-67, Bogotá</p>
+            <p><strong>Fecha:</strong> 20/06/2025</p>
+            <p><strong>Hora:</strong> 10:00 AM</p>
+            <p><strong>Descripción:</strong> Fuga en el baño principal, se necesita plomero urgente.</p>
+            <button class="btn-detalles mt-4 px-4 py-2 rounded" onclick="mostrarDetalle(this)" data-imagenes="/assets/img/2. Servicios-Publicados/reparaciontub1.jpg,/assets/img/2. Servicios-Publicados/reparaciontub2.jpg">Ver detalles</button>
+        </div>
+        <div class="bg-[#fafafa] border border-[#E2E2E2] rounded-xl p-6 shadow-sm servicio-card">
+            <h3 class="text-xl font-semibold">Limpieza de apartamento</h3>
+            <p><strong>Dirección:</strong> Carrera 30 #50-20, Bogota</p>
+            <p><strong>Fecha:</strong> 21/06/2025</p>
+            <p><strong>Hora:</strong> 2:00 PM</p>
+            <p><strong>Descripción:</strong> Limpieza completa antes de mudanza, incluye cocina y baños.</p>
+            <button class="btn-detalles mt-4 px-4 py-2 rounded" onclick="mostrarDetalle(this)" data-imagenes="/assets/img/2. Servicios-Publicados/limpieza1.jpg,/assets/img/2. Servicios-Publicados/limpieza2.jpg">Ver detalles</button>
+        </div>
+        <div class="bg-[#fafafa] border border-[#E2E2E2] rounded-xl p-6 shadow-sm servicio-card">
+            <h3 class="text-xl font-semibold">Instalación de aire acondicionado</h3>
+            <p><strong>Dirección:</strong> Calle 50 #70-25, Bogota</p>
+            <p><strong>Fecha:</strong> 22/06/2025</p>
+            <p><strong>Hora:</strong> 9:00 AM</p>
+            <p><strong>Descripción:</strong> Instalar unidad tipo split, cables ya están listos.</p>
+            <button class="btn-detalles mt-4 px-4 py-2 rounded" onclick="mostrarDetalle(this)" data-imagenes="/assets/img/2. Servicios-Publicados/aire1.jpg,/assets/img/2. Servicios-Publicados/aire2.jpg">Ver detalles</button>
+        </div>
+        <div class="bg-[#fafafa] border border-[#E2E2E2] rounded-xl p-6 shadow-sm servicio-card">
+            <h3 class="text-xl font-semibold">Revisión de instalación eléctrica</h3>
+            <p><strong>Dirección:</strong> Calle 80 #32-15, Bogota</p>
+            <p><strong>Fecha:</strong> 23/06/2025</p>
+            <p><strong>Hora:</strong> 11:00 AM</p>
+            <p><strong>Descripción:</strong> Cortos en el sistema de iluminación, se necesita revisión general.</p>
+            <button class="btn-detalles mt-4 px-4 py-2 rounded" onclick="mostrarDetalle(this)" data-imagenes="/assets/img/2. Servicios-Publicados/electrico1.jpg,/assets/img/2. Servicios-Publicados/electrico2.jpg">Ver detalles</button>
+        </div>
+        </section>
+    </main>
+
+    <div id="detalleModal" class="detalle-overlay">
+    <div class="detalle-box relative">
+        <button class="absolute top-3 right-3 btn-cerrar px-3 py-1 rounded" onclick="cerrarDetalle()">X</button>
+        <h3 class="text-2xl font-extrabold mb-4 text-center text-[var(--negro)]">Detalles del servicio</h3>
+        <p><strong>Tipo:</strong> <span id="detalle-tipo"></span></p>
+        <p><strong>Dirección:</strong> <span id="detalle-direccion"></span></p>
+        <p><strong>Fecha:</strong> <span id="detalle-fecha"></span></p>
+        <p><strong>Hora:</strong> <span id="detalle-hora"></span></p>
+        <p><strong>Descripción:</strong> <span id="detalle-descripcion"></span></p>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4" id="detalle-imagenes"></div>
+        <div class="mt-6 flex justify-end space-x-3">
+        <div class="mt-6 flex justify-end space-x-3">
+            <button class="btn-negociar px-4 py-2 rounded" onclick="redirigirANegociacion()">Negociar</button>
+            <button class="btn-tomar-servicio px-4 py-2 rounded" onclick="redirigirAConfirmacion()">Tomar servicio</button>
+            </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="bg-[#d9d9d9]/60 border-t border-[var(--beige)] text-black mt-16">
+    <div class="max-w-7xl mx-auto px-6 py-6 grid grid-cols-1 md:grid-cols-3 gap-10 text-center md:text-left">
+      <div>
+        <img src="/Views/assets/img/Logo/Logo Home + Transparente.png" alt="LogoHome+.png" class="w-32 mx-auto md:mx-0 mb-3">
+        <p class="text-sm">Tu solución en servicios para el hogar.</p>
+      </div>
+      <div>
+        <h3 class="text-lg font-semibold mb-4">Enlaces</h3>
+        <ul class="space-y-2">
+          <li><a href="#servicios" class="hover:text-[var(--beige)] transition">Servicios</a></li>
+          <li><a href="#profesionales" class="hover:text-[var(--beige)] transition">Profesionales</a></li>
+          <li><a href="#contacto" class="hover:text-[var(--beige)] transition">Contáctanos</a></li>
+          <li><a href="#faq" class="hover:text-[var(--beige)] transition">Preguntas frecuentes</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="text-lg font-semibold mb-4">Contáctanos</h3>
+        <ul class="space-y-2 text-sm">
+          <li>Email: home-plus@gmail.com</li>
+          <li>Tel: +57 310 870 6800</li>
+          <li>Horario: Lun - Vie / 8:00am - 6:00pm</li>
+        </ul>
+      </div>
+    </div>
+    <div class="border-t border-[var(--beige)] mt-4 py-3 text-center text-xs text-gray-600">
+      &copy; 2025 Home+. Todos los derechos reservados.
+    </div>
+  </footer>
+
+
+  <script src="/Views/modulo-servicios-publicados/js/script.js"></script>
+</body>
+</html>

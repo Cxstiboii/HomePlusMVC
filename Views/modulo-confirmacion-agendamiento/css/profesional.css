@@ -1,0 +1,34 @@
+:root {
+    --color-blanco: #FFFFFF;
+    --color-negro: #333333;
+    --color-beige: #CCB58E;
+    --color-gris: #C2C2C2;
+    --color-beige-hover: #B8A378;
+    --color-beige-light: #E8DFC9;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+@font-face {
+    font-family: 'MadaniArabic';
+    src: url('../fonts/MadaniArabicDEMO-Black.otf') format('opentype');
+}
+
+body {
+    font-family: 'MadaniArabic', sans-serif;
+    background-color: var(--color-blanco);
+    color: var(--color-negro);
+}
+
+.container {
+    display: flex;
+    min-height: 100vh;
+}
+
+
+
+

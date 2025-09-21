@@ -1,0 +1,483 @@
+:root {
+    --white: #FFFFFF;
+    --black: #1F1F1F;
+    --beige: #CCB58E;
+    --gray: #C2C2C2;
+    --light-beige: #F5F0E6;
+    --dark-beige: #B8A57B;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    color: var(--black);
+    background-color: var(--white);
+}
+
+.navbar {
+    background-color: var(--black);
+    color: var(--white);
+    padding: 2rem 5rem ;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid var(--beige);
+    position: relative;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo-img {
+    height: 30px;
+    width: auto;
+}
+
+.logo-text {
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+.request-info {
+    font-size: 0.9rem;
+    color: var(--beige);
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.dropdown-menu {
+    position: relative;
+    display: inline-block;
+    margin-left: auto;
+}
+
+.dropdown-btn {
+    background-color: transparent;
+    color: var(--white);
+    border: none;
+    cursor: pointer;
+    font-size: 1.5rem;
+    padding: 0.5rem 1rem;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    background-color: var(--white);
+    min-width: 200px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1000;
+    border-radius: 4px;
+    flex-direction: column;
+}
+
+.dropdown-menu:hover .dropdown-content {
+    display: flex;
+}
+
+.dropdown-content a {
+    color: var(--black);
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    font-size: 0.9rem;
+}
+
+.dropdown-content a:hover {
+    background-color: var(--light-beige);
+}
+
+.dropdown-content a i {
+    margin-right: 8px;
+    width: 20px;
+    text-align: center;
+}
+
+.menu-divider {
+    height: 1px;
+    background-color: var(--gray);
+    margin: 8px 0;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+.negotiation-flow {
+    margin-bottom: 2rem;
+}
+
+.flow-steps {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+}
+
+.flow-steps::before {
+    content: '';
+    position: absolute;
+    top: 15px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background-color: var(--gray);
+    z-index: 1;
+}
+
+.step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+}
+
+.step span {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: var(--gray);
+    color: var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 0.5rem;
+}
+
+.step.completed span {
+    background-color: var(--beige);
+}
+
+.step.active span {
+    background-color: var(--black);
+    border: 2px solid var(--beige);
+}
+
+.step p {
+    margin: 0;
+    font-size: 0.8rem;
+    text-align: center;
+    color: var(--gray);
+}
+
+.step.completed p,
+.step.active p {
+    color: var(--black);
+}
+
+.negotiation-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+}
+
+.professional-selected {
+    grid-column: 1;
+    background-color: var(--white);
+    border: 1px solid var(--gray);
+    border-radius: 8px;
+    padding: 1.5rem;
+}
+
+.professional-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.professional-avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--beige);
+}
+
+.professional-info h2 {
+    margin: 0;
+    font-size: 1.3rem;
+}
+
+.professional-meta {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 0.5rem;
+}
+
+.rating {
+    color: var(--beige);
+    font-weight: bold;
+}
+
+.badge {
+    background-color: var(--light-beige);
+    color: var(--dark-beige);
+    padding: 0.3rem 0.6rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+}
+
+.proposal-details h3 {
+    margin-top: 0;
+    border-bottom: 1px solid var(--gray);
+    padding-bottom: 0.5rem;
+}
+
+.proposal-features {
+    list-style-type: none;
+    padding: 0;
+}
+
+.proposal-features li {
+    padding: 0.5rem 0;
+    border-bottom: 1px dashed var(--gray);
+}
+
+.proposal-features li:last-child {
+    border-bottom: none;
+}
+
+.pricing-section {
+    margin-top: 1.5rem;
+    background-color: var(--light-beige);
+    padding: 1rem;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.original-price {
+    text-decoration: line-through;
+    color: var(--gray);
+}
+
+.proposed-price {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--black);
+    margin: 0.5rem 0;
+}
+
+.price-note {
+    font-size: 0.8rem;
+    color: var(--dark-beige);
+}
+
+.negotiation-form {
+    grid-column: 2;
+    background-color: var(--white);
+    border: 1px solid var(--gray);
+    border-radius: 8px;
+    padding: 1.5rem;
+}
+
+.negotiation-form h3 {
+    margin-top: 0;
+    border-bottom: 1px solid var(--gray);
+    padding-bottom: 0.5rem;
+}
+
+.form-section {
+    margin-bottom: 1.5rem;
+}
+
+.form-section h4 {
+    margin-bottom: 1rem;
+    color: var(--dark-beige);
+}
+
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid var(--gray);
+    border-radius: 4px;
+    font-family: inherit;
+}
+
+.payment-options {
+    display: flex;
+    gap: 1rem;
+}
+
+.payment-option {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.8rem;
+    border: 1px solid var(--gray);
+    border-radius: 4px;
+    flex: 1;
+    cursor: pointer;
+}
+
+.payment-option input {
+    margin: 0;
+}
+
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.btn {
+    padding: 0.8rem 1.5rem;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+    border: none;
+}
+
+.btn-secondary {
+    background-color: var(--white);
+    color: var(--black);
+    border: 1px solid var(--gray) !important;
+}
+
+.btn-primary {
+    background-color: var(--beige);
+    color: var(--black);
+}
+
+.btn-primary:hover {
+    background-color: var(--dark-beige);
+}
+
+.chat-container {
+    grid-column: 1 / span 2;
+    margin-top: 1rem;
+    background-color: var(--white);
+    border: 1px solid var(--gray);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.chat-header {
+    padding: 1rem;
+    border-bottom: 1px solid var(--gray);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.chat-header h3 {
+    margin: 0;
+}
+
+.online-status {
+    color: #4CAF50;
+    font-size: 0.8rem;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+.online-status::before {
+    content: '';
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: #4CAF50;
+}
+
+.chat-messages {
+    padding: 1rem;
+    height: 300px;
+    overflow-y: auto;
+    background-color: #f9f9f9;
+}
+
+.message {
+    margin-bottom: 1rem;
+    display: flex;
+}
+
+.message.client {
+    justify-content: flex-end;
+}
+
+.message.professional {
+    justify-content: flex-start;
+}
+
+.message-content {
+    max-width: 70%;
+    padding: 0.8rem 1rem;
+    border-radius: 8px;
+    position: relative;
+}
+
+.message.professional .message-content {
+    background-color: var(--white);
+    border: 1px solid var(--gray);
+}
+
+.message.client .message-content {
+    background-color: var(--beige);
+    color: var(--black);
+}
+
+.message-time {
+    display: block;
+    font-size: 0.7rem;
+    color: var(--gray);
+    margin-top: 0.3rem;
+    text-align: right;
+}
+
+.chat-input {
+    display: flex;
+    padding: 1rem;
+    border-top: 1px solid var(--gray);
+}
+
+.chat-input input {
+    flex-grow: 1;
+    padding: 0.8rem;
+    border: 1px solid var(--gray);
+    border-radius: 4px 0 0 4px;
+    border-right: none;
+}
+
+.btn-send {
+    background-color: var(--beige);
+    color: var(--black);
+    border: none;
+    padding: 0 1.5rem;
+    border-radius: 0 4px 4px 0;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+input[type="date"] {
+    min-height: 38px;
+}
