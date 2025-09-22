@@ -30,7 +30,7 @@ class ServiciosPublicadosDao{
             JOIN cliente c ON s.id_cliente = c.id_cliente
             JOIN usuario u ON c.id_cliente = u.id_Usuario
             LEFT JOIN evidencias e ON e.id_solicitud = s.id_solicitud
-            WHERE s.estado = 'Pendiente'
+            WHERE s.estado = 'Publicado'
             GROUP BY s.id_solicitud
             ORDER BY s.fecha_solicitud DESC
         ";

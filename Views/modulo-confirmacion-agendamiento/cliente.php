@@ -298,33 +298,37 @@
                 <div class="module" id="historial">
                     <div class="module-header">
                         <h1 class="module-title">Historial de Servicios</h1>
-                        <p class="module-subtitle">Revisa todos tus servicios completados</p>
+                            <p class="module-subtitle">Revisa todos tus servicios completados</p>
                     </div>
 
+                <div class="card">
                     <div class="card">
                         <h3>Servicios Completados</h3>
-
-                        <div class="trabajo-item" style="display: flex; justify-content: space-between; align-items: center; padding: 20px; border: 2px solid var(--color-gris); border-radius: 12px; margin-bottom: 15px;">
+                        <?php if (empty($servicios)): ?>
+                        <p>No hay servicios finalizados en el sistema.</p>
+                        <?php else: ?>
+                        <?php foreach ($servicios as $s): ?>
+                        <div class="trabajo-item">
                             <div class="trabajo-info">
-                                <h3>🔧 Plomería - Reparación de ducha</h3>
-                                <p><strong>Profesional:</strong> Juan Pablo Martínez</p>
-                                <p><strong>Fecha Completado:</strong> 05/06/2025</p>
-                                <p><strong>Calificación:</strong> ⭐⭐⭐⭐⭐ (5.0)</p>
-                                <p><strong>Costo:</strong> $150.000</p>
+                                <h3>🔧 <?php echo htmlspecialchars($s['titulo_servicio']); ?></h3>
+                                <p><strong>Dirección:</strong> <?php echo htmlspecialchars($s['direccion_servicio']); ?></p>
+                                <p><strong>Fecha Inicio:</strong> <?php echo htmlspecialchars($s['fecha_ini']); ?></p>
+                                <p><strong>Fecha Fin:</strong> <?php echo htmlspecialchars($s['fecha_fin']); ?></p>
+                                <p><strong>Costo:</strong> $<?php echo htmlspecialchars($s['precio']); ?></p>
                             </div>
                             <div style="text-align: right;">
-                                <span class="status-badge" style="background: #e8f5e8; color: #2e7d32; padding: 8px 16px; border-radius: 20px; font-size: 12px; display: block; margin-bottom: 10px;">Completado</span>
+                                <span class="status-badge"> <?php echo htmlspecialchars($s['estado']); ?> </span>
                             </div>
                         </div>
+                        <?php endforeach; ?>
+                        <?php endif; ?>
+                    </div>
+                    
+                    <!-- Notificación -->
+                    <div class="notification" id="notification">
+                        <p id="notificationMessage"></p>
                     </div>
                 </div>
-            </div>
-        </div>
-
-        <!-- Notificación -->
-        <div class="notification" id="notification">
-            <p id="notificationMessage"></p>
-        </div>
 
         <script src="/Views/modulo-confirmacion-agendamiento/js/cliente.js"></script>
 </body>
