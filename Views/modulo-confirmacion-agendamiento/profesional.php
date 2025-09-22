@@ -1,3 +1,22 @@
+<?php
+session_start();
+
+if (!isset($_SESSION["id_Usuario"])) {
+    // Si no hay usuario logueado, redirigir
+    header("Location: /Views/modulo-usuarios/HomePlusFull/index.php");
+    exit;
+}
+
+// Id del usuario logueado
+$idUsuario = $_SESSION["id_Usuario"];
+$tipoUsuario = $_SESSION["tipo_usuario"];
+
+// Si quieres que solo entren profesionales
+if ($tipoUsuario !== "profesional") {
+    header("Location: /Views/modulo-usuarios/HomePlusFull/index.php");
+    exit;
+}
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -64,10 +83,15 @@
 
                 <!--Instancio el controlador -->
                 <?php
-                require_once('../../Controllers/TrabajosAceptadosDao.php');
-                $dao = new TrabajosAceptadosDao();
-                $trabajos = $dao->obtenerTrabajosAceptados();
+                require_once('../../Controllers/TrabajosDao.php');
+                $dao = new TrabajosDao();
+                
+                $idProfesional = $_SESSION['id_Usuario']; // ahora sí existe
+                $estado = isset($_GET['estado']) ? $_GET['estado'] : "Todos";
+                
+                $trabajos = $dao->obtenerTrabajos($idProfesional, $estado);
                 ?>
+
 
                 <!-- Filtros de trabajos -->
                 <div class="filtros-trabajos">
@@ -349,6 +373,7 @@
     </div>
 
     <!-- Scripts -->
-    <script src="/Views/modulo-confirmacion-agendamiento/js/profesional.js"></script>
+    <script 
+    src="/Views/modulo-confirmacion-agendamiento/js/profesional.js"></script>
 </body>
 </html>

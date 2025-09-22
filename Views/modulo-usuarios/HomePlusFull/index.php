@@ -60,11 +60,12 @@
 
             <p id="error" class="error-msg"></p>
             <p class="extra">¿No tienes cuenta? <a href="/Views/modulo-usuarios/HomePlusRegistro/index.php">Regístrate</a></p>
-            <p class="extra">¿Olvidaste la contraseña? <a href="#">Recupérala</a></p>
+            <p class="extra">¿Olvidaste la contraseña? <a href="/Views/modulo-usuarios/HomePlusFull/recuperarContraseña.php">Recupérala</a></p>
+
+            
         </form>
     </div>
 
     <script src="/Views/modulo-usuarios/HomePlusFull/js/script.js"></script>
 </body>
 </html>
-
