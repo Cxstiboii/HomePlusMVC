@@ -65,7 +65,7 @@ if ($tipoUsuario !== "profesional") {
                     <span>Perfil Profesional</span>
                 </a>
                 <!-- Botón de salir -->
-                <a href="#" class="nav-item nav-logout" onclick="confirmarSalida(event)">
+                <a href="/Views/modulo-usuarios/HomePlusFull/index.php" class="nav-item nav-logout">
                     <span class="icon">🚪</span>
                     <span>Salir</span>
                 </a>
