@@ -196,3 +196,147 @@
         width: 100%;  /* cada botón ocupa todo el ancho */
     }
 }
+
+
+/* -------- MODAL -------- */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 100;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.55);
+    backdrop-filter: blur(3px); /* efecto glass */
+    padding-top: 60px;
+}
+  
+  .modal-content {
+    background: var(--color-blanco);
+    border-radius: 16px;
+    padding: 2rem;
+    margin: auto;
+    width: 90%;
+    max-width: 600px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+    animation: fadeIn 0.4s ease;
+  }
+  
+  /* Título */
+  .module-title {
+    font-size: 1.6rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    color: var(--color-negro);
+    text-align: center;
+  }
+  
+  /* Subtítulos */
+  .sub-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin: 1.5rem 0 0.5rem;
+    color: var(--color-negro);
+  }
+  
+  /* -------- INPUTS -------- */
+  .input-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+  }
+  
+  .input-group label {
+    margin-bottom: 0.3rem;
+    font-weight: 500;
+    color: var(--color-negro);
+  }
+  
+  .input-group input {
+    padding: 0.75rem;
+    border: 1px solid var(--color-gris);
+    border-radius: 8px;
+    outline: none;
+    transition: 0.3s;
+  }
+  
+  .input-group input:focus {
+    border-color: var(--color-beige);
+    box-shadow: 0 0 6px rgba(204, 181, 142, 0.6);
+  }
+  
+  /* Checkbox alineado */
+  .checkbox-group {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  /* -------- MATERIALES -------- */
+  .material-item {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 0.8rem;
+  }
+  
+  .material-item input {
+    flex: 1;
+  }
+  
+  /* Botón Agregar */
+  .add-material-btn {
+    display: inline-block;
+    background: var(--color-beige-light);
+    color: var(--color-negro);
+    padding: 0.6rem 1rem;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    margin-bottom: 1.2rem;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  
+  .add-material-btn:hover {
+    background: var(--color-beige-hover);
+    color: var(--color-blanco);
+  }
+  
+  /* -------- BOTÓN SUBMIT -------- */
+  .perfil-boton {
+    width: 100%;
+    padding: 0.9rem;
+    background: var(--color-negro);
+    color: var(--color-blanco);
+    border: none;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  
+  .perfil-boton:hover {
+    background: #000;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.25);
+  }
+  
+  /* -------- CLOSE BTN -------- */
+  .close-btn {
+    color: var(--color-negro);
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  
+  .close-btn:hover {
+    color: crimson;
+    transform: scale(1.2);
+  }
+  
+  /* Animaciones */
+  @keyframes fadeIn {
+    from {opacity: 0; transform: translateY(-15px);}
+    to {opacity: 1; transform: translateY(0);}
+  }
+  
