@@ -462,3 +462,116 @@ function mostrarNotificacion(mensaje, tipo = 'info') {
         notification.classList.remove('show');
     }, 3000);
 }
+// ===== FUNCIONALIDAD ESPECÍFICA PARA EL PERFIL =====
+
+// Configurar funcionalidad del perfil
+function configurarPerfil() {
+    const fotoInput = document.getElementById('foto-perfil-input');
+    const fotoPreview = document.getElementById('foto-preview');
+    
+    if (fotoInput && fotoPreview) {
+        // Previsualización de foto
+        fotoInput.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    fotoPreview.src = e.target.result;
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // Hacer click en la foto para abrir el selector de archivos
+        document.querySelector('.perfil-foto label').addEventListener('click', function(e) {
+            e.preventDefault();
+            fotoInput.click();
+        });
+    }
+}
+
+// Validación del formulario de perfil
+function validarFormularioPerfil() {
+    const formulario = document.querySelector('.perfil-container form');
+    
+    if (formulario) {
+        formulario.addEventListener('submit', function(e) {
+            const nombres = document.getElementById('nombres').value;
+            const apellidos = document.getElementById('apellidos').value;
+            const email = document.getElementById('email').value;
+            const telefono = document.getElementById('telefono').value;
+            const direccion = document.getElementById('direccion').value;
+            
+            if (!nombres || !apellidos || !email || !telefono || !direccion) {
+                e.preventDefault();
+                mostrarNotificacion('Por favor, completa todos los campos obligatorios', 'error');
+                return;
+            }
+            
+            // Validar email
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                e.preventDefault();
+                mostrarNotificacion('Por favor, ingresa un email válido', 'error');
+                return;
+            }
+            
+            // Validar teléfono (solo números, mínimo 7 dígitos)
+            const telefonoRegex = /^\d{7,15}$/;
+            if (!telefonoRegex.test(telefono.replace(/\D/g, ''))) {
+                e.preventDefault();
+                mostrarNotificacion('Por favor, ingresa un número de teléfono válido', 'error');
+                return;
+            }
+            
+            mostrarNotificacion('Perfil actualizado correctamente', 'success');
+        });
+    }
+}
+
+// Actualizar la función de inicialización para incluir el perfil
+document.addEventListener('DOMContentLoaded', function() {
+    configurarNavegacion();
+    configurarSeleccionServicios();
+    configurarFechaMinima();
+    configurarLogout();
+    configurarPerfil(); // ← AÑADE ESTA LÍNEA
+    validarFormularioPerfil(); // ← AÑADE ESTA LÍNEA
+    cargarSolicitudesEjemplo();
+    actualizarListaSolicitudes();
+});
+
+
+//NAV HAMBURGUESA 
+document.addEventListener('DOMContentLoaded', function() {
+    const hamburger = document.getElementById('hamburger');
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('overlay');
+    const mainContent = document.getElementById('main-content');
+    
+    // Alternar menú al hacer clic en el botón hamburguesa
+    hamburger.addEventListener('click', function() {
+        sidebar.classList.toggle('active');
+        overlay.classList.toggle('active');
+        hamburger.classList.toggle('active');
+    });
+    
+    // Cerrar menú al hacer clic en el overlay
+    overlay.addEventListener('click', function() {
+        sidebar.classList.remove('active');
+        overlay.classList.remove('active');
+        hamburger.classList.remove('active');
+    });
+    
+    // Cerrar menú al hacer clic en un enlace (opcional para móviles)
+    const navItems = document.querySelectorAll('.nav-item');
+    navItems.forEach(item => {
+        item.addEventListener('click', function() {
+            if (window.innerWidth <= 768) {
+                sidebar.classList.remove('active');
+                overlay.classList.remove('active');
+                hamburger.classList.remove('active');
+            }
+        });
+    });
+});

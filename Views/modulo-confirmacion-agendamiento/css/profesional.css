@@ -30,5 +30,30 @@ body {
 }
 
 
+/* Asegurar que los módulos se oculten/muestren correctamente */
+.module {
+    display: none;
+}
+
+.module.active {
+    display: block;
+}
+
+/* El módulo trabajos debe mostrarse por defecto al cargar */
+#trabajos.active {
+    display: block;
+}
+
+/* Estilos para navegación activa */
+.nav-item.active {
+    background-color: var(--color-beige-light);
+    border-left: 4px solid var(--color-beige);
+}
+
+.nav-item.active span {
+    color: var(--color-negro);
+    font-weight: 600;
+}
+
 
 

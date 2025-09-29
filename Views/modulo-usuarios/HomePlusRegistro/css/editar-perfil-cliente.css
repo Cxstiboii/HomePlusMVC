@@ -7,7 +7,79 @@
     --dark-beige: #b8a57b;
 }
 
+/* ===== ESTILOS PARA LA SECCIÓN DE FOTO DE PERFIL ===== */
+.perfil-foto-container {
+    text-align: center;
+    margin-bottom: 20px;
+    padding: 30px;
+    background: var(--light-beige);
+    border: 2px solid var(--beige);
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
 
+.perfil-foto-label {
+    cursor: pointer;
+    position: relative;
+    display: inline-block;
+    transition: all 0.3s ease;
+}
+
+.perfil-foto-label:hover {
+    transform: scale(1.02);
+}
+
+.perfil-img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid var(--beige);
+    transition: all 0.3s ease;
+    background: var(--white);
+}
+
+.perfil-foto-label:hover .perfil-img {
+    opacity: 0.8;
+    transform: scale(1.05);
+}
+
+.edit-icon {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    background: var(--beige);
+    color: var(--black);
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    border: 2px solid var(--white);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+}
+
+.perfil-foto-label:hover .edit-icon {
+    background: var(--dark-beige);
+    transform: scale(1.1);
+}
+
+.upload-text {
+    font-size: 18px;
+    color: var(--black);
+    margin-top: 15px;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.perfil-foto-label:hover .upload-text {
+    color: var(--dark-beige);
+}
+
+/* Estilos generales del formulario */
 label {
     display: block;
     margin: 1rem;
@@ -15,30 +87,83 @@ label {
 }
 
 input,
-textarea {
+textarea,
+select {
     width: 100%;
-    padding: 10px;
+    padding: 12px 16px;
     margin-top: 4px;
-    border: 1px solid var(--gray);
+    border: 2px solid var(--gray);
     border-radius: 8px;
     background-color: var(--light-beige);
     color: var(--black);
+    font-family: inherit;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+    outline: none;
+    border-color: var(--beige);
+    box-shadow: 0 0 0 3px rgba(204, 181, 142, 0.1);
 }
 
 .button {
     margin-top: 1.5rem;
     width: 100%;
-    padding: 12px;
+    padding: 15px;
     background-color: var(--dark-beige);
     border: none;
     border-radius: 10px;
     color: var(--white);
     font-weight: bold;
     cursor: pointer;
-    transition: background 0.3s;
+    transition: all 0.3s ease;
+    font-size: 16px;
 }
 
 .button:hover {
     background-color: var(--beige);
     color: var(--black);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(204, 181, 142, 0.4);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .perfil-img {
+        width: 120px;
+        height: 120px;
+    }
+    
+    .edit-icon {
+        width: 30px;
+        height: 30px;
+        font-size: 12px;
+        bottom: 8px;
+        right: 8px;
+    }
+    
+    .upload-text {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .perfil-foto-container {
+        padding: 20px;
+    }
+    
+    .perfil-img {
+        width: 100px;
+        height: 100px;
+    }
+    
+    .edit-icon {
+        width: 25px;
+        height: 25px;
+        font-size: 10px;
+        bottom: 5px;
+        right: 5px;
+    }
 }

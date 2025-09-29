@@ -1,175 +1,274 @@
-:root {
-    --color-blanco: #FFFFFF;
-    --color-negro: #333333;
-    --color-beige: #CCB58E;
-    --color-gris: #C2C2C2;
-    --color-beige-hover: #B8A378;
-    --color-beige-light: #E8DFC9;
-    --sombra-card: 0 4px 8px rgba(0, 0, 0, 0.1);
-    --sombra-boton: 0 2px 4px rgba(0, 0, 0, 0.2);
-    --transicion: all 0.3s ease;
+/* ===== ESTILOS ESPECÍFICOS PARA EL PERFIL PROFESIONAL ===== */
+
+.perfil-container {
+    max-width: 1000px;
+    margin: 20px auto;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
 }
 
-
 .perfil-foto {
-    position: relative;
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
-    overflow: hidden;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.perfil-foto label {
     cursor: pointer;
-    box-shadow: var(--sombra-card);
-    /* Nuevas reglas para centrar */
-    margin: 0 auto; 
+    position: relative;
+    display: inline-block;
 }
 
 .perfil-img {
-    width: 100%;
-    height: 100%;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
     object-fit: cover;
-    display: block;
-    transition: filter 0.3s ease;
+    border: 3px solid var(--color-beige);
+    transition: all 0.3s ease;
 }
 
 .perfil-foto:hover .perfil-img {
-    filter: brightness(0.7);
+    opacity: 0.8;
+    transform: scale(1.05);
 }
 
 .edit-icon {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 2.5rem;
-    color: var(--color-blanco);
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    pointer-events: none;
-}
-
-.perfil-foto:hover .edit-icon {
-    opacity: 1;
+    bottom: 10px;
+    right: 10px;
+    background: var(--color-beige);
+    color: var(--color-negro);
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    border: 2px solid var(--color-blanco);
 }
 
 .perfil-info-wrapper {
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-}
-
-@media (min-width: 768px) {
-    .perfil-info-wrapper {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 24px;
-    }
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    width: 100%;
 }
 
 .perfil-info, .perfil-profesional {
-    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 
 .input-group {
     display: flex;
     flex-direction: column;
-    margin-bottom: 16px;
+    gap: 8px;
 }
 
 .input-group label {
-    font-size: 0.9rem;
-    color: var(--color-negro);
     font-weight: 600;
-    margin-bottom: 4px;
-}
-
-.input-group input, .input-group textarea {
-    width: 100%;
-    padding: 10px 12px;
-    border: 1px solid var(--color-gris);
-    border-radius: 8px;
-    font-size: 1rem;
     color: var(--color-negro);
-    background-color: var(--color-blanco);
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
-    box-sizing: border-box; /* Asegura que el padding no cambie el ancho */
+    font-size: 14px;
 }
 
-.input-group input:focus, .input-group textarea:focus {
+.input-group input, .input-group textarea, .input-group select {
+    padding: 12px 16px;
+    border: 2px solid var(--color-gris);
+    border-radius: 8px;
+    font-size: 14px;
+    transition: border-color 0.3s ease;
+    background: var(--color-blanco);
+    color: var(--color-negro);
+    font-family: inherit;
+}
+
+.input-group input:focus, .input-group textarea:focus, .input-group select:focus {
     outline: none;
     border-color: var(--color-beige);
-    box-shadow: 0 0 5px rgba(204, 181, 142, 0.5);
-}
-
-.input-group.disabled-input input {
-    background-color: var(--color-beige-light);
-    cursor: not-allowed;
-}
-
-.input-group.textarea-group {
-    grid-column: span 2; /* Ocupa ambas columnas en el layout grid */
+    box-shadow: 0 0 0 3px rgba(204, 181, 142, 0.1);
 }
 
 .input-group textarea {
-    min-height: 120px;
     resize: vertical;
+    min-height: 120px;
 }
 
-.perfil-profesional h3 {
-    font-size: 1.5rem;
-    color: var(--color-beige);
-    margin-top: 0;
-    margin-bottom: 20px;
+.disabled-input input {
+    background-color: #f5f5f5;
+    color: #666;
+    cursor: not-allowed;
+    border-color: #e0e0e0;
+}
+
+.textarea-group {
+    grid-column: 1 / -1;
 }
 
 .perfil-boton {
-    width: 100%;
-    max-width: 300px;
-    padding: 14px 24px;
-    background-color: var(--color-beige);
-    color: var(--color-blanco);
+    background: var(--color-beige);
+    color: var(--color-negro);
+    padding: 15px 30px;
     border: none;
     border-radius: 8px;
-    font-size: 1.1rem;
+    font-size: 16px;
     font-weight: 600;
     cursor: pointer;
-    transition: var(--transicion);
-    box-shadow: var(--sombra-boton);
+    transition: all 0.3s ease;
+    margin-top: 20px;
+    width: 100%;
+    max-width: 300px;
+    align-self: center;
 }
 
 .perfil-boton:hover {
-    background-color: var(--color-beige-hover);
+    background: var(--color-beige-hover);
     transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 6px 20px rgba(204, 181, 142, 0.4);
 }
 
-.perfil-boton:active {
-    transform: translateY(0);
+.error {
+    color: #dc3545;
+    background: #f8d7da;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #f5c6cb;
+    margin-top: 15px;
+    text-align: center;
+}
+
+.exito {
+    color: #155724;
+    background: #d4edda;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #c3e6cb;
+    margin-top: 15px;
+    text-align: center;
 }
 
 .no-datos {
     text-align: center;
-    font-size: 1.2rem;
-    color: var(--color-gris);
+    color: #666;
+    font-style: italic;
     padding: 40px;
+    background: var(--color-beige-light);
+    border-radius: 12px;
+    margin: 20px 0;
 }
 
+/* Estilos para la sección de información profesional */
+.perfil-profesional .input-group {
+    background: var(--color-beige-light);
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid var(--color-gris);
+}
 
+.perfil-profesional .input-group label {
+    color: var(--color-negro);
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.perfil-profesional .input-group input,
+.perfil-profesional .input-group textarea {
+    background: var(--color-blanco);
+    font-weight: 500;
+}
+
+.perfil-profesional .textarea-group textarea {
+    background: var(--color-blanco);
+    font-weight: 400;
+    line-height: 1.5;
+}
+
+/* Mejorar la apariencia de los inputs deshabilitados */
+.disabled-input input {
+    background-color: #f8f9fa !important;
+    color: #6c757d !important;
+    border-color: #dee2e6 !important;
+    font-weight: 500;
+}
+
+/* Estilos para los mensajes de éxito y error */
+.exito {
+    background: var(--color-beige-light);
+    border: 1px solid var(--color-beige);
+    color: var(--color-negro);
+    font-weight: 500;
+}
+
+.error {
+    background: #f8d7da;
+    border: 1px solid #f5c6cb;
+    color: #721c24;
+    font-weight: 500;
+}
+
+/* Asegurar que el grid funcione correctamente */
 .perfil-info-wrapper {
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-    /* Agregamos un margen superior para separarlo de la foto */
-    margin-top: 20px; 
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    width: 100%;
 }
 
-@media (min-width: 768px) {
+/* Responsive */
+@media (max-width: 768px) {
     .perfil-info-wrapper {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 24px;
-        /* Reseteamos o ajustamos el margen para el diseño de escritorio */
-        margin-top: 0;
+        grid-template-columns: 1fr;
+        gap: 20px;
     }
+    
+    .perfil-container {
+        padding: 20px;
+    }
+    
+    .perfil-img {
+        width: 120px;
+        height: 120px;
+    }
+    
+    .perfil-boton {
+        width: 100%;
+        max-width: none;
+    }
+    
+    .textarea-group {
+        grid-column: 1;
+    }
+}
+
+@media (max-width: 480px) {
+    .perfil-container {
+        padding: 15px;
+    }
+    
+    .perfil-img {
+        width: 100px;
+        height: 100px;
+    }
+    
+    .edit-icon {
+        width: 30px;
+        height: 30px;
+        font-size: 12px;
+        bottom: 8px;
+        right: 8px;
+    }
+}
+
+/* Estilos específicos para la sección profesional */
+.perfil-profesional.card {
+    background: var(--color-beige-light);
+    border: 1px solid var(--color-beige);
+}
+
+.perfil-profesional .input-group:first-child {
+    margin-top: 0;
 }

@@ -1,9 +1,13 @@
 <?php
 session_start();
 require_once '../Model/database.php';
+require_once '../vendor/autoload.php';
 
-$db = new Database(); // instanciamos la clase
-$conn = $db->conn;    // obtenemos la conexión mysqli
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+$db = new Database();
+$conn = $db->conn;
 
 if ($_SERVER["REQUEST_METHOD"] !== "POST") {
     $_SESSION['error'] = "Acceso no permitido.";
@@ -73,7 +77,7 @@ $tipoUsuario = "cliente";
 $stmt->bind_param("sssssssssss", $nombre, $apellido, $fecha, $tipoDoc, $documento, $telefono, $correo, $direccion, $contrasenaHash, $fotoPerfil, $tipoUsuario);
 
 if ($stmt->execute()) {
-    $idUsuario = $stmt->insert_id; // ID generado
+    $idUsuario = $stmt->insert_id;
 
     // Insertar en tabla cliente
     $sqlCliente = "INSERT INTO cliente (id_cliente, servicios_solicitados, citas_solicitadas, calificaciones) VALUES (?, 0, 0, 0.0)";
@@ -82,7 +86,10 @@ if ($stmt->execute()) {
     $stmtCliente->execute();
     $stmtCliente->close();
 
-    $_SESSION['success'] = "✅ Cliente registrado correctamente. Ahora inicie sesión.";
+    // 📧 ENVIAR EMAIL DE BIENVENIDA AL CLIENTE
+    enviarEmailBienvenida($correo, $nombre, 'cliente');
+
+    $_SESSION['success'] = "✅ Cliente registrado correctamente. Se ha enviado un email de bienvenida.";
     header("Location: /Views/modulo-usuarios/HomePlusFull/index.php");
     exit;
 } else {
@@ -93,4 +100,233 @@ if ($stmt->execute()) {
 
 $stmt->close();
 $conn->close();
+
+// 🔧 FUNCIÓN PARA ENVIAR EMAIL DE BIENVENIDA
+function enviarEmailBienvenida($email, $nombre, $tipoUsuario, $especialidad = null) {
+    try {
+        $mail = new PHPMailer(true);
+        
+        // Configuración del servidor
+        $mail->isSMTP();
+        $mail->Host       = 'smtp.gmail.com';
+        $mail->SMTPAuth   = true;
+        $mail->Username   = 'samuelcastillo1007@gmail.com';
+        $mail->Password   = 'sddk vnhv htmj fvxl';
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+        $mail->Port       = 587;
+        $mail->CharSet    = 'UTF-8';
+
+        // Destinatarios
+        $mail->setFrom('samuelcastillo1007@gmail.com', 'Home+');
+        $mail->addAddress($email, $nombre);
+        $mail->addReplyTo('samuelcastillo1007@gmail.com', 'Soporte Home+');
+
+        // Contenido del email
+        $mail->isHTML(true);
+        
+        if ($tipoUsuario === 'profesional') {
+            $mail->Subject = '¡Bienvenido a Home+ - Cuenta Profesional!';
+            $mail->Body = crearEmailProfesional($nombre, $especialidad);
+        } else {
+            $mail->Subject = '¡Bienvenido a Home+!';
+            $mail->Body = crearEmailCliente($nombre);
+        }
+
+        $mail->AltBody = "¡Bienvenido a Home+, $nombre!\n\nTu cuenta $tipoUsuario ha sido creada exitosamente.\n\nGracias por confiar en nosotros.\nEl equipo de Home+";
+
+        $mail->send();
+        return true;
+    } catch (Exception $e) {
+        error_log("Error enviando email de bienvenida: " . $e->getMessage());
+        return false;
+    }
+}
+
+// 📝 PLANTILLA EMAIL PARA CLIENTES CON TUS COLORES
+function crearEmailCliente($nombre) {
+    return "
+    <html>
+    <head>
+        <style>
+            :root {
+                --white: #ffffff;
+                --black: #1f1f1f;
+                --beige: #ccb58e;
+                --gray: #c2c2c2;
+                --light-beige: #f5f0e6;
+                --dark-beige: #b8a57b;
+            }
+            body { 
+                font-family: Arial, sans-serif; 
+                line-height: 1.6;
+                color: var(--black);
+                background-color: var(--light-beige);
+                margin: 0;
+                padding: 20px;
+            }
+            .container { 
+                max-width: 600px; 
+                margin: 0 auto; 
+                padding: 20px;
+                border: 1px solid var(--beige);
+                border-radius: 10px;
+                background-color: var(--white);
+            }
+            .header { 
+                background: linear-gradient(135deg, var(--beige), var(--dark-beige)); 
+                color: var(--white); 
+                padding: 30px; 
+                text-align: center; 
+                border-radius: 10px 10px 0 0; 
+                margin: -20px -20px 20px -20px;
+            }
+            .features { 
+                background: var(--light-beige); 
+                padding: 20px; 
+                border-radius: 8px; 
+                margin: 20px 0;
+                border: 1px solid var(--beige);
+            }
+            .feature-item { 
+                margin: 10px 0; 
+                padding-left: 20px;
+                color: var(--black);
+            }
+            .footer { 
+                margin-top: 20px; 
+                padding-top: 20px; 
+                border-top: 1px solid var(--gray); 
+                color: var(--black); 
+                text-align: center;
+            }
+            .welcome-text {
+                font-size: 16px;
+                margin: 15px 0;
+            }
+        </style>
+    </head>
+    <body>
+        <div class='container'>
+            <div class='header'>
+                <h1>¡Bienvenido a Home+!</h1>
+            </div>
+            
+            <p class='welcome-text'>Hola <strong>" . htmlspecialchars($nombre) . "</strong>,</p>
+            
+            <p>¡Estamos emocionados de tenerte en nuestra comunidad! Tu cuenta ha sido creada exitosamente.</p>
+            
+            <div class='features'>
+                <h3>📱 ¿Qué puedes hacer en Home+?</h3>
+                <div class='feature-item'>✅ Agendar servicios de limpieza</div>
+                <div class='feature-item'>✅ Gestionar tus citas</div>
+                <div class='feature-item'>✅ Ver el historial de servicios</div>
+                <div class='feature-item'>✅ Calificar a los profesionales</div>
+                <div class='feature-item'>✅ Explorar diferentes servicios para el hogar</div>
+            </div>
+            
+            <p>Si tienes alguna pregunta, no dudes en responder a este correo.</p>
+            
+            <div class='footer'>
+                <p>¡Gracias por confiar en nosotros!</p>
+                <p><strong>El equipo de Home+</strong></p>
+            </div>
+        </div>
+    </body>
+    </html>
+    ";
+}
+
+// 📝 PLANTILLA EMAIL PARA PROFESIONALES CON TUS COLORES
+function crearEmailProfesional($nombre, $especialidad) {
+    return "
+    <html>
+    <head>
+        <style>
+            :root {
+                --white: #ffffff;
+                --black: #1f1f1f;
+                --beige: #ccb58e;
+                --gray: #c2c2c2;
+                --light-beige: #f5f0e6;
+                --dark-beige: #b8a57b;
+            }
+            body { 
+                font-family: Arial, sans-serif; 
+                line-height: 1.6;
+                color: var(--black);
+                background-color: var(--light-beige);
+                margin: 0;
+                padding: 20px;
+            }
+            .container { 
+                max-width: 600px; 
+                margin: 0 auto; 
+                padding: 20px;
+                border: 1px solid var(--beige);
+                border-radius: 10px;
+                background-color: var(--white);
+            }
+            .header { 
+                background: linear-gradient(135deg, var(--beige), var(--dark-beige)); 
+                color: var(--white); 
+                padding: 30px; 
+                text-align: center; 
+                border-radius: 10px 10px 0 0; 
+                margin: -20px -20px 20px -20px;
+            }
+            .features { 
+                background: var(--light-beige); 
+                padding: 20px; 
+                border-radius: 8px; 
+                margin: 20px 0;
+                border: 1px solid var(--beige);
+            }
+            .feature-item { 
+                margin: 10px 0; 
+                padding-left: 20px;
+                color: var(--black);
+            }
+            .footer { 
+                margin-top: 20px; 
+                padding-top: 20px; 
+                border-top: 1px solid var(--gray); 
+                color: var(--black); 
+                text-align: center;
+            }
+            .welcome-text {
+                font-size: 16px;
+                margin: 15px 0;
+            }
+        </style>
+    </head>
+    <body>
+        <div class='container'>
+            <div class='header'>
+                <h1>¡Bienvenido Profesional!</h1>
+            </div>
+            
+            <p class='welcome-text'>Hola <strong>" . htmlspecialchars($nombre) . "</strong>,</p>
+            
+            <p>¡Estamos emocionados de tenerte en nuestro equipo de profesionales!</p>
+            
+            <div class='features'>
+                <h3>🚀 ¿Qué puedes hacer en Home+?</h3>
+                <div class='feature-item'>✅ Gestionar tus servicios de <strong>$especialidad</strong></div>
+                <div class='feature-item'>✅ Recibir solicitudes de clientes</div>
+                <div class='feature-item'>✅ Administrar tu agenda y citas</div>
+                <div class='feature-item'>✅ Crear tu perfil profesional</div>
+                <div class='feature-item'>✅ Recibir calificaciones de clientes</div>
+            </div>
+            
+            <p>Próximamente nuestro equipo se pondrá en contacto contigo para validar tu documentación y activar completamente tu cuenta.</p>
+            
+            <div class='footer'>
+                <p>¡Gracias por unirte a nuestra comunidad!</p>
+                <p><strong>El equipo de Home+</strong></p>
+            </div>
+        </div>
+    </body>
+    </html>
+    ";
+}
 ?>
