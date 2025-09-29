@@ -541,37 +541,3 @@ document.addEventListener('DOMContentLoaded', function() {
     actualizarListaSolicitudes();
 });
 
-
-//NAV HAMBURGUESA 
-document.addEventListener('DOMContentLoaded', function() {
-    const hamburger = document.getElementById('hamburger');
-    const sidebar = document.getElementById('sidebar');
-    const overlay = document.getElementById('overlay');
-    const mainContent = document.getElementById('main-content');
-    
-    // Alternar menú al hacer clic en el botón hamburguesa
-    hamburger.addEventListener('click', function() {
-        sidebar.classList.toggle('active');
-        overlay.classList.toggle('active');
-        hamburger.classList.toggle('active');
-    });
-    
-    // Cerrar menú al hacer clic en el overlay
-    overlay.addEventListener('click', function() {
-        sidebar.classList.remove('active');
-        overlay.classList.remove('active');
-        hamburger.classList.remove('active');
-    });
-    
-    // Cerrar menú al hacer clic en un enlace (opcional para móviles)
-    const navItems = document.querySelectorAll('.nav-item');
-    navItems.forEach(item => {
-        item.addEventListener('click', function() {
-            if (window.innerWidth <= 768) {
-                sidebar.classList.remove('active');
-                overlay.classList.remove('active');
-                hamburger.classList.remove('active');
-            }
-        });
-    });
-});

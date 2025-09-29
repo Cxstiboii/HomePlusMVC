@@ -28,18 +28,6 @@ if ($tipoUsuario !== "cliente") {
 <body>
     <div class="container">
         <!-- Sidebar Navigation -->
-        <div class="container">
-        <!-- Botón hamburguesa -->
-        <button class="hamburger" id="hamburger">
-            <span></span>
-            <span></span>
-            <span></span>
-        </button>
-
-        <!-- Overlay para móviles -->
-        <div class="overlay" id="overlay"></div>
-
-        <!-- Sidebar Navigation -->
         <div class="sidebar" id="sidebar">
             <div class="logo">
                 <div class="logo-content">

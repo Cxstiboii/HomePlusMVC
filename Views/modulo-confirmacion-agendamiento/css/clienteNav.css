@@ -208,4 +208,9 @@ nav {
     .nav-item {
         padding: 18px 20px;
     }
+    
+    .main-content {
+        padding: 15px;
+        padding-top: 60px;
+    }
 }
