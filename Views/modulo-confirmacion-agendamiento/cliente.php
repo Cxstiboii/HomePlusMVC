@@ -128,7 +128,6 @@
                                 min="0"
                                 required>
                         </div>
-
                     </div>
 
                     <div class="form-row">
@@ -136,7 +135,6 @@
                             <label class="form-label">Fecha Preferida</label>
                             <input type="date" class="form-control" id="fecha-preferida">
                         </div>
-
 
                         <div class="form-group">
                             <label class="form-label">Hora Preferida</label>
@@ -214,7 +212,6 @@
                         formData.append("servicio", servicioSeleccionado);
                         formData.append("precio", document.getElementById("precio").value);
 
-
                         // Subir fotos
                         let fotos = document.getElementById("fotos").files;
                         for (let i = 0; i < fotos.length; i++) {
@@ -237,96 +234,232 @@
                                 console.error("Error:", err);
                                 Swal.fire("⚠️ Error", "Ocurrió un problema al enviar la solicitud", "error");
                             });
-                    } // ← faltaba este cierre
+                    }
                 </script>
-                <!-- Módulo: Mis Solicitudes -->
-                <div class="module" id="mis-solicitudes">
-                    <div class="module-header">
-                        <h1 class="module-title">Mis Solicitudes</h1>
-                        <p class="module-subtitle">Administra todas tus solicitudes de servicio</p>
-                    </div>
+                <script>
+                    function crearSolicitud() {
+                        if (!servicioSeleccionado) {
+                            Swal.fire("⚠️ Atención", "Debes seleccionar un tipo de servicio", "warning");
+                            return;
+                        }
 
-                    <div class="card">
-                        <h3>Solicitudes Activas</h3>
-                        <div id="solicitudes-container">
-                            <!-- Las solicitudes se cargarán dinámicamente aquí -->
-                        </div>
-                    </div>
+                        const titulo = document.getElementById("titulo-servicio").value;
+                        const urgencia = document.getElementById("urgencia").value;
+                        const descripcion = document.getElementById("descripcion").value;
+                        const fecha = document.getElementById("fecha-preferida").value;
+                        const hora = document.getElementById("hora-preferida").value;
+                        const direccion = document.getElementById("direccion").value;
+                        const barrio = document.getElementById("barrio").value;
+                        const referencias = document.getElementById("referencias").value;
+                        const precio = document.getElementById("precio").value;
+
+                        const formData = new FormData();
+                        formData.append("titulo", titulo);
+                        formData.append("urgencia", urgencia);
+                        formData.append("descripcion", descripcion);
+                        formData.append("fecha_preferida", fecha);
+                        formData.append("hora_preferida", hora);
+                        formData.append("direccion", direccion);
+                        formData.append("barrio", barrio);
+                        formData.append("referencias", referencias);
+                        formData.append("servicio", servicioSeleccionado);
+                        formData.append("precio", precio);
+
+                        // Subir fotos
+                        let fotos = document.getElementById("fotos").files;
+                        for (let i = 0; i < fotos.length; i++) {
+                            formData.append("fotos[]", fotos[i]);
+                        }
+
+                        fetch("../../Controllers/nuevoServicioDao.php", {
+                                method: "POST",
+                                body: formData
+                            })
+                            .then(res => res.json())
+                            .then(data => {
+                                if (data.success) {
+                                    Swal.fire("✅ Éxito", "Solicitud creada correctamente", "success");
+
+                                    // 🔹 Agregar visualmente a "Mis Solicitudes"
+                                    const container = document.getElementById("solicitudes-container");
+
+                                    const nueva = document.createElement("div");
+                                    nueva.classList.add("solicitud-item");
+                                    nueva.style.border = "1px solid #ccc";
+                                    nueva.style.padding = "10px";
+                                    nueva.style.marginBottom = "10px";
+                                    nueva.style.borderRadius = "8px";
+
+                                    nueva.innerHTML = `
+                        <h4>📌 ${titulo}</h4>
+                        <p><strong>Servicio:</strong> ${servicioSeleccionado}</p>
+                        <p><strong>Urgencia:</strong> ${urgencia}</p>
+                        <p><strong>Descripción:</strong> ${descripcion}</p>
+                        <p><strong>Dirección:</strong> ${direccion}, ${barrio}</p>
+                        <p><strong>Fecha:</strong> ${fecha || "Flexible"} ${hora || ""}</p>
+                        <p><strong>Precio:</strong> $${precio}</p>
+                        <span class="status-badge">Pendiente</span>
+                    `;
+
+                                    container.appendChild(nueva);
+
+                                    // 🔹 Limpiar formulario
+                                    document.querySelector("#nueva-solicitud form")?.reset();
+                                    document.getElementById("titulo-servicio").value = "";
+                                    document.getElementById("descripcion").value = "";
+                                    document.getElementById("precio").value = "";
+                                    document.getElementById("direccion").value = "";
+                                    document.getElementById("barrio").value = "";
+                                    document.getElementById("referencias").value = "";
+                                    document.getElementById("fecha-preferida").value = "";
+                                    document.getElementById("hora-preferida").value = "";
+                                    document.getElementById("fotos").value = "";
+                                    servicioSeleccionado = "";
+                                } else {
+                                    Swal.fire("❌ Error", data.message, "error");
+                                }
+                            })
+                            .catch(err => {
+                                console.error("Error:", err);
+                                Swal.fire("⚠️ Error", "Ocurrió un problema al enviar la solicitud", "error");
+                            });
+                    }
+                </script>
+
+            </div>
+
+            <!-- Módulo: Mis Solicitudes -->
+            <div class="module" id="mis-solicitudes">
+                <div class="module-header">
+                    <h1 class="module-title">Mis Solicitudes</h1>
+                    <p class="module-subtitle">Administra todas tus solicitudes de servicio</p>
                 </div>
 
-                <!-- Módulo: Perfil -->
-                <div class="module" id="perfil">
-                    <div class="module-header">
-                        <h1 class="module-title">Mi Perfil</h1>
-                        <p class="module-subtitle">Administra tu información personal</p>
-                    </div>
-
-                    <div class="card profile-card">
-                        <div class="profile-avatar">MG</div>
-                        <h2>María González</h2>
-                        <p>Cliente Premium</p>
-                        <p>📍 Bogotá, Colombia</p>
-                        <p>⭐ 4.9/5.0 como cliente</p>
-
-                        <div class="form-group" style="margin-top: 30px; text-align: left;">
-                            <label class="form-label">Nombre Completo</label>
-                            <input type="text" class="form-control" value="María González" id="nombre-completo">
-                        </div>
-
-                        <div class="form-row" style="text-align: left;">
-                            <div class="form-group">
-                                <label class="form-label">Email</label>
-                                <input type="email" class="form-control" value="maria.gonzalez@email.com" id="email">
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">Teléfono</label>
-                                <input type="tel" class="form-control" value="(+57) 300 123 4567" id="telefono">
-                            </div>
-                        </div>
-
-                        <div class="form-group" style="text-align: left;">
-                            <label class="form-label">Dirección Principal</label>
-                            <input type="text" class="form-control" value="Calle 45 #12-34, Chapinero" id="direccion-principal">
-                        </div>
-
-
-                        <button class="btn btn-primary" onclick="actualizarPerfil()">Actualizar Perfil</button>
+                <div class="card">
+                    <h3>Solicitudes Activas</h3>
+                    <div id="solicitudes-container">
+                        <!-- Las solicitudes se cargarán dinámicamente aquí -->
                     </div>
                 </div>
+            </div>
 
-                <!-- Módulo: Historial -->
-                <div class="module" id="historial">
-                    <div class="module-header">
-                        <h1 class="module-title">Historial de Servicios</h1>
-                        <p class="module-subtitle">Revisa todos tus servicios completados</p>
+            <!-- 🔹 Script para cambiar entre módulos -->
+            <script>
+                document.querySelectorAll(".nav-item").forEach(item => {
+                    item.addEventListener("click", e => {
+                        e.preventDefault();
+
+                        // Quitar "active" de todos los botones y módulos
+                        document.querySelectorAll(".nav-item").forEach(i => i.classList.remove("active"));
+                        document.querySelectorAll(".module").forEach(m => m.classList.remove("active"));
+
+                        // Activar el botón clicado
+                        item.classList.add("active");
+
+                        // Mostrar el módulo correspondiente
+                        const moduleId = item.getAttribute("data-module");
+                        const targetModule = document.getElementById(moduleId);
+                        if (targetModule) {
+                            targetModule.classList.add("active");
+                        }
+                    });
+                });
+
+                // Cerrar sesión
+                document.getElementById("logout-btn").addEventListener("click", e => {
+                    e.preventDefault();
+                    Swal.fire({
+                        title: "¿Seguro que quieres salir?",
+                        icon: "warning",
+                        showCancelButton: true,
+                        confirmButtonText: "Sí, salir",
+                        cancelButtonText: "Cancelar"
+                    }).then(result => {
+                        if (result.isConfirmed) {
+                            window.location.href = "../../Controllers/logout.php";
+                        }
+                    });
+                });
+            </script>
+
+            <!-- Módulo: Perfil -->
+            <div class="module" id="perfil">
+                <div class="module-header">
+                    <h1 class="module-title">Mi Perfil</h1>
+                    <p class="module-subtitle">Administra tu información personal</p>
+                </div>
+
+                <div class="card profile-card">
+                    <div class="profile-avatar">MG</div>
+                    <h2>María González</h2>
+                    <p>Cliente Premium</p>
+                    <p>📍 Bogotá, Colombia</p>
+                    <p>⭐ 4.9/5.0 como cliente</p>
+
+                    <div class="form-group" style="margin-top: 30px; text-align: left;">
+                        <label class="form-label">Nombre Completo</label>
+                        <input type="text" class="form-control" value="María González" id="nombre-completo">
                     </div>
 
+                    <div class="form-row" style="text-align: left;">
+                        <div class="form-group">
+                            <label class="form-label">Email</label>
+                            <input type="email" class="form-control" value="maria.gonzalez@email.com" id="email">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Teléfono</label>
+                            <input type="tel" class="form-control" value="(+57) 300 123 4567" id="telefono">
+                        </div>
+                    </div>
+
+                    <div class="form-group" style="text-align: left;">
+                        <label class="form-label">Dirección Principal</label>
+                        <input type="text" class="form-control" value="Calle 45 #12-34, Chapinero" id="direccion-principal">
+                    </div>
+
+                    <button class="btn btn-primary" onclick="actualizarPerfil()">Actualizar Perfil</button>
+                </div>
+            </div>
+
+            <!-- Módulo: Historial -->
+            <div class="module" id="historial">
+                <div class="module-header">
+                    <h1 class="module-title">Historial de Servicios</h1>
+                    <p class="module-subtitle">Revisa todos tus servicios completados</p>
+                </div>
+
+                <div class="card">
                     <div class="card">
                         <h3>Servicios Completados</h3>
+                        <?php if (empty($servicios)): ?>
+                            <p>No hay servicios finalizados en el sistema.</p>
+                        <?php else: ?>
+                            <?php foreach ($servicios as $s): ?>
+                                <div class="trabajo-item">
+                                    <div class="trabajo-info">
+                                        <h3>🔧 <?php echo htmlspecialchars($s['titulo_servicio']); ?></h3>
+                                        <p><strong>Dirección:</strong> <?php echo htmlspecialchars($s['direccion_servicio']); ?></p>
+                                        <p><strong>Fecha Inicio:</strong> <?php echo htmlspecialchars($s['fecha_ini']); ?></p>
+                                        <p><strong>Fecha Fin:</strong> <?php echo htmlspecialchars($s['fecha_fin']); ?></p>
+                                        <p><strong>Costo:</strong> $<?php echo htmlspecialchars($s['precio']); ?></p>
+                                    </div>
+                                    <div style="text-align: right;">
+                                        <span class="status-badge"> <?php echo htmlspecialchars($s['estado']); ?> </span>
+                                    </div>
+                                </div>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
+                    </div>
 
-                        <div class="trabajo-item" style="display: flex; justify-content: space-between; align-items: center; padding: 20px; border: 2px solid var(--color-gris); border-radius: 12px; margin-bottom: 15px;">
-                            <div class="trabajo-info">
-                                <h3>🔧 Plomería - Reparación de ducha</h3>
-                                <p><strong>Profesional:</strong> Juan Pablo Martínez</p>
-                                <p><strong>Fecha Completado:</strong> 05/06/2025</p>
-                                <p><strong>Calificación:</strong> ⭐⭐⭐⭐⭐ (5.0)</p>
-                                <p><strong>Costo:</strong> $150.000</p>
-                            </div>
-                            <div style="text-align: right;">
-                                <span class="status-badge" style="background: #e8f5e8; color: #2e7d32; padding: 8px 16px; border-radius: 20px; font-size: 12px; display: block; margin-bottom: 10px;">Completado</span>
-                            </div>
-                        </div>
+                    <!-- Notificación -->
+                    <div class="notification" id="notification">
+                        <p id="notificationMessage"></p>
+                        <button class="btn btn-primary" onclick="closeNotification()">Cerrar</button>
                     </div>
                 </div>
             </div>
         </div>
-
-        <!-- Notificación -->
-        <div class="notification" id="notification">
-            <p id="notificationMessage"></p>
-        </div>
-
-        <script src="/Views/modulo-confirmacion-agendamiento/js/cliente.js"></script>
+    </div>
 </body>
 
 </html>

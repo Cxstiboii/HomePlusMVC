@@ -17,7 +17,7 @@ try {
     $db = new Database();
     $conn = $db->conn;
 
-    // Validar campos obligatorios
+    // ✅ Validar campos obligatorios
     $required = ['titulo', 'urgencia', 'descripcion', 'direccion', 'barrio', 'servicio', 'precio'];
     foreach ($required as $r) {
         if (!isset($_POST[$r]) || trim($_POST[$r]) === '') {
@@ -26,7 +26,7 @@ try {
         }
     }
 
-    // Mapear campos
+    // ✅ Mapear campos
     $titulo = trim($_POST['titulo']);
     $urgencia = trim($_POST['urgencia']);
     $descripcion = trim($_POST['descripcion']);
@@ -35,9 +35,9 @@ try {
     $direccion = trim($_POST['direccion']);
     $barrio = trim($_POST['barrio']);
     $referencias = trim($_POST['referencias'] ?? '');
-    $precio = floatval($_POST['precio']); // 👈 aquí tomamos el precio
+    $precio = floatval($_POST['precio']);
 
-    // servicio → ID
+    // ✅ servicio → ID
     $servicio_raw = $_POST['servicio'];
     if (is_numeric($servicio_raw)) {
         $id_tipo_servicio = intval($servicio_raw);
@@ -72,7 +72,7 @@ try {
 
     $id_cliente = $_SESSION['id_cliente'] ?? ($_POST['id_cliente'] ?? 1);
 
-    //INSERT
+    // ✅ INSERT
     $sql = "INSERT INTO solicitud 
         (titulo_servicio, descripcion, direccion_servicio, barrio, fecha_preferida, hora_preferida, urgencia, referencias, precio, id_tipo_servicio, id_cliente)
         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -83,7 +83,7 @@ try {
         exit;
     }
 
-    // Tipos: 8 strings, 1 double y 2 ints → ssssssssdii
+    // Tipos → 8 strings, 1 double, 2 int
     $stmt->bind_param(
         "ssssssssdii",
         $titulo,
@@ -101,7 +101,7 @@ try {
 
     if ($stmt->execute()) {
         $insertedId = $conn->insert_id;
-        echo json_encode(["success" => true, "message" => "Solicitud creada con precio", "id" => $insertedId]);
+        echo json_encode(["success" => true, "message" => "Solicitud creada con éxito ✅", "id" => $insertedId]);
     } else {
         echo json_encode(["success" => false, "message" => "Error al ejecutar INSERT: " . $stmt->error]);
     }
