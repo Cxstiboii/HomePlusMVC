@@ -1,0 +1,271 @@
+/* ===== ESTILOS ESPECÍFICOS PARA EL PERFIL ===== */
+
+.perfil-container {
+    max-width: 1000px;
+    margin: 20px auto;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.perfil-foto {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.perfil-foto label {
+    cursor: pointer;
+    position: relative;
+    display: inline-block;
+}
+
+.perfil-img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid var(--color-beige);
+    transition: all 0.3s ease;
+}
+
+.perfil-foto:hover .perfil-img {
+    opacity: 0.8;
+    transform: scale(1.05);
+}
+
+.edit-icon {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    background: var(--color-beige);
+    color: var(--color-negro);
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    border: 2px solid var(--color-blanco);
+}
+
+.perfil-info-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+}
+
+.perfil-info, .perfil-cliente {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.input-group label {
+    font-weight: 600;
+    color: var(--color-negro);
+    font-size: 14px;
+}
+
+.input-group input, .input-group textarea, .input-group select {
+    padding: 12px 16px;
+    border: 2px solid var(--color-gris);
+    border-radius: 8px;
+    font-size: 14px;
+    transition: border-color 0.3s ease;
+    background: var(--color-blanco);
+    color: var(--color-negro);
+    font-family: inherit;
+}
+
+.input-group input:focus, .input-group textarea:focus, .input-group select:focus {
+    outline: none;
+    border-color: var(--color-beige);
+    box-shadow: 0 0 0 3px rgba(204, 181, 142, 0.1);
+}
+
+.input-group textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+.disabled-input input {
+    background-color: #f5f5f5;
+    color: #666;
+    cursor: not-allowed;
+    border-color: #e0e0e0;
+}
+
+.textarea-group {
+    grid-column: 1 / -1;
+}
+
+.perfil-boton {
+    background: var(--color-beige);
+    color: var(--color-negro);
+    padding: 15px 30px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 20px;
+    width: 100%;
+    max-width: 300px;
+    align-self: center;
+}
+
+.perfil-boton:hover {
+    background: var(--color-beige-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(204, 181, 142, 0.4);
+}
+
+.error {
+    color: #dc3545;
+    background: #f8d7da;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #f5c6cb;
+    margin-top: 15px;
+    text-align: center;
+}
+
+.exito {
+    color: #155724;
+    background: #d4edda;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #c3e6cb;
+    margin-top: 15px;
+    text-align: center;
+}
+
+.no-datos {
+    text-align: center;
+    color: #666;
+    font-style: italic;
+    padding: 40px;
+    background: var(--color-beige-light);
+    border-radius: 12px;
+    margin: 20px 0;
+}
+
+/* Estilos para la sección de estadísticas del cliente */
+.perfil-cliente .input-group {
+    background: var(--color-beige-light);
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid var(--color-gris);
+}
+
+.perfil-cliente .input-group label {
+    color: var(--color-negro);
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.perfil-cliente .input-group input {
+    font-weight: 600;
+    font-size: 16px;
+    text-align: center;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .perfil-info-wrapper {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .perfil-container {
+        padding: 20px;
+    }
+    
+    .perfil-img {
+        width: 120px;
+        height: 120px;
+    }
+    
+    .perfil-boton {
+        width: 100%;
+        max-width: none;
+    }
+}
+
+@media (max-width: 480px) {
+    .perfil-container {
+        padding: 15px;
+    }
+    
+    .perfil-img {
+        width: 100px;
+        height: 100px;
+    }
+    
+    .edit-icon {
+        width: 30px;
+        height: 30px;
+        font-size: 12px;
+        bottom: 8px;
+        right: 8px;
+    }
+}
+
+/* Asegurar que las variables CSS estén disponibles */
+.perfil-container .card {
+    background: var(--color-blanco);
+    border: 1px solid var(--color-gris);
+}
+
+.perfil-cliente.card {
+    background: var(--color-beige-light);
+    border: 1px solid var(--color-beige);
+}
+
+/* Mejorar la apariencia de los inputs deshabilitados */
+.disabled-input input {
+    background-color: #f8f9fa !important;
+    color: #6c757d !important;
+    border-color: #dee2e6 !important;
+    font-weight: 500;
+}
+
+/* Estilos para los mensajes de éxito y error */
+.exito {
+    background: var(--color-beige-light);
+    border: 1px solid var(--color-beige);
+    color: var(--color-negro);
+    font-weight: 500;
+}
+
+.error {
+    background: #f8d7da;
+    border: 1px solid #f5c6cb;
+    color: #721c24;
+    font-weight: 500;
+}
+
+/* Asegurar que el grid funcione correctamente */
+.perfil-info-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    width: 100%;
+}
+
+@media (max-width: 768px) {
+    .perfil-info-wrapper {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+}

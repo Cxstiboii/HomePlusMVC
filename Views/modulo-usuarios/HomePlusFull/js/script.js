@@ -10,3 +10,22 @@ document.getElementById("loginForm").addEventListener("submit", function(e) {
   }
   // 🚀 Dejas que el form se envíe a loginDao.php
 });
+
+
+// En tu script.js
+function validarPassword() {
+  const password = document.querySelector('input[name="password"]');
+  const confirm = document.querySelector('input[name="confirm_password"]');
+  
+  if (password.value !== confirm.value) {
+      alert('Las contraseñas no coinciden');
+      return false;
+  }
+  
+  if (password.value.length < 6) {
+      alert('La contraseña debe tener al menos 6 caracteres');
+      return false;
+  }
+  
+  return true;
+}
