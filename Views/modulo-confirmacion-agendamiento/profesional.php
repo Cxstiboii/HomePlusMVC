@@ -348,7 +348,7 @@ if ($tipoUsuario !== "profesional") {
                 <div class="servicio-info">
                     <h3 class="header-servicio"><?php echo htmlspecialchars($row['titulo_servicio']); ?></h3>
                     <p><?php echo htmlspecialchars($row['descripcion']); ?></p>
-                    <strong class="detalles-subinfo-precio">$55.000</strong>
+                    <strong class="detalles-subinfo-precio">$<?php echo number_format($row['precio'], 0, ',', '.'); ?></strong>
                     <p><strong>Cliente:</strong> <?php echo htmlspecialchars($row['Nombres'].' '.$row['Apellidos']); ?></p>
                     <p><strong>Dirección:</strong> <?php echo htmlspecialchars($row['direccion_servicio']); ?></p>
                     <p><strong>Fecha:</strong> <?php echo date('d/m/Y', strtotime($row['fecha_preferida'])); ?></p>
@@ -371,7 +371,7 @@ if ($tipoUsuario !== "profesional") {
                         data-fecha="<?php echo date('d/m/Y', strtotime($row['fecha_preferida'])); ?>"
                         data-hora="<?php echo htmlspecialchars($row['hora_preferida']); ?>"
                         data-urgencia="<?php echo htmlspecialchars($row['urgencia']); ?>"
-                        data-precio="55000"
+                        data-precio="<?php echo htmlspecialchars($row['precio']); ?>"
                         data-imagenes='<?php echo json_encode($row['imagenes_array']); ?>'
                         data-img-principal="<?php echo htmlspecialchars($row['foto_principal']); ?>">
                         Ver Detalles

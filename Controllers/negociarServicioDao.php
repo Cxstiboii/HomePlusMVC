@@ -37,7 +37,7 @@ $db = $database->conn;
 try {
     $db->begin_transaction();
 
-    // Verificar que la solicitud existe y está publicada
+    // Verificar que la solicitud existe y está en estado Pendiente
     $checkStmt = $db->prepare("SELECT estado, id_profesional FROM solicitud WHERE id_solicitud = ?");
     $checkStmt->bind_param("i", $idSolicitud);
     $checkStmt->execute();
@@ -49,14 +49,6 @@ try {
     
     $solicitud = $checkResult->fetch_assoc();
     
-    // Verificar que el estado sea Publicado y no tenga otro profesional asignado
-    if ($solicitud['estado'] !== 'Publicado') {
-        throw new Exception("Esta solicitud no está disponible para negociación. Estado actual: " . $solicitud['estado']);
-    }
-    
-    if ($solicitud['id_profesional'] !== null && $solicitud['id_profesional'] != $idProfesional) {
-        throw new Exception("Esta solicitud ya tiene un profesional asignado.");
-    }
     
     $checkStmt->close();
 

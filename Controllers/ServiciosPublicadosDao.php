@@ -21,6 +21,7 @@ class ServiciosPublicadosDao{
                 s.barrio,
                 s.referencias,
                 s.estado,
+                s.precio,  -- 👈 AÑADE ESTA LÍNEA
                 u.Nombres,
                 u.Apellidos,
                 ts.tp_tipoServicio,
@@ -29,7 +30,7 @@ class ServiciosPublicadosDao{
             JOIN cliente c ON s.id_cliente = c.id_cliente
             JOIN usuario u ON c.id_cliente = u.id_Usuario
             JOIN tipo_servicio ts ON s.id_tipo_servicio = ts.id_tipo_servicio
-            WHERE s.estado = 'Publicado'
+            WHERE s.estado = 'Pendiente'
             ORDER BY s.fecha_solicitud DESC
         ";
 
@@ -99,4 +100,3 @@ class ServiciosPublicadosDao{
         return $this->obtenerImagenesPorSolicitud($id_solicitud);
     }
 }
-?>

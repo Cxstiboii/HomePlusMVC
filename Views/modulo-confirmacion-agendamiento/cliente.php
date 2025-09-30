@@ -13,6 +13,36 @@ if ($tipoUsuario !== "cliente") {
     header("Location: /Views/modulo-usuarios/HomePlusFull/index.php");
     exit;
 }
+
+// ✅ OBTENER id_cliente DESDE LA BASE DE DATOS
+// Ajusta la ruta según tu estructura de archivos
+require_once("../../Model/database.php"); // 👈 RUTA CORREGIDA
+$db = new Database();
+$conn = $db->conn;
+
+// Verificar si ya tenemos id_cliente en sesión
+if (!isset($_SESSION['id_cliente'])) {
+    $stmt = $conn->prepare("SELECT id_cliente FROM cliente WHERE id_cliente = ?");
+    $stmt->bind_param("i", $idUsuario);
+    $stmt->execute();
+    $stmt->bind_result($id_cliente);
+    
+    if ($stmt->fetch()) {
+        $_SESSION['id_cliente'] = $id_cliente;
+    } else {
+        // Si no existe, crear un registro en cliente
+        $stmt_insert = $conn->prepare("INSERT INTO cliente (id_cliente) VALUES (?)");
+        $stmt_insert->bind_param("i", $idUsuario);
+        if ($stmt_insert->execute()) {
+            $_SESSION['id_cliente'] = $idUsuario;
+        }
+        $stmt_insert->close();
+    }
+    $stmt->close();
+}
+
+$id_cliente = $_SESSION['id_cliente'];
+$conn->close();
 ?>
 <!DOCTYPE html>
 <html lang="es">

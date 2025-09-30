@@ -1,113 +1,122 @@
 <?php
 session_start();
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+require_once '../Model/database.php';
 
-header('Content-Type: application/json; charset=utf-8');
+header('Content-Type: application/json');
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    echo json_encode(["success" => false, "message" => "Método no permitido, use POST"]);
+    echo json_encode(["success" => false, "error" => "Método no permitido"]);
     exit;
 }
 
-require_once("../Model/database.php");
+// Inputs (tu código actual...)
+$idSolicitud   = isset($_POST['id_solicitud']) ? intval($_POST['id_solicitud']) : 0;
+$idProfesional = $_SESSION['id_Usuario'] ?? null;
+$precio        = isset($_POST['precio_estimado']) ? floatval($_POST['precio_estimado']) : null;
+$tiempo        = !empty($_POST['tiempo_estimado']) ? intval($_POST['tiempo_estimado']) : null;
+$acompanante   = isset($_POST['acompanante']) ? 1 : 0;
+
+$materialTipos      = $_POST['material_tipo'] ?? [];
+$materialCantidades = $_POST['material_cantidad'] ?? [];
+$materialUnidades   = $_POST['material_unidad'] ?? [];
+
+// Validaciones (tu código actual...)
+if (!$idSolicitud || !$idProfesional || $precio === null) {
+    echo json_encode(["success" => false, "error" => "Datos incompletos."]);
+    exit;
+}
+
+if ($precio <= 0) {
+    echo json_encode(["success" => false, "error" => "El precio debe ser mayor a 0."]);
+    exit;
+}
+
+$database = new Database();
+$db = $database->conn;
 
 try {
-    $db = new Database();
-    $conn = $db->conn;
+    $db->begin_transaction();
 
-    // ✅ Validar campos obligatorios
-    $required = ['titulo', 'urgencia', 'descripcion', 'direccion', 'barrio', 'servicio', 'precio'];
-    foreach ($required as $r) {
-        if (!isset($_POST[$r]) || trim($_POST[$r]) === '') {
-            echo json_encode(["success" => false, "message" => "Falta el campo requerido: $r"]);
-            exit;
-        }
+    // Verificar que la solicitud existe y está en estado Pendiente
+    $checkStmt = $db->prepare("SELECT estado, id_profesional FROM solicitud WHERE id_solicitud = ?");
+    $checkStmt->bind_param("i", $idSolicitud);
+    $checkStmt->execute();
+    $checkResult = $checkStmt->get_result();
+    
+    if ($checkResult->num_rows === 0) {
+        throw new Exception("La solicitud no existe.");
     }
+    
+    $solicitud = $checkResult->fetch_assoc();
+    
+    // ✅ ACEPTAR SOLO ESTADOS "Publicado" o "Pendiente"
+    if (!in_array($solicitud['estado'], ['Publicado', 'Pendiente'])) {
+        throw new Exception("Esta solicitud no está disponible para negociación. Estado actual: " . $solicitud['estado']);
+    }
+    
+    // Verificar si ya tiene profesional asignado
+    if ($solicitud['id_profesional'] !== null && $solicitud['id_profesional'] != $idProfesional) {
+        throw new Exception("Esta solicitud ya tiene un profesional asignado.");
+    }
+    
+    $checkStmt->close();
 
-    // ✅ Mapear campos
-    $titulo = trim($_POST['titulo']);
-    $urgencia = trim($_POST['urgencia']);
-    $descripcion = trim($_POST['descripcion']);
-    $fecha_preferida = !empty($_POST['fecha_preferida']) ? trim($_POST['fecha_preferida']) : null;
-    $hora_preferida = !empty($_POST['hora_preferida']) ? trim($_POST['hora_preferida']) : null;
-    $direccion = trim($_POST['direccion']);
-    $barrio = trim($_POST['barrio']);
-    $referencias = trim($_POST['referencias'] ?? '');
-    $precio = floatval($_POST['precio']);
+    // Insertar oferta
+    $stmt = $db->prepare("INSERT INTO oferta (id_solicitud, id_profesional, precio_estimado, tiempo_estimado, acompanante, estado) 
+                            VALUES (?, ?, ?, ?, ?, 'pendiente')");
+    
+    // Convertir horas a formato datetime
+    $tiempoStr = null;
+    if ($tiempo) {
+        $tiempoStr = date('Y-m-d H:i:s', strtotime("+$tiempo hours"));
+    }
+    
+    $stmt->bind_param("iidsi", $idSolicitud, $idProfesional, $precio, $tiempoStr, $acompanante);
 
-    // ✅ servicio → ID
-    $servicio_raw = $_POST['servicio'];
-    if (is_numeric($servicio_raw)) {
-        $id_tipo_servicio = intval($servicio_raw);
-    } else {
-        $map = [
-            'plomeria' => 1,
-            'electricidad' => 2,
-            'carpinteria' => 3,
-            'pintura' => 4,
-            'limpieza' => 5,
-            'jardineria' => 6
-        ];
-        $key = strtolower(trim($servicio_raw));
-        $id_tipo_servicio = $map[$key] ?? null;
+    if (!$stmt->execute()) {
+        throw new Exception("Error al insertar oferta: " . $stmt->error);
+    }
+    $idOferta = $db->insert_id;
+    $stmt->close();
 
-        if ($id_tipo_servicio === null) {
-            $q = $conn->prepare("SELECT id_tipo_servicio FROM tipo_servicio WHERE nombre = ? LIMIT 1");
-            if ($q) {
-                $q->bind_param("s", $servicio_raw);
-                $q->execute();
-                $q->bind_result($found_id);
-                if ($q->fetch()) $id_tipo_servicio = $found_id;
-                $q->close();
+    // Insertar materiales si existen
+    if (!empty($materialTipos)) {
+        $stmtM = $db->prepare("INSERT INTO material (id_oferta, tipo, cantidad, unidad) VALUES (?, ?, ?, ?)");
+        
+        foreach ($materialTipos as $i => $tipo) {
+            $tipo = trim($tipo);
+            // Saltar campos vacíos
+            if ($tipo === '') continue;
+            
+            $cant = intval($materialCantidades[$i] ?? 0);
+            $unidad = trim($materialUnidades[$i] ?? '');
+            
+            if ($cant > 0 && $unidad !== '') {
+                $stmtM->bind_param("isis", $idOferta, $tipo, $cant, $unidad);
+                if (!$stmtM->execute()) {
+                    throw new Exception("Error al insertar material: " . $stmtM->error);
+                }
             }
         }
+        $stmtM->close();
     }
 
-    if ($id_tipo_servicio === null || $id_tipo_servicio === 0) {
-        echo json_encode(["success" => false, "message" => "No se pudo determinar id_tipo_servicio"]);
-        exit;
-    }
+    $db->commit();
 
-    $id_cliente = $_SESSION['id_cliente'] ?? ($_POST['id_cliente'] ?? 1);
+    echo json_encode([
+        "success" => true,
+        "mensaje" => "Oferta enviada correctamente. Espera a que el cliente revise tu propuesta.",
+        "idOferta" => $idOferta,
+        "idSolicitud" => $idSolicitud
+    ]);
 
-    // ✅ INSERT
-    $sql = "INSERT INTO solicitud 
-        (titulo_servicio, descripcion, direccion_servicio, barrio, fecha_preferida, hora_preferida, urgencia, referencias, precio, id_tipo_servicio, id_cliente)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-
-    $stmt = $conn->prepare($sql);
-    if (!$stmt) {
-        echo json_encode(["success" => false, "message" => "Error al preparar consulta: " . $conn->error]);
-        exit;
-    }
-
-    // Tipos → 8 strings, 1 double, 2 int
-    $stmt->bind_param(
-        "ssssssssdii",
-        $titulo,
-        $descripcion,
-        $direccion,
-        $barrio,
-        $fecha_preferida,
-        $hora_preferida,
-        $urgencia,
-        $referencias,
-        $precio,
-        $id_tipo_servicio,
-        $id_cliente
-    );
-
-    if ($stmt->execute()) {
-        $insertedId = $conn->insert_id;
-        echo json_encode(["success" => true, "message" => "Solicitud creada con éxito ✅", "id" => $insertedId]);
-    } else {
-        echo json_encode(["success" => false, "message" => "Error al ejecutar INSERT: " . $stmt->error]);
-    }
-
-    $stmt->close();
-    $conn->close();
 } catch (Exception $e) {
-    echo json_encode(["success" => false, "message" => "Excepción en servidor: " . $e->getMessage()]);
+    $db->rollback();
+    error_log("Error en NegociarServicioDao: " . $e->getMessage());
+    echo json_encode(["success" => false, "error" => $e->getMessage()]);
+} finally {
+    if (isset($db)) {
+        $db->close();
+    }
 }
+?>
