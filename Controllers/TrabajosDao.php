@@ -9,8 +9,8 @@ class TrabajosDao {
     }
 
     public function obtenerTrabajos($idProfesional, $estado = "Todos") {
-        // Primera consulta: trabajos por oferta (prioridad)
-        $sqlOfertas = "
+        // Solo trabajos por oferta (NO existen trabajos directos sin id_profesional en solicitud)
+        $sql = "
             SELECT DISTINCT
                 s.id_solicitud,
                 s.titulo_servicio,
@@ -39,8 +39,7 @@ class TrabajosDao {
                     WHEN o.estado = 'Aceptado' THEN 'Aceptado'
                     ELSE COALESCE(o.estado, s.estado)
                 END as estado,
-                'oferta' as origen,
-                1 as prioridad
+                'oferta' as origen
             FROM oferta o
             INNER JOIN solicitud s ON o.id_solicitud = s.id_solicitud
             INNER JOIN cliente c ON s.id_cliente = c.id_cliente
@@ -48,68 +47,32 @@ class TrabajosDao {
             WHERE o.id_profesional = ?
         ";
 
-        // Segunda consulta: trabajos directos (solo los que NO tienen ofertas del profesional)
-        $sqlDirectos = "
-            SELECT DISTINCT
-                s.id_solicitud,
-                s.titulo_servicio,
-                s.descripcion,
-                s.urgencia,
-                s.fecha_preferida,
-                s.hora_preferida,
-                s.direccion_servicio,
-                s.barrio,
-                s.referencias,
-                s.precio as precio_original,
-                s.fecha_solicitud,
-                u.Nombres,
-                u.Apellidos,
-                u.Telefono,
-                u.Email,
-                NULL as id_oferta,
-                NULL as precio_estimado,
-                NULL as tiempo_estimado,
-                NULL as acompanante,
-                NULL as estado_oferta,
-                s.estado,
-                'directo' as origen,
-                2 as prioridad
-            FROM solicitud s
-            INNER JOIN cliente c ON s.id_cliente = c.id_cliente
-            INNER JOIN usuario u ON c.id_cliente = u.id_Usuario
-            WHERE s.id_profesional = ? 
-            AND s.id_solicitud NOT IN (
-                SELECT DISTINCT o2.id_solicitud 
-                FROM oferta o2 
-                WHERE o2.id_profesional = ?
-            )
-        ";
-
-        // Unir ambas consultas
-        $sql = "(" . $sqlOfertas . ") UNION (" . $sqlDirectos . ")";
-
         // Agregar filtro por estado si no es "Todos"
         if ($estado !== "Todos" && $estado !== "todos") {
             if ($estado === "Aceptado") {
-                $sql = "SELECT * FROM (" . $sql . ") AS trabajos_unidos WHERE estado IN ('Aceptado', 'Agendado')";
+                $sql .= " AND (o.estado = 'Aceptado' OR (o.estado = 'Aceptado' AND s.estado = 'Agendado'))";
+            } else if ($estado === "Agendado") {
+                $sql .= " AND o.estado = 'Aceptado' AND s.estado = 'Agendado'";
+            } else if ($estado === "Negociado") {
+                $sql .= " AND o.estado = 'Negociado'";
             } else {
-                $sql = "SELECT * FROM (" . $sql . ") AS trabajos_unidos WHERE estado = ?";
+                $sql .= " AND (o.estado = ? OR s.estado = ?)";
             }
         }
 
-        // Ordenar por prioridad (ofertas primero) y luego por fecha
-        $sql .= " ORDER BY prioridad ASC, fecha_solicitud DESC";
+        // Ordenar por fecha
+        $sql .= " ORDER BY s.fecha_solicitud DESC";
 
         $stmt = $this->conn->prepare($sql);
-
+        
         if ($estado !== "Todos" && $estado !== "todos") {
-            if ($estado === "Aceptado") {
-                $stmt->bind_param("iii", $idProfesional, $idProfesional, $idProfesional);
+            if (in_array($estado, ['Aceptado', 'Negociado', 'Agendado'])) {
+                $stmt->bind_param("i", $idProfesional);
             } else {
-                $stmt->bind_param("iiis", $idProfesional, $idProfesional, $idProfesional, $estado);
+                $stmt->bind_param("iss", $idProfesional, $estado, $estado);
             }
         } else {
-            $stmt->bind_param("iii", $idProfesional, $idProfesional, $idProfesional);
+            $stmt->bind_param("i", $idProfesional);
         }
 
         $stmt->execute();
@@ -124,37 +87,32 @@ class TrabajosDao {
     }
 
     public function obtenerEstadisticasTrabajos($idProfesional) {
-        // Misma lógica pero para estadísticas, evitando duplicados
+        // Solo estadísticas de ofertas
         $sql = "
-            SELECT estado, COUNT(*) as cantidad FROM (
-                (SELECT 
-                    CASE 
-                        WHEN o.estado = 'Negociado' THEN 'Negociado'
-                        WHEN o.estado = 'Aceptado' AND s.estado = 'Agendado' THEN 'Agendado'
-                        WHEN s.estado = 'Cancelado' THEN 'Cancelado'
-                        WHEN o.estado = 'Aceptado' THEN 'Aceptado'
-                        ELSE COALESCE(o.estado, s.estado)
-                    END as estado
-                FROM oferta o
-                INNER JOIN solicitud s ON o.id_solicitud = s.id_solicitud
-                WHERE o.id_profesional = ?)
-                
-                UNION
-                
-                (SELECT s.estado
-                FROM solicitud s
-                WHERE s.id_profesional = ? 
-                AND s.id_solicitud NOT IN (
-                    SELECT DISTINCT o2.id_solicitud 
-                    FROM oferta o2 
-                    WHERE o2.id_profesional = ?
-                ))
-            ) AS todos_estados
-            GROUP BY estado
+            SELECT 
+                CASE 
+                    WHEN o.estado = 'Negociado' THEN 'Negociado'
+                    WHEN o.estado = 'Aceptado' AND s.estado = 'Agendado' THEN 'Agendado'
+                    WHEN s.estado = 'Cancelado' THEN 'Cancelado'
+                    WHEN o.estado = 'Aceptado' THEN 'Aceptado'
+                    ELSE COALESCE(o.estado, s.estado)
+                END as estado,
+                COUNT(*) as cantidad
+            FROM oferta o
+            INNER JOIN solicitud s ON o.id_solicitud = s.id_solicitud
+            WHERE o.id_profesional = ?
+            GROUP BY 
+                CASE 
+                    WHEN o.estado = 'Negociado' THEN 'Negociado'
+                    WHEN o.estado = 'Aceptado' AND s.estado = 'Agendado' THEN 'Agendado'
+                    WHEN s.estado = 'Cancelado' THEN 'Cancelado'
+                    WHEN o.estado = 'Aceptado' THEN 'Aceptado'
+                    ELSE COALESCE(o.estado, s.estado)
+                END
         ";
 
         $stmt = $this->conn->prepare($sql);
-        $stmt->bind_param("iii", $idProfesional, $idProfesional, $idProfesional);
+        $stmt->bind_param("i", $idProfesional);
         $stmt->execute();
         $result = $stmt->get_result();
 
@@ -164,65 +122,6 @@ class TrabajosDao {
         }
 
         return $estadisticas;
-    }
-
-    /**
-     * Obtiene solo trabajos asignados directamente (sin pasar por ofertas)
-     */
-    public function obtenerTrabajosDirectos($idProfesional, $estado = null) {
-        $sql = "
-            SELECT DISTINCT
-                s.id_solicitud,
-                s.titulo_servicio,
-                s.descripcion,
-                s.urgencia,
-                s.fecha_preferida,
-                s.hora_preferida,
-                s.direccion_servicio,
-                s.barrio,
-                s.referencias,
-                s.precio as precio_original,
-                s.fecha_solicitud,
-                s.estado,
-                u.Nombres,
-                u.Apellidos,
-                u.Telefono,
-                u.Email,
-                'directo' as origen
-            FROM solicitud s
-            INNER JOIN cliente c ON s.id_cliente = c.id_cliente
-            INNER JOIN usuario u ON c.id_cliente = u.id_Usuario
-            WHERE s.id_profesional = ?
-            AND s.id_solicitud NOT IN (
-                SELECT DISTINCT o.id_solicitud 
-                FROM oferta o 
-                WHERE o.id_profesional = ?
-            )
-        ";
-
-        if ($estado && $estado !== "Todos") {
-            $sql .= " AND s.estado = ?";
-        }
-
-        $sql .= " ORDER BY s.fecha_solicitud DESC";
-
-        $stmt = $this->conn->prepare($sql);
-        
-        if ($estado && $estado !== "Todos") {
-            $stmt->bind_param("iis", $idProfesional, $idProfesional, $estado);
-        } else {
-            $stmt->bind_param("ii", $idProfesional, $idProfesional);
-        }
-
-        $stmt->execute();
-        $result = $stmt->get_result();
-
-        $trabajos = [];
-        while ($row = $result->fetch_assoc()) {
-            $trabajos[] = $row;
-        }
-
-        return $trabajos;
     }
 
     /**
@@ -304,6 +203,14 @@ class TrabajosDao {
     }
 
     /**
+     * Obtiene solo trabajos asignados directamente - ELIMINADO porque no existe id_profesional en solicitud
+     */
+    public function obtenerTrabajosDirectos($idProfesional, $estado = null) {
+        // No hay trabajos directos en esta estructura de BD
+        return [];
+    }
+
+    /**
      * Verifica si un trabajo puede cambiar de estado según las reglas del negocio
      */
     public function puedeModificarEstado($idSolicitud, $estadoActual, $nuevoEstado, $idProfesional) {
@@ -311,7 +218,7 @@ class TrabajosDao {
         $transicionesPermitidas = [
             'Pendiente' => ['Aceptado', 'Cancelado'],
             'Aceptado' => ['Agendado', 'Cancelado'],
-            'Negociado' => ['Aceptado', 'Cancelado'], // Solo si el cliente acepta
+            'Negociado' => ['Aceptado', 'Cancelado'],
             'Agendado' => ['En_Progreso', 'Cancelado'],
             'En_Progreso' => ['Completado', 'Cancelado']
         ];
@@ -325,26 +232,22 @@ class TrabajosDao {
         }
 
         // Verificar que el profesional tenga permisos para modificar esta solicitud
-        return $this->tienePrimisosModificacion($idSolicitud, $idProfesional);
+        return $this->tienePermisosModificacion($idSolicitud, $idProfesional);
     }
 
     /**
      * Verifica si el profesional tiene permisos para modificar una solicitud
      */
-    private function tienePrimisosModificacion($idSolicitud, $idProfesional) {
+    private function tienePermisosModificacion($idSolicitud, $idProfesional) {
         $sql = "
             SELECT COUNT(*) as count 
-            FROM solicitud s 
-            WHERE s.id_solicitud = ? 
-            AND (s.id_profesional = ? OR EXISTS(
-                SELECT 1 FROM oferta o 
-                WHERE o.id_solicitud = s.id_solicitud 
-                AND o.id_profesional = ?
-            ))
+            FROM oferta o 
+            WHERE o.id_solicitud = ? 
+            AND o.id_profesional = ?
         ";
         
         $stmt = $this->conn->prepare($sql);
-        $stmt->bind_param("iii", $idSolicitud, $idProfesional, $idProfesional);
+        $stmt->bind_param("ii", $idSolicitud, $idProfesional);
         $stmt->execute();
         $result = $stmt->get_result();
         $row = $result->fetch_assoc();
@@ -357,13 +260,12 @@ class TrabajosDao {
      */
     public function obtenerTrabajosPorOrigen($idProfesional) {
         $trabajosOfertas = $this->obtenerTrabajosPorOferta($idProfesional);
-        $trabajosDirectos = $this->obtenerTrabajosDirectos($idProfesional);
         
         return [
             'ofertas' => $trabajosOfertas,
-            'directos' => $trabajosDirectos,
+            'directos' => [],
             'total_ofertas' => count($trabajosOfertas),
-            'total_directos' => count($trabajosDirectos)
+            'total_directos' => 0
         ];
     }
 }

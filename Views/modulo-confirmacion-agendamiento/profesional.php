@@ -63,11 +63,16 @@ if ($tipoUsuario !== "profesional") {
                     <span class="icon">👤</span>
                     <span>Perfil Profesional</span>
                 </a>
+                <a href="/Views/modulo-confirmacion-agendamiento/reporteCliente.php" class="nav-item nav-logout">
+                    <span class="icon">🚪</span>
+                    <span>Reporte de Profeisonal</span>
+                </a>
                 <!-- Botón de salir -->
                 <a href="/Views/modulo-usuarios/HomePlusFull/index.php" class="nav-item nav-logout">
                     <span class="icon">🚪</span>
                     <span>Salir</span>
                 </a>
+                
             </nav>
         </div>
 
